@@ -110,10 +110,10 @@ export default {
     font-size:16px;
 }
 
-.el-input__inner {
+.form-signin .el-input__inner {
     padding-left: 30px;
-    height: 48px;
-    line-height: 48px;
+    height: 48px!important;
+    line-height: 48px!important;
 }
 
 body {
