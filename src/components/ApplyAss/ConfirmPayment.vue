@@ -24,9 +24,7 @@
                 <label>
                     <b>*</b>支付方式</label>
             </div>
-            <ul class="list_menu">
-                <li class="active">OnePlus</li>
-            </ul>
+            <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
                 <el-button :plain="true" type="info">稍后再付</el-button>
                 <el-button type="info">去付款</el-button>
