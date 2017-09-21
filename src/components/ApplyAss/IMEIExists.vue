@@ -57,9 +57,6 @@ export default {
             let checkedCount = value.length
             this.checkAll = checkedCount === this.cities.length
             this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList)
         }
     }
 }

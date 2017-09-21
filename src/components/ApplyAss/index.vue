@@ -74,6 +74,9 @@ export default {
         }
     },
     methods: {
+        handleRemove(file, fileList) {
+            console.log(file, fileList)
+        }
     }
 }
 </script>
