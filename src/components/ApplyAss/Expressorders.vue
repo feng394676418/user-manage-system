@@ -27,16 +27,19 @@
             </el-table>
             <div class="row mr_top">
                 <div class="col-md-8">
-                    <img src="../../../static/img/pdf.png" />
+                    <!-- 图片形式 -->
+                    <!-- <img src="../../../static/img/pdf.png" /> -->
+                    <!-- Pdf形式 -->
+                    <embed src="../../../static/img/CS6.pdf" width="600px" height="800px" />
                 </div>
             </div>
-            <div class="row">              
+            <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
                         <el-button type="info">Download</el-button>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 </template>
@@ -47,7 +50,7 @@ import step from './step'
 import stepnav from './stepnav'
 export default {
     components: { logintop, step, stepnav },
-    data() {
+    data () {
         return {
             tableData: [{
                 Outlets: 'UPS法国南希东大街网点',
@@ -82,6 +85,7 @@ export default {
              normalize.css 中也包含这行 */
     overflow: hidden;
 }
+
 .el-button {
     width: 236px;
     height: 48px;

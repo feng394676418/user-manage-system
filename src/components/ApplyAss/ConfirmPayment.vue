@@ -26,8 +26,8 @@
             </div>
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
-                <el-button :plain="true" type="info">稍后再付</el-button>
-                <el-button type="info">去付款</el-button>
+                <el-button :plain="true" type="info" class="form-group">稍后再付</el-button>
+                <el-button type="info"  class="form-group">去付款</el-button>
             </div>
         </div>
     </div>
