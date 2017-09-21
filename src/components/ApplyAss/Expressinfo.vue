@@ -15,7 +15,7 @@
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="country">
-                            <el-select v-model="ruleForm.country" placeholder="*国家">
+                            <el-select v-model="ruleForm.country" placeholder="*国家" size="small">
                                 <el-option label="" value="Poland"></el-option>
                                 <el-option label="" value="USA"></el-option>
                             </el-select>
@@ -95,9 +95,9 @@
                     </el-table-column>
                     <el-table-column prop="Outlets" label="网点" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址" min-width="35%">
+                    <el-table-column prop="address" label="地址" min-width="40%">
                     </el-table-column>
-                    <el-table-column prop="Zipcode" label="邮编" min-width="15%">
+                    <el-table-column prop="Zipcode" label="邮编" min-width="10%">
                     </el-table-column>
                     <el-table-column prop="phone" label="电话" min-width="15%">
                     </el-table-column>

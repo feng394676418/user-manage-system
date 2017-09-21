@@ -55,3 +55,8 @@
 .el-table{
     font-size:12px;
 }
+
+.el-input__inner{
+    height:36px!important;
+}
+
