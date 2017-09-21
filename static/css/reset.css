@@ -1,0 +1,57 @@
+﻿.el-button--info,
+.el-button--info:focus,
+.el-button--info:hover {
+    background-color: #7761f2;
+    border: 2px solid #7761f2;
+    border-radius: 10px;
+}
+
+.el-button--info.is-plain,
+.el-button--info.is-plain:focus,
+.el-button--info.is-plain:hover {
+    background-color: #fff;
+    color: #7761f2;
+    border: 2px solid #7761f2;
+    border-radius: 10px;
+}
+
+
+.el-button--primary,
+.el-button--primary:focus,
+.el-button--primary:hover {
+    background-color: #2486c5;
+    border: 1px solid #2486c5;
+    border-radius: 10px;
+}
+
+.el-button--primary.is-plain,
+.el-button--primary.is-plain:focus,
+.el-button--primary.is-plain:hover {
+    background-color: #fff;
+    color: #666577;
+    border: 1px solid #aab0d1;
+    border-radius: 10px;
+}
+
+.el-input__inner{
+    border: 1px solid #aab0d1;
+    background: #f7f8fd;
+}
+.el-table th,.el-table__footer-wrapper thead div, .el-table__header-wrapper thead div{
+    background: #f7f8fd;
+}
+.el-table tr{
+    background: #f7f8fd;
+}
+.el-table td, .el-table th.is-leaf{
+    border: none;
+}
+.el-table__header-wrapper{
+    border-bottom: 1px solid #e8ebfa!important;
+}
+.el-table th > .cell{
+    font-size:12px;
+}
+.el-table{
+    font-size:12px;
+}

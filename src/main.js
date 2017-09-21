@@ -9,6 +9,7 @@ import VueI18n from 'vue-i18n'
 import en from './lang/en'
 import zh from './lang/zh'
 import ElementLocale from 'element-ui/lib/locale'
+require('../static/iconfont/iconfont.js')
 
 Vue.use(VueI18n)
 
