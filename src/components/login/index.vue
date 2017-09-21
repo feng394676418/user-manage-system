@@ -10,7 +10,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>English</el-dropdown-item>
-                        <el-dropdown-item>简体中文</el-dropdown-item>                      
+                        <el-dropdown-item>简体中文</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -38,7 +38,7 @@
                     <el-button type="info" style="width:100%;">查看售后进度</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button :plain="true" type="info" style="width:100%;">申请售后服务</el-button>
+                    <el-button :plain="true" type="info" style="width:100%;" @click="routeTO">申请售后服务</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -72,6 +72,12 @@ export default {
                     { validator: checkPhone, trigger: 'blur' }
                 ]
             }
+        }
+    },
+    methods: {
+        routeTO() {
+            this.$router.push('/ApplyAss')
+            // location.reload()
         }
     }
 }
