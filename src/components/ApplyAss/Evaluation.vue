@@ -11,7 +11,7 @@
                 <textarea class="form-control" id="" placeholder="你对我们的服务有什么意见和建议吗？" rows="4" type="text" v-model="textarea"></textarea>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
-                <el-button type="info">评价</el-button>
+                <el-button type="info">提交评价</el-button>
             </div>
         </div>
     </div>

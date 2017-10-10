@@ -9,20 +9,20 @@
                 <span>保外维修参考价格查询</span>
             </div>
             <el-row class="row-bg" :gutter="30">
-                <el-col :md="12">
+                <el-col :md="6">
                     <el-select v-model="value" placeholder="品牌">
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                     </el-select>
                 </el-col>
-                <el-col :md="12">
+                <el-col :md="18">
                     <el-select v-model="value2" placeholder="型号">
                         <el-option v-for="item in model" :key="item.value2" :label="item.label" :value="item.value2"></el-option>
                     </el-select>
                 </el-col>
             </el-row>
             <div class="form-group mr_top2">
-                <label for="">
-                    OnePlus 5 64G 的保外维修常用备件参考价:</label>
+                <label for="" class="pro_price">
+                    OnePlus 5 64G <span>的保外维修常用备件参考价:</span></label>
             </div>
             <el-table :data="tableData2" style="width: 100%">
                 <el-table-column prop="Screen" label="屏幕组件" min-width="17%">

@@ -23,23 +23,14 @@
                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">均无以上情况</el-checkbox>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 form-group">
-                <el-button type="primary" :plain="true" style="width:100%">保内</el-button>
-            </div>
-            <div class="col-md-6 form-group">
-                <el-button type="primary" class="col-md-6" style="width:100%">保外</el-button>
-            </div>
-        </div>
-        <p class="blue_text pd_tb">
-            此结论仅作参考，以实际检测结果为准，
-            <a class="purple_text" href="#/checkprice">查询维修价格标准。</a>
-        </p>
+        <Functionbutton></Functionbutton>
     </div>
 </template>
 <script>
+import Functionbutton from './Functionbutton'
 const cityOptions = ['您的手机有进液的情况。', '您的手机未经授权拆开过/修理过。', '您的手机有被人为损坏。']
 export default {
+    components: { Functionbutton },
     data () {
         return {
             checkAll: true,

@@ -19,17 +19,24 @@
 .el-button--primary,
 .el-button--primary:focus,
 .el-button--primary:hover {
-    background-color: #2486c5;
-    border: 1px solid #2486c5;
+    background-color: #fff;
+    border: 2px solid #00a0e9;
     border-radius: 10px;
+    color: #00a0e9;
+}
+
+
+.el-button--primary p{
+    font-size: 12px;
+    margin-top: 22px;
 }
 
 .el-button--primary.is-plain,
 .el-button--primary.is-plain:focus,
 .el-button--primary.is-plain:hover {
     background-color: #fff;
-    color: #666577;
-    border: 1px solid #aab0d1;
+    color: #b9bdcd;
+    border: 1px solid #d8dbe9;
     border-radius: 10px;
 }
 
@@ -51,6 +58,7 @@
 }
 .el-table th > .cell{
     font-size:12px;
+    color: #8c8c9e
 }
 .el-table{
     font-size:12px;

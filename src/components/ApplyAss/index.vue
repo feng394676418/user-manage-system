@@ -44,7 +44,7 @@
                 <div class="form-group col-md-12">
                     <label for="">
                         <b>*</b>上传图片:</label>
-                    <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+                    <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card"  :on-remove="handleRemove">
                         <i class="el-icon-plus"></i>
                     </el-upload>
                 </div>
@@ -127,7 +127,7 @@ export default {
 }
 
 .el-button--primary {
-    height: 60px;
+    height: 96px;
     font-size: 18px;
 }
 

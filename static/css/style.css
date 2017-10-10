@@ -317,3 +317,10 @@ h3{
     padding-bottom:15px;
     color: #666577; 
 }
+.pro_price{
+    font-size: 14px;
+}
+.pro_price span{
+    color: #8c8c9e;
+    font-weight: normal
+}
