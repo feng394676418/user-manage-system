@@ -35,7 +35,7 @@
                     <el-input v-model.number="ruleForm2.phone" placeholder="手机号"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info" style="width:100%;">查看售后进度</el-button>
+                    <el-button type="info" style="width:100%;" @click="progressInfo()">查看售后进度</el-button>
                 </el-form-item>
                 <el-form-item>
                     <el-button :plain="true" type="info" style="width:100%;" @click="routeTO">申请售后服务</el-button>
@@ -47,6 +47,9 @@
 </template>
 
 <script>
+
+import { test } from '@/api/test'
+
 export default {
     data() {
         var checkOrderno = (rule, value, callback) => {
@@ -75,6 +78,12 @@ export default {
         }
     },
     methods: {
+        progressInfo() {
+            test().then(response => {
+                console.log('response--------test----------info')
+                console.dir(response)
+            })
+        },
         routeTO() {
             this.$router.push('/ApplyAss')
             // location.reload()

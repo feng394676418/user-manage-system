@@ -32,12 +32,12 @@ export default new Router({
         component: Hello
     },
     {
-        path: '/ApplyAss',
+        path: '/ApplyAss', // 申请
         name: 'ApplyAss',
         component: ApplyAss
     },
     {
-        path: '/Expressinfo',
+        path: '/Expressinfo', // 寄出
         name: 'Expressinfo',
         component: Expressinfo
     },
