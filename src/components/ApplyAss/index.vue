@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" class="next_step mr_top">下一步</el-button>
+                        <el-button type="info" class="next_step mr_top" @click="nextStep()">下一步</el-button>
                     </div>
                 </div>
             </div>
@@ -76,6 +76,9 @@ export default {
     methods: {
         handleRemove(file, fileList) {
             console.log(file, fileList)
+        },
+        nextStep() {
+            this.$router.push('/Expressinfo')
         }
     }
 }

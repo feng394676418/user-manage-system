@@ -90,7 +90,7 @@
                 <el-table :data="tableData" style="width: 100%">
                     <el-table-column prop="radio" label="" min-width="5%">
                         <template scope="scope">
-                            <input value="radio" name="radio" checked="" type="radio" v-model="radio">                            
+                            <input value="radio" name="radio" checked="" type="radio" v-model="radio">
                         </template>
                     </el-table-column>
                     <el-table-column prop="Outlets" label="网点" min-width="15%">
@@ -108,7 +108,7 @@
                     对不起，您选择的城市不在我们的服务区域内!
                 </div>
                 <el-form-item class="pull-right mr_top">
-                    <el-button :plain="true" type="info">上一步</el-button>
+                    <el-button :plain="true" type="info" @click="lastStep()">上一步</el-button>
                     <el-button type="info" @click="submitForm('ruleForm')">提交申请</el-button>
                 </el-form-item>
 
@@ -185,6 +185,9 @@ export default {
         }
     },
     methods: {
+        lastStep() {
+            this.$router.push('/ApplyAss')
+        },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
