@@ -4,58 +4,13 @@
         <div class="main_content main_form_input">
             <step></step>
             <stepnav></stepnav>
-            <div>
-                <label>
-                    <b>*</b>产品品牌：</label>
-            </div>
-            <ul class="list_menu">
-                <li class="active">OnePlus</li>
-                <li>OPPO</li>
-                <li>vivo</li>
-                <li>MI</li>
-            </ul>
-            <div class="clearfix"></div>
-            <p class="blue_text pd_tb">
-                提示：服务地区仅限欧盟内，保外需要客户承担运费！
-            </p>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="">
-                        <b>*</b>IMEI:</label>
-                    <input class="form-control" id="" placeholder="" type="text" v-model="IMEI"></input>
-                </div>
-                <div class="col-md-6 how_check">
-                    <a class="purple_text" href="#/ViewIMEI">怎样查看IMEI码？</a>
-                </div>
-            </div>
-            <p class="blue_text">
-                此IMEI号不存在！请仔细核对。
-            </p>
-            <div class="clearfix"></div>
-            <IMEIExists></IMEIExists>
-            <div class="row mr_top">
-                <div class="form-group col-md-12">
-                    <label for="">
-                        <b>*</b>故障描述:</label>
-                    <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="textarea3"></textarea>
-                </div>
-            </div>
-            <div class="row mr_top">
-                <div class="form-group col-md-12">
-                    <label for="">
-                        <b>*</b>上传图片:</label>
-                    <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card"  :on-remove="handleRemove">
-                        <i class="el-icon-plus"></i>
-                    </el-upload>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-12">
-                    <div class="pull-right">
-                        <el-button type="info" class="next_step mr_top" @click="nextStep()">下一步</el-button>
-                    </div>
-                </div>
-            </div>
+            <template v-if="step1">
+              <apply-f-s></apply-f-s>
+            </template>
+
+            <template v-if="step2">
+              <apply-s-s></apply-s-s>
+            </template>
         </div>
     </div>
 </template>
@@ -64,11 +19,15 @@
 import logintop from './logintop'
 import step from './step'
 import stepnav from './stepnav'
-import IMEIExists from './IMEIExists'
+import applyFS from './applyFS'
+import applySS from './applySS'
+
 export default {
-    components: { logintop, step, stepnav, IMEIExists },
+    components: { logintop, step, stepnav, applyFS, applySS },
     data () {
         return {
+            step1: true,
+            step2: false,
             IMEI: '',
             textarea3: ''
         }
@@ -78,7 +37,7 @@ export default {
             console.log(file, fileList)
         },
         nextStep() {
-            this.$router.push('/Expressinfo')
+           //
         }
     }
 }

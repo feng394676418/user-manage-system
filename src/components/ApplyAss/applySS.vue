@@ -1,9 +1,5 @@
 <template>
-    <div class="container">
-        <logintop></logintop>
-        <div class="main_content main_form_input">
-            <step></step>
-            <stepnav></stepnav>
+         <div>
             <p class="blue_text pd_tb">
                 提示：此寄件地址会用做寄回地址，以下内容需填写真实有效信息以防包裹丢失。“*”为必填内容。
             </p>
@@ -114,15 +110,10 @@
 
             </el-form>
         </div>
-    </div>
 </template>
-
 <script>
-import logintop from './logintop'
-import step from './step'
-import stepnav from './stepnav'
+
 export default {
-    components: { logintop, step, stepnav },
     data () {
         return {
             ruleForm: {
