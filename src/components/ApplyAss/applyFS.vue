@@ -18,22 +18,26 @@
                 <div class="form-group col-md-6">
                     <label for="">
                         <b>*</b>IMEI:</label>
-                    <input class="form-control" id="" placeholder="" type="text" v-model="IMEI"></input>
+                    <input class="form-control" id="" placeholder="" type="text" v-model="OrderInfoFS.IMEI"></input>
                 </div>
                 <div class="col-md-6 how_check">
                     <a class="purple_text" href="#/ViewIMEI">怎样查看IMEI码？</a>
                 </div>
             </div>
+            <template v-if="IMEINotExist && IMEIInfoShow">
             <p class="blue_text">
                 此IMEI号不存在！请仔细核对。
             </p>
+            </template>
+            <template v-else-if="!IMEINotExist && IMEIInfoShow" >
             <div class="clearfix"></div>
             <IMEIExists></IMEIExists>
+            </template>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
                         <b>*</b>故障描述:</label>
-                    <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="textarea3"></textarea>
+                    <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="OrderInfoFS.troubleInfo"></textarea>
                 </div>
             </div>
             <div class="row mr_top">
@@ -57,15 +61,41 @@
 
 <script>
 import IMEIExists from './IMEIExists'
+import { brandList } from '@/api/apply'
+
 export default {
     components: { IMEIExists },
     data () {
         return {
-            IMEI: '',
-            textarea3: ''
+          OrderInfoFS: {
+              productBrand: '', // 品牌
+              IMEI: '', // IMEI号码
+              productName: '', // 产品名称
+              productType: '', // 产品型号
+              deadDate: '', // 保修期限
+              repairStatus: [], // 保修类型
+              serviceType: '', // 服务类型
+              troubleInfo: '' // 故障描述
+          },
+            IMEIInfoShow: false,
+            IMEINotExist: true,
+            brandList: []
         }
     },
+    created() {
+      this.getBrandList()
+    },
     methods: {
+        // 品牌列表获取
+        getBrandList() {
+          brandList().then(response => {
+            if (response.data.status === '0') {
+              this.brandList = response.data.data
+              console.log('ddddddddddddddddddddddddddd')
+              console.dir(this.brandList)
+            }
+          })
+        },
         handleRemove(file, fileList) {
             console.log(file, fileList)
         },

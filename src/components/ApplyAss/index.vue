@@ -5,10 +5,12 @@
             <step></step>
             <stepnav></stepnav>
             <template v-if="step1">
+              <!--维修申请第一步-->
               <apply-f-s></apply-f-s>
             </template>
 
             <template v-if="step2">
+              <!--维修申请下一步-->
               <apply-s-s></apply-s-s>
             </template>
         </div>
@@ -26,10 +28,17 @@ export default {
     components: { logintop, step, stepnav, applyFS, applySS },
     data () {
         return {
+            userOrderInfo: {
+              productBrand: '', // 品牌
+              IMEI: '', // IMEI号码
+              productName: '', // 产品名称
+              productType: '', // 产品型号
+              deadDate: '', // 保修期限
+              repairStatus: [], // 保修类型
+              serviceType: '' // 服务类型
+            },
             step1: true,
-            step2: false,
-            IMEI: '',
-            textarea3: ''
+            step2: true
         }
     },
     methods: {

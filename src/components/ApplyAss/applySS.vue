@@ -116,6 +116,7 @@
 export default {
     data () {
         return {
+            radio: '',
             ruleForm: {
                 add: '',
                 country: '',
