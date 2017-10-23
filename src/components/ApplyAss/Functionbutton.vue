@@ -2,51 +2,60 @@
     <div>
         <div class="row">
             <!--默认都显示-->
-            <div class="col-md-6 form-group">
+            <!-- <div class="col-md-6 form-group">
                 <el-button type="primary"  :plain="true" style="width:100%">
                     保内
-                    <p>保内全部维修费用由XXXX承担。</p>
+                    <p>保内全部维修费用由厂商承担。</p>
                 </el-button>
             </div>
             <div class="col-md-6 form-group">
                 <el-button type="primary" class="col-md-6" :plain="true" style="width:100%">
                     保外
-                    <p>保外全部维修费用由客户承担。</p>
+                    <p>保外全部维修费用由您承担。</p>
                 </el-button>
-            </div>
-            <!--保内-->
+            </div> -->
+            <!--保内按钮-->
             <div class="col-md-6 form-group">
-                <el-button type="primary" style="width:100%">
+                <el-button type="primary" :plain="!functionButtonInfoChild.timeIn" style="width:100%">
                     保内
-                    <p>保内全部维修费用由XXXX承担。</p>
+                    <p>保内全部维修费用由厂商承担。</p>
                 </el-button>
             </div>
+            <!--保外按钮-->
             <div class="col-md-6 form-group">
-                <el-button type="primary" class="col-md-6" :plain="true" style="width:100%">
+                <el-button type="primary" :class="functionButtonInfoChild.timeOutClassName" :plain="true" style="width:100%">
                     保外
-                    <p>保外全部维修费用由客户承担。</p>
-                </el-button>
-            </div>
-            <!--保外-->
-            <div class="col-md-6 form-group">
-                <el-button type="primary" :plain="true" style="width:100%">
-                    保内
-                    <p>保内全部维修费用由XXXX承担。</p>
-                </el-button>
-            </div>
-            <div class="col-md-6 form-group">
-                <el-button type="primary" class="col-md-6 yellow_btn" style="width:100%">
-                    保外
-                    <p>保外全部维修费用由客户承担。</p>
+                    <p>保外全部维修费用由您承担。</p>
                 </el-button>
             </div>
         </div>
         <p class="blue_text pd_tb">
             此结论仅作参考，以实际检测结果为准，
-            <a class="purple_text" href="#/checkprice">查询维修价格标准。</a>
+            <a class="purple_text" href="#/checkprice" target="_blank" >查询维修价格标准。</a>
         </p>
     </div>
 </template>
+
+<script>
+export default {
+
+  comments: {},
+  props: {
+    functionButtonInfoChild: {}
+  },
+  data() {
+    return {
+
+    }
+  },
+  created() {
+
+  },
+  methods: {
+  }
+}
+</script>
+
 
 <style>
 .yellow_btn,

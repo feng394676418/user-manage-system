@@ -5,10 +5,8 @@
                     <b>*</b>产品品牌：</label>
             </div>
             <ul class="list_menu">
-                <li class="active">OnePlus</li>
-                <li>OPPO</li>
-                <li>vivo</li>
-                <li>MI</li>
+                <li v-for="item in brandList" :key="item.code" :class="item.className" @click="active(item)">{{item.code}}</li>
+                <!-- <li class="active">OnePlus</li> -->
             </ul>
             <div class="clearfix"></div>
             <p class="blue_text pd_tb">
@@ -18,10 +16,10 @@
                 <div class="form-group col-md-6">
                     <label for="">
                         <b>*</b>IMEI:</label>
-                    <input class="form-control" id="" placeholder="" type="text" v-model="OrderInfoFS.IMEI"></input>
+                    <input class="form-control" id="" placeholder="" type="text" v-model="OrderInfoFS.IMEI" @blur="getImeiInfo()"></input>
                 </div>
                 <div class="col-md-6 how_check">
-                    <a class="purple_text" href="#/ViewIMEI">怎样查看IMEI码？</a>
+                    <a class="purple_text" href="#/ViewIMEI" target="_blank">怎样查看IMEI码？</a>
                 </div>
             </div>
             <template v-if="IMEINotExist && IMEIInfoShow">
@@ -31,7 +29,7 @@
             </template>
             <template v-else-if="!IMEINotExist && IMEIInfoShow" >
             <div class="clearfix"></div>
-            <IMEIExists></IMEIExists>
+            <IMEIExists :imeiInfoChild="imeiInfo"></IMEIExists>
             </template>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
@@ -44,7 +42,18 @@
                 <div class="form-group col-md-12">
                     <label for="">
                         <b>*</b>上传图片:</label>
-                    <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card"  :on-remove="handleRemove">
+                    <el-upload
+                      name="upFile"
+                      ref="upFile"
+                      action="api/file/upload"
+                      list-type="picture-card"
+                      :drag="false"
+                      :file-list="phoneImageList"
+                      :on-success="uploadSuccess"
+                      :on-error="uploadError"
+                      :before-upload="beforeAvatarUpload"
+                      :on-preview="handlePictureCardPreview"
+                      :on-remove="handleRemove">
                         <i class="el-icon-plus"></i>
                     </el-upload>
                 </div>
@@ -61,7 +70,8 @@
 
 <script>
 import IMEIExists from './IMEIExists'
-import { brandList } from '@/api/apply'
+import moment from 'moment'
+import { brandList, getImeiInfo } from '@/api/apply'
 
 export default {
     components: { IMEIExists },
@@ -75,29 +85,114 @@ export default {
               deadDate: '', // 保修期限
               repairStatus: [], // 保修类型
               serviceType: '', // 服务类型
-              troubleInfo: '' // 故障描述
+              troubleInfo: '', // 故障描述
+              imageUrlArray: [] // 上传图片地址
           },
+            imeiInfo: {
+              imei: '',
+              producttype: '',
+              deadtime: '',
+              productname: '',
+              imagesrc: '',
+              remark: ''
+            },
             IMEIInfoShow: false,
             IMEINotExist: true,
-            brandList: []
+            brandList: [],
+            phoneImageList: [],
+            dialogImageUrl: '',
+            dialogVisible: false
         }
     },
     created() {
       this.getBrandList()
     },
     methods: {
+        beforeAvatarUpload(file) {
+            if (this.$refs.upFile.uploadFiles.length >= 3) {
+                this.$refs.upFile.disabled = true
+            }
+            const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
+            const isLt2M = file.size / 1024 / 1024 < 5
+            // TODO
+            const isCanUpload = this.checkReportForm.photoGrpurl.length < 3
+            if (!isCanUpload) {
+              this.$message.error('最多可以上传3张图片!')
+            }
+            if (!isJPG) {
+              this.$message.error(this.$t('文件格式不正确!'))
+            }
+            if (!isLt2M) {
+              this.$message.error(this.$t('文件大小需小于2M!'))
+            }
+            return isJPG && isLt2M && isCanUpload
+        },
+        uploadSuccess(response, file, fileList) {
+          console.dir(response)
+        },
+        uploadError(err, file, fileList) {
+          console.dir(err)
+        },
+        handleRemove(file, fileList) {
+        },
+        handlePictureCardPreview(file) {
+          this.dialogImageUrl = file.url
+          this.dialogVisible = true
+        },
+        getImeiInfo() {
+          getImeiInfo(this.OrderInfoFS.IMEI).then(response => {
+            if (response.data.status === '0') {
+              if (response.data.data === '' || response.data.data === null || response.data.data === 'undefined') {
+                // IMEI对应信息不存在
+                this.IMEIInfoShow = true
+                this.IMEINotExist = true
+                this.OrderInfoFS.productName = ''
+                this.OrderInfoFS.productType = ''
+                this.OrderInfoFS.deadDate = ''
+              } else {
+                this.IMEIInfoShow = true
+                this.IMEINotExist = false
+                this.imeiInfo = response.data.data
+                this.imeiInfo.deadtime = moment(this.imeiInfo.deadtime).format('YYYY-MM-DD')
+                this.OrderInfoFS.productName = this.imeiInfo.productname
+                this.OrderInfoFS.productType = this.imeiInfo.producttype
+                this.OrderInfoFS.deadDate = this.imeiInfo.deadtime
+              }
+            } else {
+              this.$message.error(response.data.message)
+            }
+          })
+        },
+        active(item) {
+          item.className = 'active'
+          this.OrderInfoFS.productBrand = item.code
+          // 其他元素式样置空
+          this.brandListClassNameCLR(item)
+        },
+        brandListClassNameCLR(item) {
+          this.brandList.forEach(brand => {
+            if (brand.code === item.code) {
+              // doNothing
+            } else {
+              brand.className = ''
+            }
+          })
+        },
         // 品牌列表获取
         getBrandList() {
           brandList().then(response => {
             if (response.data.status === '0') {
               this.brandList = response.data.data
-              console.log('ddddddddddddddddddddddddddd')
+              this.brandList.forEach(item => {
+                this.$set(item, 'className', '')
+              })
               console.dir(this.brandList)
+              // 品牌默认设定
+              this.brandList[0].className = 'active'
+            } else {
+              this.$message.error(response.data.message)
             }
           })
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList)
         },
         nextStep() {
             this.$router.push('/Expressinfo')
