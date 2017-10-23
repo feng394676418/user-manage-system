@@ -220,6 +220,5 @@ export default {
 
 .el-button {
     width: 236px;
-    height: 48px;
 }
 </style>
