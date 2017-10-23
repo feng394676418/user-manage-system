@@ -17,8 +17,8 @@
             <div class="form-group col-md-12">
                 <label for="">
                     <b>*</b>保修类型：</label>
-                <el-checkbox-group v-model="checkedRepairOptions" @change="handleCheckedRepairOptionsChange">
-                    <el-checkbox v-for="repair in repairOptionArray" :label="repair" :key="repair">{{repair}}</el-checkbox>
+                <el-checkbox-group v-model="functionButtonInfo.checkedRepairOptions" @change="handleCheckedRepairOptionsChange">
+                    <el-checkbox v-for="repair in repairOptionArray" :label="repair" :key="repair">{{repair|repairNameFilter}}</el-checkbox>
                 </el-checkbox-group>
                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkNot" @change="handleCheckNotChange">均无以上情况</el-checkbox>
             </div>
@@ -30,7 +30,10 @@
 import Functionbutton from './Functionbutton'
 import moment from 'moment'
 
-const repairOptions = ['您的手机有进液的情况。', '您的手机未经授权拆开过/修理过。', '您的手机有被人为损坏。']
+const repairOptions = ['0', '1', '2']
+  // {key: '0', value: '您的手机有进液的情况。'},
+  // {key: '1', value: '您的手机未经授权拆开过/修理过。'},
+  // {key: '2', value: '您的手机有被人为损坏。'}]
 export default {
     components: { Functionbutton },
     props: {
@@ -40,15 +43,44 @@ export default {
         return {
             functionButtonInfo: {
               timeIn: false,
-              timeOutClassName: ''
+              timeOutClassName: '',
+              checkedRepairOptions: [] // 维修工单状态
             },
             checkNot: true,
-            checkedRepairOptions: [],
             repairOptionArray: repairOptions,
             isIndeterminate: false
         }
     },
+    watch: {
+      // 监视事件
+      imeiInfoChild(val) {
+        console.dir(val)
+         if (this.checkTimeIn()) {
+        // 保修内
+        this.functionButtonInfo.timeIn = true
+        this.timeInOutClassName(this.functionButtonInfo.timeIn)
+       } else {
+        this.functionButtonInfo.timeIn = false
+        this.timeInOutClassName(this.functionButtonInfo.timeIn)
+       }
+       console.log('transfer data---> father')
+       // 父组件数据传递
+       this.$emit('on-time-in-out', this.functionButtonInfo)
+      }
+    },
+    filters: {
+
+      repairNameFilter(status) {
+        const repairOptionsMap = {
+              '0': '您的手机有进液的情况。', // 您的手机有进液的情况。
+              '1': '您的手机未经授权拆开过/修理过。', // 您的手机未经授权拆开过/修理过。
+              '2': '您的手机有被人为损坏。'} // 您的手机有被人为损坏。
+        return repairOptionsMap[status]
+      }
+    },
     created() {
+      console.log('---------------imeiInfoChild---------------------')
+      console.dir(this.imeiInfoChild)
       if (this.checkTimeIn()) {
         // 保修内
         this.functionButtonInfo.timeIn = true
@@ -57,11 +89,14 @@ export default {
         this.functionButtonInfo.timeIn = false
         this.timeInOutClassName(this.functionButtonInfo.timeIn)
       }
+      console.log('transfer data---> father')
+      // 父组件数据传递
+      this.$emit('on-time-in-out', this.functionButtonInfo)
     },
     methods: {
         handleCheckNotChange(event) {
-            this.checkedRepairOptions = event.target.checked ? [] : repairOptions
-            if (this.checkedRepairOptions.length === 0) {
+            this.functionButtonInfo.checkedRepairOptions = event.target.checked ? [] : repairOptions
+            if (this.functionButtonInfo.checkedRepairOptions.length === 0) {
               if (this.checkTimeIn()) {
                 this.functionButtonInfo.timeIn = true
               } else {
@@ -93,6 +128,9 @@ export default {
             }
             console.log('-------->>保内>>>--' + this.functionButtonInfo.timeIn)
             this.timeInOutClassName(this.functionButtonInfo.timeIn)
+            console.log('transfer data---> father')
+            // 父组件数据传递
+            this.$emit('on-time-in-out', this.functionButtonInfo)
         },
         checkTimeIn() {
             // 保修期内

@@ -29,7 +29,7 @@
             </template>
             <template v-else-if="!IMEINotExist && IMEIInfoShow" >
             <div class="clearfix"></div>
-            <IMEIExists :imeiInfoChild="imeiInfo"></IMEIExists>
+            <IMEIExists :imeiInfoChild="imeiInfo" @on-time-in-out="timeInOut"></IMEIExists>
             </template>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
@@ -83,7 +83,7 @@ export default {
               productName: '', // 产品名称
               productType: '', // 产品型号
               deadDate: '', // 保修期限
-              repairStatus: [], // 保修类型
+              repairStatus: '', // 保修类型
               serviceType: '', // 服务类型
               troubleInfo: '', // 故障描述
               imageUrlArray: [] // 上传图片地址
@@ -108,24 +108,31 @@ export default {
       this.getBrandList()
     },
     methods: {
+        timeInOut(functionButtonInfo) {
+          console.log('子组件保内保外数据')
+          console.dir(functionButtonInfo)
+          // 0: 保内维修 1: 保外维修
+          this.OrderInfoFS.serviceType = functionButtonInfo.timeIn ? '0' : '1'
+          this.OrderInfoFS.repairStatus = functionButtonInfo.checkedRepairOptions.toString()
+        },
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
                 this.$refs.upFile.disabled = true
             }
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
-            const isLt2M = file.size / 1024 / 1024 < 5
-            // TODO
-            const isCanUpload = this.checkReportForm.photoGrpurl.length < 3
+            const isLt5M = file.size / 1024 / 1024 < 5
+
+            const isCanUpload = this.OrderInfoFS.imageUrlArray.length < 3
             if (!isCanUpload) {
               this.$message.error('最多可以上传3张图片!')
             }
             if (!isJPG) {
               this.$message.error(this.$t('文件格式不正确!'))
             }
-            if (!isLt2M) {
+            if (!isLt5M) {
               this.$message.error(this.$t('文件大小需小于2M!'))
             }
-            return isJPG && isLt2M && isCanUpload
+            return isJPG && isLt5M && isCanUpload
         },
         uploadSuccess(response, file, fileList) {
           console.dir(response)
