@@ -9,6 +9,7 @@ import VueI18n from 'vue-i18n'
 import en from './lang/en'
 import zh from './lang/zh'
 import ElementLocale from 'element-ui/lib/locale'
+import Cookies from 'js-cookie'
 require('../static/iconfont/iconfont.js')
 
 Vue.use(VueI18n)
@@ -23,13 +24,21 @@ const messages = {
     zh
 }
 
+const umssLang = Cookies.get('umsLang') == null ? 'en' : Cookies.get('umsLang')
 const i18n = new VueI18n({
-    locale: 'zh', // set locale
-    messages // set locale messages
+    locale: umssLang,
+    messages
 })
 
 Vue.use(ElementUI)
 ElementLocale.i18n((key, value) => i18n.t(key, value))
+
+Vue.prototype.AppLanguage = function(lang) {
+    i18n.locale = lang
+}
+Vue.prototype.getAppLanguage = function() {
+        return i18n.locale
+    }
 
 /* eslint-disable no-new */
 new Vue({
