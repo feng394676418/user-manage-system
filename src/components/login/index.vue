@@ -5,12 +5,12 @@
             <div class="pull-right">
                 <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
-                        简体中文
+                        {{$t('order.Chinese')}}
                         <i class="icon-language"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>English</el-dropdown-item>
-                        <el-dropdown-item>简体中文</el-dropdown-item>
+                        <el-dropdown-item ><a @click="changeUmsLang('en')">English</a></el-dropdown-item>
+                        <el-dropdown-item ><a @click="changeUmsLang('zh')">{{$t('order.Chinese')}}</a></el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -49,6 +49,7 @@
 <script>
 
 import { test } from '@/api/test'
+import Cookies from 'js-cookie'
 
 export default {
     data() {
@@ -78,6 +79,11 @@ export default {
         }
     },
     methods: {
+        changeUmsLang(lang) {
+            // 转换全局语言
+            Cookies.set('umsLang', lang)
+            location.reload()
+        },
         progressInfo() {
             test().then(response => {
                 console.log('response--------test----------info')
@@ -165,4 +171,10 @@ h1 {
     bottom:20px;
     padding-left:16%
 } */
+
+.el-dropdown-menu__item a{
+    display: block;
+    text-decoration:none;
+}
+
 </style>
