@@ -6,12 +6,12 @@
             <stepnav></stepnav>
             <template v-if="step1">
               <!--维修申请第一步-->
-              <apply-f-s></apply-f-s>
+              <apply-f-s @apply-fs-order-info="applyFSOrderInfo"></apply-f-s>
             </template>
 
             <template v-if="step2">
               <!--维修申请下一步-->
-              <apply-s-s></apply-s-s>
+              <apply-s-s :userOrderInfoChild="userOrderInfo"></apply-s-s>
             </template>
         </div>
     </div>
@@ -34,19 +34,47 @@ export default {
               productName: '', // 产品名称
               productType: '', // 产品型号
               deadDate: '', // 保修期限
-              repairStatus: [], // 保修类型
-              serviceType: '' // 服务类型
+              repairStatus: '', // 保修类型
+              serviceType: '', // 服务类型
+              troubleinfo: '', // 故障描述
+              photogroup: '' // 上传图片组
             },
             step1: true,
-            step2: true
+            step2: false
         }
     },
+    // watch: {
+    //   userOrderInfo(val) {
+    //     console.log('监视----val')
+    //     console.dir(val)
+    //   }
+    // },
     methods: {
         handleRemove(file, fileList) {
             console.log(file, fileList)
         },
         nextStep() {
            //
+        },
+        applyFSOrderInfo(OrderInfoFS) {
+          console.log('获取子组件applyFS信息')
+          console.dir(OrderInfoFS)
+          this.step1 = OrderInfoFS.step1
+          this.step2 = true
+          // 数据传递
+          this.userOrderInfo.productBrand = OrderInfoFS.productBrand
+          this.userOrderInfo.IMEI = OrderInfoFS.IMEI
+          this.userOrderInfo.productName = OrderInfoFS.productName
+          this.userOrderInfo.productType = OrderInfoFS.productType
+          this.userOrderInfo.deadDate = OrderInfoFS.deadDate
+          this.userOrderInfo.repairStatus = OrderInfoFS.repairStatus
+          this.userOrderInfo.serviceType = OrderInfoFS.serviceType
+          this.userOrderInfo.troubleinfo = OrderInfoFS.troubleinfo
+          this.userOrderInfo.photogroup = OrderInfoFS.imageUrlArray
+        },
+        applySSOrderInfo(OrderInfoSS) { // 废弃预定
+          console.log('获取子组件applySS信息')
+          console.dir(OrderInfoSS)
         }
     }
 }

@@ -78,6 +78,7 @@ export default {
     data () {
         return {
           OrderInfoFS: {
+              step1: true, // 第一步
               productBrand: '', // 品牌
               IMEI: '', // IMEI号码
               productName: '', // 产品名称
@@ -86,7 +87,7 @@ export default {
               repairStatus: '', // 保修类型
               serviceType: '', // 服务类型
               troubleInfo: '', // 故障描述
-              imageUrlArray: [] // 上传图片地址
+              imageUrlArray: '' // 上传图片地址
           },
             imeiInfo: {
               imei: '',
@@ -100,6 +101,7 @@ export default {
             IMEINotExist: true,
             brandList: [],
             phoneImageList: [],
+            phoneImageUrlList: [],
             dialogImageUrl: '',
             dialogVisible: false
         }
@@ -122,7 +124,7 @@ export default {
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
             const isLt5M = file.size / 1024 / 1024 < 5
 
-            const isCanUpload = this.OrderInfoFS.imageUrlArray.length < 3
+            const isCanUpload = this.phoneImageUrlList.length < 3
             if (!isCanUpload) {
               this.$message.error('最多可以上传3张图片!')
             }
@@ -135,12 +137,39 @@ export default {
             return isJPG && isLt5M && isCanUpload
         },
         uploadSuccess(response, file, fileList) {
+          console.log('upload success!')
           console.dir(response)
+          if (response.status === '0') {
+            this.phoneImageList.push(response)
+            this.phoneImageUrlList.push(response.url)
+          }
         },
         uploadError(err, file, fileList) {
           console.dir(err)
         },
         handleRemove(file, fileList) {
+          console.dir(file)
+          this.RemovePhoto(file)
+        },
+        RemovePhoto(fileItem) {
+          let phoneImageListTmp = this.phoneImageList
+          let phoneImageUrlListTmp = this.phoneImageUrlList
+          this.phoneImageList.forEach((item, index) => {
+            if (item.url === fileItem.url) {
+                // 删除不要元素
+                phoneImageListTmp.splice(index, 1)
+            }
+          })
+          this.phoneImageUrlList.forEach((imageUrl, index) => {
+            if (imageUrl === fileItem.url) {
+              phoneImageUrlListTmp.splice(index, 1)
+            }
+          })
+
+          this.phoneImageList = phoneImageListTmp
+          this.phoneImageUrlList = phoneImageUrlListTmp
+
+          console.dir(this.phoneImageUrlList)
         },
         handlePictureCardPreview(file) {
           this.dialogImageUrl = file.url
@@ -196,13 +225,20 @@ export default {
               console.dir(this.brandList)
               // 品牌默认设定
               this.brandList[0].className = 'active'
+              this.OrderInfoFS.productBrand = this.brandList[0].code
             } else {
               this.$message.error(response.data.message)
             }
           })
         },
         nextStep() {
-            this.$router.push('/Expressinfo')
+            // 图片地址
+            this.OrderInfoFS.imageUrlArray = this.phoneImageUrlList.toString()
+            this.OrderInfoFS.step1 = false
+            console.log('数据传送给父组件index')
+            // 数据传送给父类 双向绑定
+            this.$emit('apply-fs-order-info', this.OrderInfoFS)
+            // this.$router.push('/Expressinfo')
         }
     }
 }

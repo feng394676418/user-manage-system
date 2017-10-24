@@ -5,7 +5,7 @@
             </p>
             <div class="form-group">
                 <label for="">
-                    <b>*</b>IMEI:</label>
+                    <b>*</b>IMEI:{{userOrderInfoChild.IMEI}}</label>
             </div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
                 <el-row class="row-bg" :gutter="30">
@@ -18,8 +18,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
-                        <el-form-item label="" prop="State">
-                            <el-select v-model="ruleForm.State" placeholder="州">
+                        <el-form-item label="" prop="province">
+                            <el-select v-model="ruleForm.province" placeholder="州">
                                 <el-option label="" value="State"></el-option>
                                 <el-option label="" value="State2"></el-option>
                             </el-select>
@@ -34,13 +34,13 @@
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
-                        <el-form-item label="" prop="Zipcode">
-                            <el-input v-model="ruleForm.Zipcode" placeholder="*邮编"></el-input>
+                        <el-form-item label="" prop="postCode">
+                            <el-input v-model="ruleForm.postCode" placeholder="*邮编"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="" prop="add">
-                    <el-input v-model="ruleForm.add" placeholder="*详细地址"></el-input>
+                <el-form-item label="" prop="addressDetail">
+                    <el-input v-model="ruleForm.addressDetail" placeholder="*详细地址"></el-input>
                 </el-form-item>
                 <div class="form-group">
                     <label for="">
@@ -48,8 +48,8 @@
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
-                        <el-form-item label="" prop="name">
-                            <el-input v-model="ruleForm.name" placeholder="*姓名"></el-input>
+                        <el-form-item label="" prop="userName">
+                            <el-input v-model="ruleForm.userName" placeholder="*姓名"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
@@ -69,13 +69,13 @@
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
-                        <el-form-item label="" prop="Relatedname">
-                            <el-input v-model="ruleForm.Relatedname" placeholder="*姓名"></el-input>
+                        <el-form-item label="" prop="emergencyName">
+                            <el-input v-model="ruleForm.emergencyName" placeholder="*姓名"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
-                        <el-form-item label="" prop="Relatedphone">
-                            <el-input v-model="ruleForm.Relatedphone" placeholder="*手机"></el-input>
+                        <el-form-item label="" prop="emergencyPhone">
+                            <el-input v-model="ruleForm.emergencyPhone" placeholder="*手机"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -114,38 +114,50 @@
 <script>
 
 export default {
+    props: { // 父组件传递信息
+      userOrderInfoChild: {}
+    },
     data () {
         return {
             radio: '',
             ruleForm: {
-                add: '',
+                productBrand: '', // 品牌
+                IMEI: '', // IMEI号码
+                productName: '', // 产品名称
+                productType: '', // 产品型号
+                deadDate: '', // 保修期限
+                repairStatus: '', // 保修类型
+                serviceType: '', // 服务类型
+                troubleinfo: '', // 故障描述
+                photogroup: '', // 上传图片组
+                addressDetail: '',
                 country: '',
-                State: '',
+                province: '',
                 city: '',
-                Zipcode: '',
-                name: '',
+                postCode: '',
+                userName: '',
                 phone: '',
                 email: '',
-                Relatedname: '',
-                Relatedphone: ''
+                emergencyName: '',
+                emergencyPhone: ''
             },
             rules: {
-                add: [
+                addressDetail: [
                     { required: true, message: '详细地址不能为空', trigger: 'blur' }
                 ],
-                Zipcode: [
+                postCode: [
                     { required: true, message: '邮编不能为空', trigger: 'blur' }
                 ],
-                name: [
+                userName: [
                     { required: true, message: '姓名不能为空', trigger: 'blur' }
                 ],
                 phone: [
                     { required: true, message: '手机不能为空', trigger: 'blur' }
                 ],
-                Relatedname: [
+                emergencyName: [
                     { required: true, message: '姓名不能为空', trigger: 'blur' }
                 ],
-                Relatedphone: [
+                emergencyPhone: [
                     { required: true, message: '手机不能为空', trigger: 'blur' }
                 ],
                 email: [
@@ -176,9 +188,22 @@ export default {
             }]
         }
     },
+    created() {
+        this.showInfo()
+    },
+    // watch: {
+    //   userOrderInfoChild(val) {
+    //     console.log('监视-----------------监视userOrderInfoChild')
+    //     console.dir(val)
+    //   }
+    // },
     methods: {
+        showInfo() {
+          console.log('ssssssssssssssss')
+          console.dir(this.userOrderInfoChild)
+        },
         lastStep() {
-            this.$router.push('/ApplyAss')
+            // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
