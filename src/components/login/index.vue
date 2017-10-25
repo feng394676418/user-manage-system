@@ -48,7 +48,7 @@
 
 <script>
 
-import { test } from '@/api/test'
+import { loginByOrderNumber } from '@/api/login'
 import Cookies from 'js-cookie'
 
 export default {
@@ -85,9 +85,9 @@ export default {
             location.reload()
         },
         progressInfo() {
-            test().then(response => {
-                console.log('response--------test----------info')
-                console.dir(response)
+            loginByOrderNumber(this.ruleForm2).then(response => {
+                const orderNumber = this.ruleForm2.orderno
+                this.$router.push({ path: '/GuaranteedCompletion/' + orderNumber })
             })
         },
         routeTO() {
