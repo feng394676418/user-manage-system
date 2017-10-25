@@ -80,6 +80,7 @@ export default {
           OrderInfoFS: {
               step1: true, // 第一步
               productBrand: '', // 品牌
+              owner: '', // 货主
               IMEI: '', // IMEI号码
               productName: '', // 产品名称
               productType: '', // 产品型号
@@ -202,6 +203,7 @@ export default {
         active(item) {
           item.className = 'active'
           this.OrderInfoFS.productBrand = item.code
+          this.OrderInfoFS.owner = item.owner
           // 其他元素式样置空
           this.brandListClassNameCLR(item)
         },
@@ -226,6 +228,7 @@ export default {
               // 品牌默认设定
               this.brandList[0].className = 'active'
               this.OrderInfoFS.productBrand = this.brandList[0].code
+              this.OrderInfoFS.owner = this.brandList[0].owner
             } else {
               this.$message.error(response.data.message)
             }

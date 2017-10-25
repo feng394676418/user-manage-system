@@ -11,25 +11,23 @@
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="country">
-                            <el-select v-model="ruleForm.country" placeholder="*国家" size="small">
-                                <el-option label="" value="Poland"></el-option>
-                                <el-option label="" value="USA"></el-option>
+                            <el-select placeholder="*国家" size="small" filterable v-model="countryTmp" @change="countryChange">
+                                <el-option v-for="country in countryList" :label="country.name" :key="country.sortname" :value="country.name + '-' + country.sortname + '-' +country.id">
+                                  {{country.name}}</el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="province">
-                            <el-select v-model="ruleForm.province" placeholder="州">
-                                <el-option label="" value="State"></el-option>
-                                <el-option label="" value="State2"></el-option>
+                            <el-select v-model="provinceTmp" placeholder="州" @change="stateChange">
+                                <el-option v-for="province in stateList" :label="province.name" :key="province.name" :value="province.name + '-' + province.id + '-' + province.sortname"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="city">
                             <el-select v-model="ruleForm.city" placeholder="*城市">
-                                <el-option label="" value="shanghai"></el-option>
-                                <el-option label="" value="beijing"></el-option>
+                                <el-option v-for="city in cityList" :label="city.name" :key="city.name" :value="city.name"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
@@ -112,6 +110,7 @@
         </div>
 </template>
 <script>
+import { country, stateInfo, cityInfo } from '@/api/countryInfo'
 
 export default {
     props: { // 父组件传递信息
@@ -120,10 +119,18 @@ export default {
     data () {
         return {
             radio: '',
+            countryList: [], // 国家list
+            stateList: [], // 省州list
+            cityList: [], // 城市list
+            countryTmp: '',
+            provinceTmp: '',
+            cityTmp: '',
             ruleForm: {
                 productBrand: '', // 品牌
                 IMEI: '', // IMEI号码
                 productName: '', // 产品名称
+                owner: '', // 货主CODE
+                providercode: '', // 服务商CODE
                 productType: '', // 产品型号
                 deadDate: '', // 保修期限
                 repairStatus: '', // 保修类型
@@ -132,7 +139,9 @@ export default {
                 photogroup: '', // 上传图片组
                 addressDetail: '',
                 country: '',
+                countryCode: '', // 国家二字码
                 province: '',
+                provinceCode: '', // 省州二字码
                 city: '',
                 postCode: '',
                 userName: '',
@@ -155,10 +164,10 @@ export default {
                     { required: true, message: '手机不能为空', trigger: 'blur' }
                 ],
                 emergencyName: [
-                    { required: true, message: '姓名不能为空', trigger: 'blur' }
+                    { required: true, message: '相关联系人姓名不能为空', trigger: 'blur' }
                 ],
                 emergencyPhone: [
-                    { required: true, message: '手机不能为空', trigger: 'blur' }
+                    { required: true, message: '相关联系人手机不能为空', trigger: 'blur' }
                 ],
                 email: [
                     { required: true, message: '邮箱不能为空', trigger: 'blur' },
@@ -189,7 +198,7 @@ export default {
         }
     },
     created() {
-        this.showInfo()
+      this.countryAll()
     },
     // watch: {
     //   userOrderInfoChild(val) {
@@ -198,9 +207,61 @@ export default {
     //   }
     // },
     methods: {
-        showInfo() {
-          console.log('ssssssssssssssss')
-          console.dir(this.userOrderInfoChild)
+        countryAll() {
+          // 获取国家所有信息
+            country().then(response => {
+              console.log('----------country-response--------------')
+              console.dir(response)
+              if (response.data.status === '0') {
+                this.countryList = response.data.rsltData
+              } else {
+                this.$message.error('国家列表获取失败!')
+              }
+            })
+        },
+        stateInfo(cid) {
+          // 根据国家ID获取州信息
+          stateInfo(cid).then(response => {
+            console.log('-----------state-response------------------')
+            console.dir(response)
+            if (response.data.status === '0') {
+              this.stateList = response.data.rsltData
+            } else {
+              this.$message.error('省州列表获取失败!')
+            }
+          })
+        },
+        cityInfo(pid) {
+          cityInfo(pid).then(response => {
+            console.log('-----------city-response------------------')
+            console.dir(response)
+            if (response.data.status === '0') {
+              this.cityList = response.data.rsltData
+            } else {
+              this.$message.error('城市列表获取失败!')
+            }
+          })
+        },
+        stateChange(val) {
+          console.log('省州选定--------')
+          console.dir(val)
+          this.ruleForm.province = val.split('-')[0]
+          let provinceId = val.split('-')[1]
+          this.ruleForm.provinceCode = val.split('-')[2] === 'undefined' ? '' : val.split('-')[2]
+          console.dir(this.ruleForm)
+          // 城市信息获取
+          this.cityInfo(provinceId)
+        },
+        countryChange(val) {
+          console.log('-------国家选定--------')
+          console.dir(val)
+          this.ruleForm.country = val.split('-')[0]
+          this.ruleForm.countryCode = val.split('-')[1]
+          let countryId = val.split('-')[2]
+          console.log(countryId)
+          console.dir(this.ruleForm)
+          this.stateInfo(countryId)
+          // 根据国家二字码确定服务网点&货主CODE
         },
         lastStep() {
             // this.$router.push('/ApplyAss')

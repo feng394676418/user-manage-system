@@ -30,6 +30,7 @@ export default {
         return {
             userOrderInfo: {
               productBrand: '', // 品牌
+              owner: '', // 货主CODE
               IMEI: '', // IMEI号码
               productName: '', // 产品名称
               productType: '', // 产品型号
@@ -65,6 +66,7 @@ export default {
           this.userOrderInfo.productBrand = OrderInfoFS.productBrand
           this.userOrderInfo.IMEI = OrderInfoFS.IMEI
           this.userOrderInfo.productName = OrderInfoFS.productName
+          this.userOrderInfo.owner = OrderInfoFS.owner
           this.userOrderInfo.productType = OrderInfoFS.productType
           this.userOrderInfo.deadDate = OrderInfoFS.deadDate
           this.userOrderInfo.repairStatus = OrderInfoFS.repairStatus
