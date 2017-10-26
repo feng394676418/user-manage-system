@@ -5,18 +5,18 @@
             <div class="pull-right">
                 <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
-                        {{$t('order.Chinese')}}
+                        简体中文
                         <i class="icon-language"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item ><a @click="changeUmsLang('en')">English</a></el-dropdown-item>
-                        <el-dropdown-item ><a @click="changeUmsLang('zh')">{{$t('order.Chinese')}}</a></el-dropdown-item>
+                        <el-dropdown-item ><a @click="changeUmsLang('zh')">简体中文</a></el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
         </div>
         <div class="form-signin">
-            <h1>客户售后系统</h1>
+            <h1>{{$t('login.CSS')}}</h1>
             <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0px" class="demo-ruleForm" label-position="left">
                 <el-form-item label="" prop="orderno">
                     <span class="svg-container">
@@ -24,7 +24,7 @@
                             <use xlink:href="#icon-orderno"></use>
                         </svg>
                     </span>
-                    <el-input v-model.number="ruleForm2.orderno" placeholder="工单编号"></el-input>
+                    <el-input v-model.number="ruleForm2.orderno" :placeholder="$t('login.OrderNumber')"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="phone">
                     <span class="svg-container">
@@ -32,13 +32,13 @@
                             <use xlink:href="#icon-phone"></use>
                         </svg>
                     </span>
-                    <el-input v-model.number="ruleForm2.phone" placeholder="手机号"></el-input>
+                    <el-input v-model.number="ruleForm2.phone" :placeholder="$t('login.MobileNumber')"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info" style="width:100%;" @click="progressInfo()">查看售后进度</el-button>
+                    <el-button type="info" style="width:100%;" @click="progressInfo()">{{$t('login.CheckProgress')}}</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button :plain="true" type="info" style="width:100%;" @click="routeTO">申请售后服务</el-button>
+                    <el-button :plain="true" type="info" style="width:100%;" @click="routeTO">{{$t('login.ApplyService')}}</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -55,12 +55,12 @@ export default {
     data() {
         var checkOrderno = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('工单编号不能为空'))
+                return callback(new Error(this.$t('login.Orderrequired')))// 工单编号不能为空
             }
         }
         var checkPhone = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('手机号不能为空'))
+                return callback(new Error(this.$t('login.Mobilerequired')))// 手机号不能为空
             }
         }
         return {

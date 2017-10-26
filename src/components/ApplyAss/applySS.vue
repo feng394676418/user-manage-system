@@ -1,7 +1,7 @@
 <template>
          <div>
             <p class="blue_text pd_tb">
-                提示：此寄件地址会用做寄回地址，以下内容需填写真实有效信息以防包裹丢失。“*”为必填内容。
+               {{$t('order.addressrequired')}}
             </p>
             <div class="form-group">
                 <label for="">
@@ -11,7 +11,7 @@
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="country">
-                            <el-select v-model="ruleForm.country" placeholder="*国家" size="small">
+                            <el-select v-model="ruleForm.country" :placeholder="$t('order.Country')" size="small">
                                 <el-option label="" value="Poland"></el-option>
                                 <el-option label="" value="USA"></el-option>
                             </el-select>
@@ -19,7 +19,7 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="State">
-                            <el-select v-model="ruleForm.State" placeholder="州">
+                            <el-select v-model="ruleForm.State" :placeholder="$t('order.County')">
                                 <el-option label="" value="State"></el-option>
                                 <el-option label="" value="State2"></el-option>
                             </el-select>
@@ -27,7 +27,7 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="city">
-                            <el-select v-model="ruleForm.city" placeholder="*城市">
+                            <el-select v-model="ruleForm.city" :placeholder="$t('order.City')">
                                 <el-option label="" value="shanghai"></el-option>
                                 <el-option label="" value="beijing"></el-option>
                             </el-select>
@@ -35,53 +35,53 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="Zipcode">
-                            <el-input v-model="ruleForm.Zipcode" placeholder="*邮编"></el-input>
+                            <el-input v-model="ruleForm.Zipcode" :placeholder="$t('order.PostCode')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-form-item label="" prop="add">
-                    <el-input v-model="ruleForm.add" placeholder="*详细地址"></el-input>
+                    <el-input v-model="ruleForm.add" :placeholder="$t('order.DetailedAddress')"></el-input>
                 </el-form-item>
                 <div class="form-group">
                     <label for="">
-                        <b>*</b>联系方式：</label>
+                        <b>*</b> {{$t('order.ContactInfo')}}：</label>
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="name">
-                            <el-input v-model="ruleForm.name" placeholder="*姓名"></el-input>
+                            <el-input v-model="ruleForm.name" :placeholder="$t('order.Fullname')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="phone">
-                            <el-input v-model="ruleForm.phone" placeholder="*手机"></el-input>
+                            <el-input v-model="ruleForm.phone" :placeholder="$t('login.MobileNumber')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="12">
                         <el-form-item label="" prop="email">
-                            <el-input v-model="ruleForm.email" placeholder="*电子邮箱"></el-input>
+                            <el-input v-model="ruleForm.email":placeholder="$t('order.Email')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <div class="form-group mr_top2">
                     <label for="">
-                        <b>*</b>相关联系人：</label>
+                        <b>*</b> {{$t('order.Alternativecontact')}}：</label>
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="Relatedname">
-                            <el-input v-model="ruleForm.Relatedname" placeholder="*姓名"></el-input>
+                            <el-input v-model="ruleForm.Relatedname" :placeholder="$t('order.Fullname')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="Relatedphone">
-                            <el-input v-model="ruleForm.Relatedphone" placeholder="*手机"></el-input>
+                            <el-input v-model="ruleForm.Relatedphone" :placeholder="$t('login.MobileNumber')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <div class="form-group mr_top2">
                     <label for="">
-                        <b>*</b>服务网点:</label>
+                        <b>*</b> {{$t('order.ServicePoint')}}:</label>
                 </div>
                 <el-table :data="tableData" style="width: 100%">
                     <el-table-column prop="radio" label="" min-width="5%">
@@ -89,23 +89,23 @@
                             <input value="radio" name="radio" checked="" type="radio" v-model="radio">
                         </template>
                     </el-table-column>
-                    <el-table-column prop="Outlets" label="网点" min-width="15%">
+                    <el-table-column prop="Outlets" :label="$t('order.Point')" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址" min-width="40%">
+                    <el-table-column prop="address" :label="$t('order.Address')" min-width="40%">
                     </el-table-column>
-                    <el-table-column prop="Zipcode" label="邮编" min-width="10%">
+                    <el-table-column prop="Zipcode" :label="$t('order.PostCode')" min-width="10%">
                     </el-table-column>
-                    <el-table-column prop="phone" label="电话" min-width="15%">
+                    <el-table-column prop="phone" :label="$t('order.Telephone')" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="name" label="联系人" min-width="15%">
+                    <el-table-column prop="name" :label="$t('order.Contactperson')" min-width="15%">
                     </el-table-column>
                 </el-table>
                 <div class="not_in_area yellow_text">
-                    对不起，您选择的城市不在我们的服务区域内!
+                    {{$t('order.citynotinthearea')}}
                 </div>
                 <el-form-item class="pull-right mr_top">
-                    <el-button :plain="true" type="info" @click="lastStep()">上一步</el-button>
-                    <el-button type="info" @click="submitForm('ruleForm')">提交申请</el-button>
+                    <el-button :plain="true" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
+                    <el-button type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
                 </el-form-item>
 
             </el-form>
@@ -131,32 +131,33 @@ export default {
             },
             rules: {
                 add: [
-                    { required: true, message: '详细地址不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.Detailedaddrequired'), trigger: 'blur' }// 详细地址不能为空
                 ],
                 Zipcode: [
-                    { required: true, message: '邮编不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.Coderequired'), trigger: 'blur' }// 邮编不能为空
                 ],
                 name: [
-                    { required: true, message: '姓名不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 姓名不能为空
                 ],
                 phone: [
-                    { required: true, message: '手机不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 手机不能为空
                 ],
                 Relatedname: [
-                    { required: true, message: '姓名不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 姓名不能为空
                 ],
                 Relatedphone: [
-                    { required: true, message: '手机不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 手机不能为空
                 ],
                 email: [
-                    { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+                    { required: true, message: this.$t('order.Emailrequired'), trigger: 'blur' },
+                    // 邮箱不能为空
+                    { type: 'email', message: this.$t('order.correctemailadd'), trigger: 'blur,change' }// 请输入正确的邮箱地址
                 ],
                 country: [
-                    { required: true, message: '请选择国家', trigger: 'change' }
+                    { required: true, message: this.$t('order.SelectCountry'), trigger: 'change' }// 请选择国家
                 ],
                 city: [
-                    { required: true, message: '请选择城市', trigger: 'change' }
+                    { required: true, message: this.$t('order.SelectCity'), trigger: 'change' }// 请选择城市
                 ]
             },
             tableData: [{

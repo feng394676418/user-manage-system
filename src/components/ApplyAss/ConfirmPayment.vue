@@ -3,17 +3,17 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">首页</a> >
-                <a href="#">维修进度</a> >
-                <a href="#">付款</a>
+                <a href="#">{{$t('checkprice.home')}}</a> >
+                <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
+                <a href="#">{{$t('ConfirmPayment.Payment')}}</a>
             </div>
-            <h1 class="Charge_Details">费用明细</h1>
+            <h1 class="Charge_Details">{{$t('ConfirmPayment.Invoice')}}</h1>
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="item" label="费用项目" min-width="33%">
+                <el-table-column prop="item" :label="$t('ConfirmPayment.Categories')"  min-width="33%">
                 </el-table-column>
-                <el-table-column prop="Details" label="明细" min-width="34%">
+                <el-table-column prop="Details" :label="$t('ConfirmPayment.Items')" min-width="34%">
                 </el-table-column>
-                <el-table-column label="价格" min-width="33%">
+                <el-table-column :label="$t('ConfirmPayment.Price')" min-width="33%">
                     <template scope="scope">
                         € <strong class="Orange_text">{{ scope.row.price }}</strong>
                     </template>     
@@ -22,12 +22,12 @@
             </el-table>
             <div class="pd_tb">
                 <label>
-                    <b>*</b>支付方式</label>
+                    <b>*</b>{{$t('ConfirmPayment.WaystoPay')}}</label>
             </div>
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
-                <el-button :plain="true" type="info" class="form-group">稍后再付</el-button>
-                <el-button type="info"  class="form-group">去付款</el-button>
+                <el-button :plain="true" type="info" class="form-group">{{$t('ConfirmPayment.Paylater')}}</el-button>
+                <el-button type="info"  class="form-group">{{$t('ConfirmPayment.PayNow')}}</el-button>
             </div>
         </div>
     </div>
@@ -40,52 +40,65 @@ export default {
     data () {
         return {
             tableData: [{
-                item: '备件',
-                Details: '屏幕',
+                item: this.$t('ConfirmPayment.ServiceParts'),
+                // 备件
+                Details: this.$t('ConfirmPayment.Screen'),
+                // 屏幕
                 price: '12'
             },
             {
                 item: '',
-                Details: '后置摄像头',
+                Details: this.$t('checkprice.RearCamera'),
+                // 后置摄像头
                 price: '12'
             },
             {
                 item: '',
-                Details: '外壳',
+                Details: this.$t('checkprice.OuterCasing'),
+                // 外壳
                 price: '12'
             },
             {
-                item: '维修费',
-                Details: 'L2级维修',
-                price: '12'
-            },
-            {
-                item: '',
-                Details: '外壳',
-                price: '12'
-            },
-            {
-                item: '快递费',
-                Details: '寄出',
+                item: this.$t('ConfirmPayment.ServiceCost'),
+                // 维修费
+                Details: this.$t('checkprice.Level2'),
+                // L2级维修
                 price: '12'
             },
             {
                 item: '',
-                Details: '寄回',
+                Details: this.$t('checkprice.OuterCasing'),
+                // 外壳
                 price: '12'
             },
             {
-                item: '总价',
+                item: this.$t('ConfirmPayment.DeliveryCost'),
+                // 快递费
+                Details: this.$t('ConfirmPayment.Sentout'),
+                // 寄出
+                price: '12'
+            },
+            {
+                item: '',
+                Details: this.$t('ConfirmPayment.Sentback'),
+                // 寄回
+                price: '12'
+            },
+            {
+                item: this.$t('ConfirmPayment.TotalCost'),
+                // 总价
                 Details: '',
                 price: '72'
             },
             {
-                item: '保内',
+                item: this.$t('order.InWarranty'),
+                // 保内
                 Details: '',
                 price: '0'
             },
             {
-                item: '实付',
+                item: this.$t('ConfirmPayment.RemaintoPay'),
+                // 实付
                 Details: '',
                 price: '72.00'
             }]

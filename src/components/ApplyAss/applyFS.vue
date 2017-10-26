@@ -2,7 +2,7 @@
         <div>
             <div>
                 <label>
-                    <b>*</b>产品品牌：</label>
+                    <b>*</b>{{$t('order.Brands')}}：</label>
             </div>
             <ul class="list_menu">
                 <li v-for="item in brandList" :key="item.code" :class="item.className" @click="active(item)">{{item.code}}</li>
@@ -10,7 +10,7 @@
             </ul>
             <div class="clearfix"></div>
             <p class="blue_text pd_tb">
-                提示：服务地区仅限欧盟内，保外需要客户承担运费！
+                {{$t('order.Note')}}
             </p>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -19,12 +19,12 @@
                     <input class="form-control" id="" placeholder="" type="text" v-model="OrderInfoFS.IMEI" @blur="getImeiInfo()"></input>
                 </div>
                 <div class="col-md-6 how_check">
-                    <a class="purple_text" href="#/ViewIMEI" target="_blank">怎样查看IMEI码？</a>
+                    <a class="purple_text" href="#/ViewIMEI" target="_blank">{{$t('order.checkIMEI')}}</a>
                 </div>
             </div>
             <template v-if="IMEINotExist && IMEIInfoShow">
             <p class="blue_text">
-                此IMEI号不存在！请仔细核对。
+                {{$t('order.IMEInotexisted')}}
             </p>
             </template>
             <template v-else-if="!IMEINotExist && IMEIInfoShow" >
@@ -34,14 +34,14 @@
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
-                        <b>*</b>故障描述:</label>
+                        <b>*</b>{{$t('order.FailureDescription')}}:</label>
                     <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="OrderInfoFS.troubleInfo"></textarea>
                 </div>
             </div>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
-                        <b>*</b>上传图片:</label>
+                        <b>*</b>{{$t('order.UploadPhotos')}}:</label>
                     <el-upload
                       name="upFile"
                       ref="upFile"
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" class="next_step mr_top" @click="nextStep()">下一步</el-button>
+                        <el-button type="info" class="next_step mr_top" @click="nextStep()">{{$t('order.Next')}}</el-button>
                     </div>
                 </div>
             </div>

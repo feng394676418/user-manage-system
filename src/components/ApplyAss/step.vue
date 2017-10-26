@@ -11,15 +11,15 @@
                 <div class="step step8"></div>
                 <div class="step step9"></div> -->
             <ul class="steps">
-                <li>申请</li>
-                <li>寄出</li>
-                <li>收件</li>
-                <li>检测</li>
-                <li>报价</li>
-                <li>维修</li>
-                <li>结算</li>
-                <li>发货</li>
-                <li>完成</li>
+                <li>{{$t('order.Apply')}}</li>
+                <li>{{$t('order.Delivery')}}</li>
+                <li>{{$t('order.inDepot')}}</li>
+                <li>{{$t('order.Test')}}</li>
+                <li>{{$t('order.Quotation')}}</li>
+                <li>{{$t('order.Repair')}}</li>
+                <li>{{$t('order.Payment')}}</li>
+                <li>{{$t('order.Dispatch')}}</li>
+                <li>{{$t('order.Done')}}</li>
             </ul>
     </div>
 </template>

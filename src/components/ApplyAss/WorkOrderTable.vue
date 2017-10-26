@@ -1,14 +1,14 @@
 <template>
     <div class="WorkOrderTable">
-        <h3>工单编号 12345678912</h3>
+        <h3>{{$t('login.OrderNumber')}} 12345678912</h3>
         <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="model" label="产品型号" min-width="25%">
+            <el-table-column prop="model" :label="$t('order.Modelinfo')" min-width="25%">
             </el-table-column>
-            <el-table-column prop="IMEI" label="IMEI号码 " min-width="25%">
+            <el-table-column prop="IMEI" :label="$t('order.IMEI')" min-width="25%">
             </el-table-column>
-            <el-table-column prop="description" label="故障描述" min-width="25%">
+            <el-table-column prop="description" :label="$t('order.FailureDescription')" min-width="25%">
             </el-table-column>
-            <el-table-column prop="time" label="创建时间" min-width="25%">
+            <el-table-column prop="time" :label="$t('WarrantyPayment.CreateTime')" min-width="25%">
             </el-table-column>            
         </el-table>
     </div>
