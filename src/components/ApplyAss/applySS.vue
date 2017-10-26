@@ -116,6 +116,7 @@
 <script>
 import { country, stateInfo, cityInfo } from '@/api/countryInfo'
 import { getProviderList } from '@/api/provider'
+import { orderCreate } from '@/api/order'
 
 export default {
     props: { // 父组件传递信息
@@ -294,6 +295,10 @@ export default {
                   this.ruleForm.photoGroup = this.userOrderInfoChild.photogroup
                   console.log('表单提交------form信息')
                   console.dir(this.ruleForm)
+                  orderCreate(this.ruleForm).then(response => {
+                    console.log('表单提交 response')
+                    console.dir(response)
+                  })
                 } else {
                     console.log('error submit!!')
                     return false
