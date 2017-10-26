@@ -3,31 +3,31 @@
         <div class="col-md-2">
             <dl>
                 <dt>{{$t('order.Fullname')}}</dt>
-                <dd>Bill</dd>
+                <dd>{{userInfoChild.username}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>{{$t('login.MobileNumber')}}</dt>
-                <dd>8564123789</dd>
+                <dd>{{userInfoChild.telphone}}</dd>
             </dl>
         </div>
         <div class="col-md-4">
             <dl>
                 <dt>{{$t('order.Email')}}</dt>
-                <dd>Bill8564123789@gmail.com</dd>
+                <dd>{{userInfoChild.email}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>{{$t('order.Alternativecontact')}}</dt>
-                <dd>Sam</dd>
+                <dd>{{userInfoChild.emergencyname}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>{{$t('WarrantyPayment.AlternativeContact')}}</dt>
-                <dd>8745644561</dd>
+                <dd>{{userInfoChild.emergencyphone}}</dd>
             </dl>
         </div>
     </div>
@@ -35,6 +35,9 @@
 
 <script>
 export default {
+    props: {
+      userInfoChild: ''
+    },
     data () {
         return {
         }

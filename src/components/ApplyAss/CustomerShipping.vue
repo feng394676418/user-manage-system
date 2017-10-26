@@ -6,21 +6,21 @@
             <label for="">{{$t('WarrantyPayment.DeliveryAddress')}}：</label>
         </div>
         <div class="col-md-10">
-            <p>somewhere in the european country but i cannot say where it is</p>
+            <p>{{cusInfoChild.provideraddress}}</p>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
             <label for="">{{$t('WarrantyPayment.Carrier')}}：</label>
         </div>
         <div class="col-md-10">
-            <p>UPS</p>
+            <p>{{cusInfoChild.expresscode}}</p>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
             <label for="">{{$t('WarrantyPayment.TrackingNo')}}：</label>
         </div>
         <div class="col-md-10">
-            <p>45648979464643</p>
+            <p>{{cusInfoChild.trackingno}}</p>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
@@ -42,6 +42,9 @@
 
 <script>
 export default {
+    props: {
+      cusInfoChild: ''
+    },
     data () {
         return {
             isShow: true,
