@@ -171,19 +171,11 @@ export default {
                 phone: [
                     { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 手机不能为空
                 ],
-<<<<<<< HEAD
-                Relatedname: [
-                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 相关联系人姓名不能为空
-                ],
-                Relatedphone: [
-                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 相关联系人手机不能为空
-=======
                 emergencyName: [
                     { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 相关联系人姓名不能为空
                 ],
                 emergencyPhone: [
                     { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 相关联系人手机不能为空
->>>>>>> 844d4d16cd475f2c7d3a6878171fa27f4281929b
                 ],
                 email: [
                     { required: true, message: this.$t('order.Emailrequired'), trigger: 'blur' },

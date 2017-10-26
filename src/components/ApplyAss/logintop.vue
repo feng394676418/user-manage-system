@@ -32,7 +32,7 @@ export default {
 </script>
 <style type="text/css">
 body{
-    background: #f3f6fa;
+    background: #f3f6fa!important;
 }
 .el-dropdown-link {
     color: #00a0e9;
