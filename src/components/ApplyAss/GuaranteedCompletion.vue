@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <logintop></logintop>        
+        <logintop></logintop>
         <div class="main_content main_form_input">
-            <step></step>           
-            <WorkOrderTable></WorkOrderTable>
+            <step></step>
+            <WorkOrderTable :refNumberChild="refNumber"></WorkOrderTable>
             <UserInfo></UserInfo>
-            <TestReportTable></TestReportTable>
-            <reason></reason>
+            <!--<TestReportTable></TestReportTable>
+            <reason></reason>-->
             <CustomerShipping></CustomerShipping>
-            <Networkdelivery></Networkdelivery>
-            <Evaluated></Evaluated>            
+            <!--<Networkdelivery></Networkdelivery>
+            <Evaluated></Evaluated>-->
         </div>
     </div>
 </template>
@@ -28,9 +28,16 @@ export default {
     components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated },
     data () {
         return {
+          refNumber: this.$route.params.orderno
         }
     },
+    created() {
+      this.getOrderNumber()
+    },
     methods: {
+      getOrderNumber() {
+        console.dir('refNumber==' + this.refNumber)
+      }
     }
 }
 </script>
