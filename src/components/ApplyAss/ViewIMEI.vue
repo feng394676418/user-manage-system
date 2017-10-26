@@ -3,58 +3,57 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">首页</a> >
-                <a href="#">填写产品信息</a> >
-                <a href="#">查看IMEI</a>
+                <a href="#">{{$t('checkprice.home')}}</a> >
+                <a href="#">{{$t('checkprice.FillProductInfo')}}</a> >
+                <a href="#">{{$t('ViewIMEI.CheckIMEI')}}</a>
             </div>
             <div class="step_nav mr_top">
-                <span>如何查询手机IMEI号？</span>
+                <span>{{$t('ViewIMEI.Howtocheck')}}</span>
             </div>
-            <p class="mr_top pd_tb">方法一：手机外包装底部查看IMEI。</p>
+            <p class="mr_top pd_tb">{{$t('ViewIMEI.Method1')}}</p>
             <div class="text-center">
                 <img class="img-responsive center-block" src="../../../static/img/package.png" />
-                <p class="blue_text pd_tb">包装底部</p>
+                <p class="blue_text pd_tb">{{$t('ViewIMEI.bottompackaging')}}</p>
             </div>
-            <p class="pd_tb">方法二：拨号查看。</p>
+            <p class="pd_tb">{{$t('ViewIMEI.Method2')}}</p>
             <div class="text-center">
                 <div class="dial">
                     <img class="img-responsive center-block" src="../../../static/img/dial1.png" />
-                    <p class="blue_text pd_tb">1.打开拨号界面输入
-                        <span class="yellow_text">＊#06#</span>
+                    <p class="blue_text pd_tb">1.{{$t('ViewIMEI.dialingpage')}}
                     </p>
                 </div>
                 <div class="dial">
                     <img class="img-responsive center-block" src="../../../static/img/dial2.png" />
-                    <p class="blue_text pd_tb">2.弹出显示IMEI窗口</p>
+                    <p class="blue_text pd_tb">2.{{$t('ViewIMEI.IMEIpageshowed')}}</p>
                 </div>
             </div>
-            <p class="pd_tb">方法三：在设置里查看。</p>
+            <p class="pd_tb">{{$t('ViewIMEI.Method3')}}</p>
             <div class="text-center">
                 <div class="set">
                     <img class="img-responsive center-block" src="../../../static/img/set1.png" />
-                    <p class="blue_text pd_tb">1.打开设置</p>
+                    <p class="blue_text pd_tb">1.{{$t('ViewIMEI.OpenSettings')}}</p>
                 </div>
                 <div class="set">
                     <img class="img-responsive center-block" src="../../../static/img/set2.png" />
-                    <p class="blue_text pd_tb">2.选择打开
+                    <p class="blue_text pd_tb">2.{{$t('ViewIMEI.Select')}}
                         <span class="yellow_text">About phone</span>
                     </p>
                 </div>
                 <div class="set">
                     <img class="img-responsive center-block" src="../../../static/img/set3.png" />
-                    <p class="blue_text pd_tb">3.选择打开
+                    <p class="blue_text pd_tb">3.{{$t('ViewIMEI.Select')}}
                         <span class="yellow_text">Status</span>
                     </p>
                 </div>
                 <div class="set">
                     <img class="img-responsive center-block" src="../../../static/img/set4.png" />
-                    <p class="blue_text pd_tb">4.选择打开
+                    <p class="blue_text pd_tb">4.{{$t('ViewIMEI.Select')}}
                         <span class="yellow_text">SIM status</span>
                     </p>
                 </div>                                                
                 <div class="set">
                     <img class="img-responsive center-block" src="../../../static/img/set5.png" />
-                    <p class="blue_text pd_tb">5.显示IMEI</p>
+                    <p class="blue_text pd_tb">5.{{$t('ViewIMEI.IMEIshowed')}}</p>
                 </div>
             </div>
         </div>

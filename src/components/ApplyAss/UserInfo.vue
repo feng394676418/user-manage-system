@@ -2,31 +2,31 @@
     <div class="row userinfo">
         <div class="col-md-2">
             <dl>
-                <dt>姓名</dt>
+                <dt>{{$t('order.Fullname')}}</dt>
                 <dd>{{userInfoChild.username}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>手机号</dt>
+                <dt>{{$t('login.MobileNumber')}}</dt>
                 <dd>{{userInfoChild.telphone}}</dd>
             </dl>
         </div>
         <div class="col-md-4">
             <dl>
-                <dt>邮箱</dt>
+                <dt>{{$t('order.Email')}}</dt>
                 <dd>{{userInfoChild.email}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>相关联系人</dt>
+                <dt>{{$t('order.Alternativecontact')}}</dt>
                 <dd>{{userInfoChild.emergencyname}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>相关联系人电话</dt>
+                <dt>{{$t('WarrantyPayment.AlternativeContact')}}</dt>
                 <dd>{{userInfoChild.emergencyphone}}</dd>
             </dl>
         </div>

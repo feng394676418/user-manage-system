@@ -1,17 +1,17 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            <h3>评价</h3>
+            <h3>{{$t('Warranty.Rate')}}</h3>
             <div class="Please_score pull-left">                
-                <span class="pull-left">请给我们打个评分 ：&nbsp;</span>
+                <span class="pull-left">{{$t('Warranty.rateservice')}} ：&nbsp;</span>
                 <el-rate class="pull-left" v-model="value5" text-template="{value}"></el-rate>
-                <span class="pull-left blue_text">五星代表满分好评。</span>
+                <span class="pull-left blue_text">{{$t('Warranty.highestcomment')}}</span>
             </div>
             <div class="form-group">
-                <textarea class="form-control" id="" placeholder="你对我们的服务有什么意见和建议吗？" rows="4" type="text" v-model="textarea"></textarea>
+                <textarea class="form-control" id="" :placeholder="$t('Warranty.suggestions')" rows="4" type="text" v-model="textarea"></textarea>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
-                <el-button type="info">提交评价</el-button>
+                <el-button type="info">{{$t('Warranty.Done')}}</el-button>
             </div>
         </div>
     </div>

@@ -7,20 +7,20 @@
                 </div>
                 <div class="col-md-9">
                     <h2>{{imeiInfoChild.productname}}</h2>
-                    <p>产品型号：{{imeiInfoChild.producttype}}</p>
-                    <p>IMEI号码：{{imeiInfoChild.imei}}</p>
-                    <p>保修期限：{{imeiInfoChild.deadtime}}</p>
+                    <p>{{$t('order.Modelinfo')}}：{{imeiInfoChild.producttype}}</p>
+                    <p>{{$t('order.IMEI')}}：{{imeiInfoChild.imei}}</p>
+                    <p>{{$t('order.WarrantyDate')}}：{{imeiInfoChild.deadtime}}</p>
                 </div>
             </div>
         </div>
         <div class="row Warranty_type">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="">
-                    <b>*</b>保修类型：</label>
+                    <b>*</b>{{$t('order.TypeServices')}}：</label>
                 <el-checkbox-group v-model="functionButtonInfo.checkedRepairOptions" @change="handleCheckedRepairOptionsChange">
                     <el-checkbox v-for="repair in repairOptionArray" :label="repair" :key="repair">{{repair|repairNameFilter}}</el-checkbox>
                 </el-checkbox-group>
-                <el-checkbox :indeterminate="isIndeterminate" v-model="checkNot" @change="handleCheckNotChange">均无以上情况</el-checkbox>
+                <el-checkbox :indeterminate="isIndeterminate" v-model="checkNot" @change="handleCheckNotChange">{{$t('order.NonAbove')}}</el-checkbox>
             </div>
         </div>
         <Functionbutton :functionButtonInfoChild="functionButtonInfo"></Functionbutton>

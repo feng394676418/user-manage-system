@@ -3,56 +3,56 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">首页</a>  >  <a href="#">填写产品信息</a>  >  <a href="#">价格查询</a>
+                <a href="#">{{$t('checkprice.home')}}</a>  >  <a href="#">{{$t('checkprice.FillProductInfo')}}</a>  >  <a href="#">{{$t('checkprice.PriceQuotation')}}</a>
             </div>
             <div class="step_nav mr_top">
-                <span>保外维修参考价格查询</span>
+                <span>{{$t('checkprice.OutPrices')}}</span>
             </div>
             <el-row class="row-bg" :gutter="30">
                 <el-col :md="6">
-                    <el-select v-model="value" placeholder="品牌">
+                    <el-select v-model="value" :placeholder="$t('order.Brands')">
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                     </el-select>
                 </el-col>
                 <el-col :md="18">
-                    <el-select v-model="value2" placeholder="型号">
+                    <el-select v-model="value2" :placeholder="$t('order.Modelinfo')">
                         <el-option v-for="item in model" :key="item.value2" :label="item.label" :value="item.value2"></el-option>
                     </el-select>
                 </el-col>
             </el-row>
             <div class="form-group mr_top2">
                 <label for="" class="pro_price">
-                    OnePlus 5 64G <span>的保外维修常用备件参考价:</span></label>
+                    OnePlus 5 64G <span>{{$t('checkprice.ServicePriceList')}}:</span></label>
             </div>
             <el-table :data="tableData2" style="width: 100%">
-                <el-table-column prop="Screen" label="屏幕组件" min-width="17%">
+                <el-table-column prop="Screen" :label="$t('checkprice.Screen')" min-width="17%">
                 </el-table-column>
-                <el-table-column prop="Motherboard" label="主板" min-width="17%">
+                <el-table-column prop="Motherboard" :label="$t('checkprice.Motherboard')" min-width="17%">
                 </el-table-column>
-                <el-table-column prop="rearcamera" label="后置摄像头" min-width="17%">
+                <el-table-column prop="rearcamera" :label="$t('checkprice.RearCamera')" min-width="17%">
                 </el-table-column>
-                <el-table-column prop="Frontcamera" label="前置摄像头" min-width="17%">
+                <el-table-column prop="Frontcamera" :label="$t('checkprice.Numbersonly')" min-width="17%">
                 </el-table-column>
-                <el-table-column prop="battery" label="电池" min-width="16%">
+                <el-table-column prop="battery" :label="$t('checkprice.Battery')" min-width="16%">
                 </el-table-column>
-                <el-table-column prop="shell" label="外壳" min-width="16%">
+                <el-table-column prop="shell" :label="$t('checkprice.OuterCasing')" min-width="16%">
                 </el-table-column>                
             </el-table>
             <div class="mr_top2">
                 <label for="">
-                    收费说明:</label>
+                    {{$t('checkprice.PriceListNote')}}:</label>
                 <p class="blue_text pd_tb">
-                    1. 以上查询结果为维修配件参考价。无法查询的维修配件价格，请咨询售后服务中心。<br/> 2. 非保维修收费=往来快递费用+维修配件价+服务费，服务费收费标准如下：
+                    1. {{$t('checkprice.referenceonly')}}<br/> 2. {{$t('checkprice.ServiceCharges')}}
                 </p>
             </div>
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="level" label="维修级别" min-width="10%">
+                <el-table-column prop="level" :label="$t('checkprice.ServiceLevel')" min-width="12%">
                 </el-table-column>
-                <el-table-column prop="Content" label="服务内容" min-width="28%">
+                <el-table-column prop="Content" :label="$t('checkprice.ServiceContents')" min-width="28%">
                 </el-table-column>
-                <el-table-column prop="project" label="维修项目" min-width="48%">
+                <el-table-column prop="project" :label="$t('checkprice.ServiceDetails')" min-width="46%">
                 </el-table-column>
-                <el-table-column prop="charge" label="服务费" min-width="14%">
+                <el-table-column prop="charge" :label="$t('checkprice.ServiceCharge')" min-width="14%">
                 </el-table-column>
             </el-table>
         </div>
@@ -82,20 +82,32 @@ export default {
             }],
             value2: '',
             tableData: [{
-                level: '0级维修',
-                Content: '故障检测，软件升级，配件更换',
-                project: '故障检测，软件升级，配件更换（数据线或适配器）',
-                charge: '4-7欧元'
+                level: this.$t('checkprice.Level0'),
+                // 0级维修
+                Content: this.$t('checkprice.Diagnostics'),
+                // 故障检测，软件升级，配件更换
+                project: this.$t('checkprice.PowerCableAdaptor'),
+                // 故障检测，软件升级，配件更换（数据线或适配器）
+                charge: this.$t('checkprice.four')
+                // 4-7欧元
             }, {
-                level: '1级维修',
-                Content: '拆机维修：机械零部件更换',
-                project: '机械零部件包括但不限于前壳组件、后壳组件、内置电池、TP组件、显示模组、听筒、扬声器、麦克风、振动器、摄像头、RF连接线、内置天线、按键、FPC等',
-                charge: '8-11欧元'
+                level: this.$t('checkprice.Level1'),
+                // 1级维修
+                Content: this.$t('checkprice.DisassembleRepair'),
+                // 拆机维修：机械零部件更换
+                project: this.$t('checkprice.Partsinclude'),
+                // 机械零部件包括但不限于前壳组件、后壳组件、内置电池、TP组件、显示模组、听筒、扬声器、麦克风、振动器、摄像头、RF连接线、内置天线、按键、FPC等
+                charge: this.$t('checkprice.eight')
+                // 8-11欧元
             }, {
-                level: '2级维修',
-                Content: '拆机维修：接口类期间更换',
-                project: '接口类包括但不限于电池连接器、耳机连接器、IO连接器、SIM卡座、Flash卡座等',
-                charge: '12-15欧元'
+                level: this.$t('checkprice.Level2'),
+                // 2级维修
+                Content: this.$t('checkprice.ConnectorReplacement'),
+                // 拆机维修：接口类期间更换
+                project: this.$t('checkprice.Connectorsinclude'),
+                // 接口类包括但不限于电池连接器、耳机连接器、IO连接器、SIM卡座、Flash卡座等
+                charge: this.$t('checkprice.twelve')
+                // 12-15欧元
             }],
             tableData2: [{
                 Screen: '€12',
