@@ -4,25 +4,25 @@
         <div class="main_content main_form_input">
             <step></step>
             <stepnav></stepnav>
-            <h2 class="text-center generate_title">工单编号
-                <span class="sky_blue_text">AS201708290001</span>，运单已经生成！您现在可以下载运单，打包发货了！</h2>
+            <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
+                <span class="sky_blue_text">AS201708290001</span>， {{$t('order.downloadorder')}}</h2>
             <p class="blue_text text-center pd_top">
-                运单及工单信息已经发送到您的邮箱，请注意查收。
+                 {{$t('order.sentemail')}}
             </p>
             <div class="form-group mr_top2">
                 <label for="">
-                    <b>*</b>您附近可用的UPS服务网点：</label>
+                    <b>*</b> {{$t('order.servicepoint')}}：</label>
             </div>
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="Outlets" label="网点" min-width="18%">
+                <el-table-column prop="Outlets" :label="$t('order.Point')" min-width="18%">
                 </el-table-column>
-                <el-table-column prop="address" label="地址" min-width="26%">
+                <el-table-column prop="address" :label="$t('order.Address')" min-width="26%">
                 </el-table-column>
-                <el-table-column prop="Zipcode" label="邮编" min-width="9%">
+                <el-table-column prop="Zipcode" :label="$t('order.PostCode')" min-width="9%">
                 </el-table-column>
-                <el-table-column prop="phone" label="电话" min-width="14%">
+                <el-table-column prop="phone" :label="$t('order.Telephone')" min-width="14%">
                 </el-table-column>
-                <el-table-column prop="time" label="工作时间" min-width="30%">
+                <el-table-column prop="time" :label="$t('order.Workinghour')" min-width="30%">
                 </el-table-column>
             </el-table>
             <div class="row mr_top">

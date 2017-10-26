@@ -2,32 +2,32 @@
     <div class="row userinfo">
         <div class="col-md-2">
             <dl>
-                <dt>姓名</dt>
-                <dd>Bill</dd>
+                <dt>{{$t('order.Fullname')}}</dt>
+                <dd>{{userInfoChild.username}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>手机号</dt>
-                <dd>8564123789</dd>
+                <dt>{{$t('login.MobileNumber')}}</dt>
+                <dd>{{userInfoChild.telphone}}</dd>
             </dl>
         </div>
         <div class="col-md-4">
             <dl>
-                <dt>邮箱</dt>
-                <dd>Bill8564123789@gmail.com</dd>
+                <dt>{{$t('order.Email')}}</dt>
+                <dd>{{userInfoChild.email}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>相关联系人</dt>
-                <dd>Sam</dd>
+                <dt>{{$t('order.Alternativecontact')}}</dt>
+                <dd>{{userInfoChild.emergencyname}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
-                <dt>相关联系人电话</dt>
-                <dd>8745644561</dd>
+                <dt>{{$t('WarrantyPayment.AlternativeContact')}}</dt>
+                <dd>{{userInfoChild.emergencyphone}}</dd>
             </dl>
         </div>
     </div>
@@ -35,6 +35,9 @@
 
 <script>
 export default {
+    props: {
+      userInfoChild: ''
+    },
     data () {
         return {
         }

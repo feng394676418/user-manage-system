@@ -4,12 +4,12 @@
             <div class="pull-right">
                 <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
-                        {{$t('order.Chinese')}}
+                        简体中文
                         <i class="icon-language"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item ><a @click="changeUmsLang('en')">English</a></el-dropdown-item>
-                        <el-dropdown-item ><a @click="changeUmsLang('zh')">{{$t('order.Chinese')}}</a></el-dropdown-item>
+                        <el-dropdown-item ><a @click="changeUmsLang('zh')">简体中文</a></el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -32,7 +32,7 @@ export default {
 </script>
 <style type="text/css">
 body{
-    background: #f3f6fa;
+    background: #f3f6fa!important;
 }
 .el-dropdown-link {
     color: #00a0e9;

@@ -17,21 +17,21 @@
             <!--保内按钮-->
             <div class="col-md-6 form-group">
                 <el-button type="primary" :plain="!functionButtonInfoChild.timeIn" style="width:100%">
-                    保内
-                    <p>保内全部维修费用由厂商承担。</p>
+                    {{$t('order.InWarranty')}}
+                    <p>{{$t('order.costwarranty')}}</p>
                 </el-button>
             </div>
             <!--保外按钮-->
             <div class="col-md-6 form-group">
                 <el-button type="primary" :class="functionButtonInfoChild.timeOutClassName" :plain="true" style="width:100%">
-                    保外
-                    <p>保外全部维修费用由您承担。</p>
+                    {{$t('order.OutofWarranty')}}
+                    <p>{{$t('order.costnotwarranty')}}</p>
                 </el-button>
             </div>
         </div>
         <p class="blue_text pd_tb">
-            此结论仅作参考，以实际检测结果为准，
-            <a class="purple_text" href="#/checkprice" target="_blank" >查询维修价格标准。</a>
+            {{$t('order.conclusionreference')}}
+            <a class="purple_text" href="#/checkprice" target="_blank" >{{$t('order.ServicePrices')}}</a>
         </p>
     </div>
 </template>

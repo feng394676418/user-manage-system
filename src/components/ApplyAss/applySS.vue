@@ -1,7 +1,7 @@
 <template>
          <div>
             <p class="blue_text pd_tb">
-                提示：此寄件地址会用做寄回地址，以下内容需填写真实有效信息以防包裹丢失。“*”为必填内容。
+               {{$t('order.addressrequired')}}
             </p>
             <div class="form-group">
                 <label for="">
@@ -11,7 +11,7 @@
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="country">
-                            <el-select placeholder="*国家" size="small" filterable v-model="countryTmp" @change="countryChange">
+                            <el-select :placeholder="$t('order.Country')" size="small" filterable v-model="countryTmp" @change="countryChange">
                                 <el-option v-for="country in countryList" :label="country.name" :key="country.sortname" :value="country.name + '-' + country.sortname + '-' +country.id">
                                   {{country.name}}</el-option>
                             </el-select>
@@ -19,67 +19,67 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="province">
-                            <el-select v-model="provinceTmp" placeholder="州" @change="stateChange">
+                            <el-select v-model="provinceTmp" :placeholder="$t('order.County')" @change="stateChange">
                                 <el-option v-for="province in stateList" :label="province.name" :key="province.name" :value="province.name + '-' + province.id + '-' + province.sortname"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="city">
-                            <el-select v-model="ruleForm.city" filterable allow-create placeholder="*城市">
+                            <el-select v-model="ruleForm.city" filterable allow-create :placeholder="$t('order.City')">
                                 <el-option v-for="city in cityList" :label="city.name" :key="city.name" :value="city.name"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="postCode">
-                            <el-input v-model="ruleForm.postCode" placeholder="*邮编"></el-input>
+                            <el-input v-model="ruleForm.postCode" :placeholder="$t('order.PostCode')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-form-item label="" prop="addressDetail">
-                    <el-input v-model="ruleForm.addressDetail" placeholder="*详细地址"></el-input>
+                    <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')"></el-input>
                 </el-form-item>
                 <div class="form-group">
                     <label for="">
-                        <b>*</b>联系方式：</label>
+                        <b>*</b> {{$t('order.ContactInfo')}}：</label>
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="userName">
-                            <el-input v-model="ruleForm.userName" placeholder="*姓名"></el-input>
+                            <el-input v-model="ruleForm.userName" :placeholder="$t('order.Fullname')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="phone">
-                            <el-input v-model="ruleForm.phone" placeholder="*手机"></el-input>
+                            <el-input v-model="ruleForm.phone" :placeholder="$t('login.MobileNumber')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="12">
                         <el-form-item label="" prop="email">
-                            <el-input v-model="ruleForm.email" placeholder="*电子邮箱"></el-input>
+                            <el-input v-model="ruleForm.email":placeholder="$t('order.Email')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <div class="form-group mr_top2">
                     <label for="">
-                        <b>*</b>相关联系人：</label>
+                        <b>*</b> {{$t('order.Alternativecontact')}}：</label>
                 </div>
                 <el-row class="row-bg" :gutter="30">
                     <el-col :md="6">
                         <el-form-item label="" prop="emergencyName">
-                            <el-input v-model="ruleForm.emergencyName" placeholder="*姓名"></el-input>
+                            <el-input v-model="ruleForm.emergencyName" :placeholder="$t('order.Fullname')"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="emergencyPhone">
-                            <el-input v-model="ruleForm.emergencyPhone" placeholder="*手机"></el-input>
+                            <el-input v-model="ruleForm.emergencyPhone" :placeholder="$t('login.MobileNumber')"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <div class="form-group mr_top2">
                     <label for="">
-                        <b>*</b>服务网点:</label>
+                        <b>*</b> {{$t('order.ServicePoint')}}:</label>
                 </div>
                 <template v-if="providerList.length > 0">
                 <el-table :data="providerList" style="width: 100%">
@@ -88,26 +88,26 @@
                             <input name="radio" type="radio" @click="clickRadio(scope.row.providerCode)"></input>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="providerName" label="网点" min-width="15%">
+                    <el-table-column prop="providerName" :label="$t('order.Point')" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址" min-width="40%">
+                    <el-table-column prop="address" :label="$t('order.Address')" min-width="40%">
                     </el-table-column>
-                    <el-table-column prop="postCode" label="邮编" min-width="10%">
+                    <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="10%">
                     </el-table-column>
-                    <el-table-column prop="phone" label="电话" min-width="15%">
+                    <el-table-column prop="phone" :label="$t('order.Telephone')" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="email" label="联系人" min-width="15%">
+                    <el-table-column prop="email" :label="$t('order.Contactperson')" min-width="15%">
                     </el-table-column>
                 </el-table>
                 </template>
                 <template v-else>
                 <div class="not_in_area yellow_text">
-                    对不起，您选择的城市不在我们的服务区域内!
+                    {{$t('order.citynotinthearea')}}
                 </div>
                 </template>
                 <el-form-item class="pull-right mr_top">
-                    <el-button :plain="true" type="info" @click="lastStep()">上一步</el-button>
-                    <el-button type="info" @click="submitForm('ruleForm')">提交申请</el-button>
+                    <el-button :plain="true" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
+                    <el-button type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
                 </el-form-item>
 
             </el-form>
@@ -161,32 +161,33 @@ export default {
             },
             rules: {
                 addressDetail: [
-                    { required: true, message: '详细地址不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.Detailedaddrequired'), trigger: 'blur' }// 详细地址不能为空
                 ],
                 postCode: [
-                    { required: true, message: '邮编不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.Coderequired'), trigger: 'blur' }// 邮编不能为空
                 ],
                 userName: [
-                    { required: true, message: '姓名不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 姓名不能为空
                 ],
                 phone: [
-                    { required: true, message: '手机不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 手机不能为空
                 ],
                 emergencyName: [
-                    { required: true, message: '相关联系人姓名不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 相关联系人姓名不能为空
                 ],
                 emergencyPhone: [
-                    { required: true, message: '相关联系人手机不能为空', trigger: 'blur' }
+                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 相关联系人手机不能为空
                 ],
                 email: [
-                    { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                    { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
+                    { required: true, message: this.$t('order.Emailrequired'), trigger: 'blur' },
+                    // 邮箱不能为空
+                    { type: 'email', message: this.$t('order.correctemailadd'), trigger: 'blur,change' }// 请输入正确的邮箱地址
                 ],
                 country: [
-                    { required: true, message: '请选择国家', trigger: 'change' }
+                    { required: true, message: this.$t('order.SelectCountry'), trigger: 'change' }// 请选择国家
                 ],
                 city: [
-                    { required: true, message: '请选择城市', trigger: 'change' }
+                    { required: true, message: this.$t('order.SelectCity'), trigger: 'change' }// 请选择城市
                 ]
             }
         }

@@ -3,25 +3,24 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="pull-right mr_top">
-                    <el-button :plain="true" type="info" class="form-group"  @click="dialogVisible2 = true">放弃维修</el-button>
-                    <el-button type="info"  class="form-group" @click="dialogVisible2 = true">同意报价</el-button>
+                    <el-button :plain="true" type="info" class="form-group"  @click="dialogVisible2 = true">{{$t('WarrantyPayment.notrepair')}}</el-button>
+                    <el-button type="info"  class="form-group" @click="dialogVisible2 = true">{{$t('WarrantyPayment.Continue')}}</el-button>
                 </div>
             </div>
         </div>
         <el-dialog title="" :visible.sync="dialogVisible2" size="tiny">
-            <h3 class="text-center">您确认放弃维修吗？</h3>
-            <p class="total_cost mr_top2 text-center">运费总计 <strong class="Orange_text">€12.00</strong></p>
-            <p class="blue_text text-center pd_bt">拒绝维修后我们会为您寄回你的待维修件，您仅需要支付往返的快递费用，
-支付完成后我们将为您发货。 </p>
+            <h3 class="text-center">{{$t('WarrantyPayment.surenotrepair')}}</h3>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€12.00</strong></p>
+            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="form-group">NO</el-button>
                 <el-button type="info" class="form-group">YES</el-button>
             </span>
         </el-dialog>        
         <el-dialog title="" :visible.sync="dialogVisible" size="tiny">
-            <h3 class="text-center">您确认同意报价吗？</h3>
-            <p class="total_cost mr_top2 text-center">费用总计 <strong class="Orange_text">€600.00</strong></p>
-            <p class="blue_text text-center pd_bt">费用总计€600.00 同意报价后，我们将开始为您维修，维修完成后您需要按报价金额结算。 </p>
+            <h3 class="text-center">{{$t('WarrantyPayment.agreequote')}}</h3>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€600.00</strong></p>
+            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€600.00 {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group">NO</el-button>
                 <el-button type="info" class="form-group">YES</el-button>

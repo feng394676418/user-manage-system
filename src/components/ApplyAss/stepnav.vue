@@ -2,29 +2,29 @@
     <div>
       <template v-if="stepNav.step === '1'">
         <div class="step_nav">
-            <span>1填写产品信息</span>
+            <span>1{{$t('order.FillProductInfo')}}</span>
             <span class="gery_text">></span>
-            <span class="gery_text">2填写快递信息</span>
+            <span class="gery_text">2{{$t('order.FillDeliveryInfo')}}</span>
             <span class="gery_text">></span>
-            <span class="gery_text">3快递下单</span>
+            <span class="gery_text">3{{$t('order.OrderDelivery')}}</span>
         </div>
       </template>
       <template v-else-if="stepNav.step === '2'">
         <div class="step_nav">
-            <span>1填写产品信息</span>
+            <span>1{{$t('order.FillProductInfo')}}</span>
             <span class="">></span>
-            <span class="">2填写快递信息</span>
+            <span class="">2{{$t('order.FillDeliveryInfo')}}</span>
             <span class="gery_text">></span>
-            <span class="gery_text">3快递下单</span>
+            <span class="gery_text">3{{$t('order.OrderDelivery')}}</span>
         </div>
       </template>
       <template v-else-if="stepNav.step === '3'">
           <div class="step_nav">
-          <span>1填写产品信息</span>
+          <span>1{{$t('order.FillProductInfo')}}</span>
           <span class="">></span>
-          <span class="">2填写快递信息</span>
+          <span class="">2{{$t('order.FillDeliveryInfo')}}</span>
           <span class="">></span>
-          <span class="">3快递下单</span>
+          <span class="">3{{$t('order.OrderDelivery')}}</span>
       </div>
       </template>
     </div>

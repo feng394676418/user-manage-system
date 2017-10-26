@@ -1,72 +1,69 @@
 <template>
+    <div>
         <div>
-            <div>
-                <label>
-                    <b>*</b>产品品牌：</label>
-            </div>
-            <ul class="list_menu">
-                <li v-for="item in brandList" :key="item.code" :class="item.className" @click="active(item)">{{item.code}}</li>
-                <!-- <li class="active">OnePlus</li> -->
-            </ul>
-            <div class="clearfix"></div>
-            <p class="blue_text pd_tb">
-                提示：服务地区仅限欧盟内，保外需要客户承担运费！
-            </p>
+            <label>
+                <b>*</b>{{$t('order.Brands')}}：</label>
+        </div>
+        <ul class="list_menu">
+            <li v-for="item in brandList" :key="item.code" :class="item.className" @click="active(item)">{{item.code}}</li>
+            <!-- <li class="active">OnePlus</li> -->
+        </ul>
+        <div class="clearfix"></div>
+        <p class="blue_text pd_tb">
+            {{$t('order.Note')}}
+        </p>
+        <el-form :model="OrderInfoFS" :rules="rules2" ref="OrderInfoFS" label-width="" class="demo-ruleForm">
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">
                         <b>*</b>IMEI:</label>
-                    <input class="form-control" id="" placeholder="" type="text" v-model="OrderInfoFS.IMEI" @blur="getImeiInfo()"></input>
+                    <el-form-item label="" prop="IMEI" style="margin-bottom:0">
+                        <el-input type="text" v-model="OrderInfoFS.IMEI" auto-complete="off" @blur="getImeiInfo()"></el-input>
+                    </el-form-item>
                 </div>
                 <div class="col-md-6 how_check">
-                    <a class="purple_text" href="#/ViewIMEI" target="_blank">怎样查看IMEI码？</a>
+                    <a class="purple_text" href="#/ViewIMEI" target="_blank">{{$t('order.checkIMEI')}}</a>
                 </div>
             </div>
             <template v-if="IMEINotExist && IMEIInfoShow">
-            <p class="blue_text">
-                此IMEI号不存在！请仔细核对。
-            </p>
+                <p class="blue_text">
+                    {{$t('order.IMEInotexisted')}}
+                </p>
             </template>
-            <template v-else-if="!IMEINotExist && IMEIInfoShow" >
-            <div class="clearfix"></div>
-            <IMEIExists :imeiInfoChild="imeiInfo" @on-time-in-out="timeInOut"></IMEIExists>
+            <template v-else-if="!IMEINotExist && IMEIInfoShow">
+                <div class="clearfix"></div>
+                <IMEIExists :imeiInfoChild="imeiInfo" @on-time-in-out="timeInOut"></IMEIExists>
             </template>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
-                        <b>*</b>故障描述:</label>
-                          <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="OrderInfoFS.troubleInfo"></textarea>
-                          <!--追加验证时错误信息-->
+                        <b>*</b>{{$t('order.FailureDescription')}}:</label>
+                    <el-form-item label="" prop="troubleInfo">
+                        <el-input type="textarea" v-model="OrderInfoFS.troubleInfo"></el-input>
+                    </el-form-item>
+                    <!--追加验证时错误信息-->
                 </div>
             </div>
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
-                        <b>*</b>上传图片:</label>
-                    <el-upload
-                      name="upFile"
-                      ref="upFile"
-                      action="api/file/upload"
-                      list-type="picture-card"
-                      :drag="false"
-                      :file-list="phoneImageList"
-                      :on-success="uploadSuccess"
-                      :on-error="uploadError"
-                      :before-upload="beforeAvatarUpload"
-                      :on-preview="handlePictureCardPreview"
-                      :on-remove="handleRemove">
-                        <i class="el-icon-plus"></i>
-                    </el-upload>
+                        <b>*</b>{{$t('order.UploadPhotos')}}:</label>
+                    <el-form-item label="" prop="imageUrlArray">
+                        <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+                            <i class="el-icon-plus"></i>
+                        </el-upload>
+                    </el-form-item>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" class="next_step mr_top" @click="nextStep()">下一步</el-button>
+                        <el-button type="info" class="next_step mr_top" @click="nextStep('OrderInfoFS')">{{$t('order.Next')}}</el-button>
                     </div>
                 </div>
             </div>
-        </div>
+        </el-form>
+    </div>
 </template>
 
 <script>
@@ -76,28 +73,60 @@ import { brandList, getImeiInfo } from '@/api/apply'
 
 export default {
     components: { IMEIExists },
-    data () {
+    data() {
+        var validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入IMEI码'))
+            } else {
+                callback()
+            }
+        }
+        var validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('故障描述不能为空'))
+            } else {
+                callback()
+            }
+        }
+        var validatePass3 = (rule, value, callback) => {
+            if (this.phoneImageUrlList.length === 0) {
+                callback(new Error('图片不能为空'))
+            } else {
+                callback()
+            }
+        }
         return {
-          OrderInfoFS: {
-              step1: true, // 第一步
-              productBrand: '', // 品牌
-              owner: '', // 货主
-              IMEI: '', // IMEI号码
-              productName: '', // 产品名称
-              productType: '', // 产品型号
-              deadDate: '', // 保修期限
-              repairStatus: '', // 保修类型
-              serviceType: '', // 服务类型
-              troubleInfo: '', // 故障描述
-              imageUrlArray: '' // 上传图片地址
-          },
+            rules2: {
+                IMEI: [
+                    { validator: validatePass, trigger: 'blur' }
+                ],
+                troubleInfo: [
+                    { validator: validatePass2, trigger: 'blur' }
+                ],
+                imageUrlArray: [
+                    { validator: validatePass3, trigger: 'blur' }
+                ]
+            },
+            OrderInfoFS: {
+                step1: true, // 第一步
+                productBrand: '', // 品牌
+                owner: '', // 货主
+                IMEI: '', // IMEI号码
+                productName: '', // 产品名称
+                productType: '', // 产品型号
+                deadDate: '', // 保修期限
+                repairStatus: '', // 保修类型
+                serviceType: '', // 服务类型
+                troubleInfo: '', // 故障描述
+                imageUrlArray: '' // 上传图片地址
+            },
             imeiInfo: {
-              imei: '',
-              producttype: '',
-              deadtime: '',
-              productname: '',
-              imagesrc: '',
-              remark: ''
+                imei: '',
+                producttype: '',
+                deadtime: '',
+                productname: '',
+                imagesrc: '',
+                remark: ''
             },
             IMEIInfoShow: false,
             IMEINotExist: true,
@@ -109,15 +138,15 @@ export default {
         }
     },
     created() {
-      this.getBrandList()
+        this.getBrandList()
     },
     methods: {
         timeInOut(functionButtonInfo) {
-          console.log('子组件保内保外数据')
-          console.dir(functionButtonInfo)
-          // 0: 保内维修 1: 保外维修
-          this.OrderInfoFS.serviceType = functionButtonInfo.timeIn ? '0' : '1'
-          this.OrderInfoFS.repairStatus = functionButtonInfo.checkedRepairOptions.toString()
+            console.log('子组件保内保外数据')
+            console.dir(functionButtonInfo)
+            // 0: 保内维修 1: 保外维修
+            this.OrderInfoFS.serviceType = functionButtonInfo.timeIn ? '0' : '1'
+            this.OrderInfoFS.repairStatus = functionButtonInfo.checkedRepairOptions.toString()
         },
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
@@ -128,125 +157,134 @@ export default {
 
             const isCanUpload = this.phoneImageUrlList.length < 3
             if (!isCanUpload) {
-              this.$message.error('最多可以上传3张图片!')
+                this.$message.error('最多可以上传3张图片!')
             }
             if (!isJPG) {
-              this.$message.error(this.$t('文件格式不正确!'))
+                this.$message.error(this.$t('文件格式不正确!'))
             }
             if (!isLt5M) {
-              this.$message.error(this.$t('文件大小需小于2M!'))
+                this.$message.error(this.$t('文件大小需小于2M!'))
             }
             return isJPG && isLt5M && isCanUpload
         },
         uploadSuccess(response, file, fileList) {
-          console.log('upload success!')
-          console.dir(response)
-          if (response.status === '0') {
-            this.phoneImageList.push(response)
-            this.phoneImageUrlList.push(response.url)
-          }
+            console.log('upload success!')
+            console.dir(response)
+            if (response.status === '0') {
+                this.phoneImageList.push(response)
+                this.phoneImageUrlList.push(response.url)
+            }
         },
         uploadError(err, file, fileList) {
-          console.dir(err)
+            console.dir(err)
         },
         handleRemove(file, fileList) {
-          console.dir(file)
-          this.RemovePhoto(file)
+            console.dir(file)
+            this.RemovePhoto(file)
         },
         RemovePhoto(fileItem) {
-          let phoneImageListTmp = this.phoneImageList
-          let phoneImageUrlListTmp = this.phoneImageUrlList
-          this.phoneImageList.forEach((item, index) => {
-            if (item.url === fileItem.url) {
-                // 删除不要元素
-                phoneImageListTmp.splice(index, 1)
-            }
-          })
-          this.phoneImageUrlList.forEach((imageUrl, index) => {
-            if (imageUrl === fileItem.url) {
-              phoneImageUrlListTmp.splice(index, 1)
-            }
-          })
+            let phoneImageListTmp = this.phoneImageList
+            let phoneImageUrlListTmp = this.phoneImageUrlList
+            this.phoneImageList.forEach((item, index) => {
+                if (item.url === fileItem.url) {
+                    // 删除不要元素
+                    phoneImageListTmp.splice(index, 1)
+                }
+            })
+            this.phoneImageUrlList.forEach((imageUrl, index) => {
+                if (imageUrl === fileItem.url) {
+                    phoneImageUrlListTmp.splice(index, 1)
+                }
+            })
 
-          this.phoneImageList = phoneImageListTmp
-          this.phoneImageUrlList = phoneImageUrlListTmp
+            this.phoneImageList = phoneImageListTmp
+            this.phoneImageUrlList = phoneImageUrlListTmp
 
-          console.dir(this.phoneImageUrlList)
+            console.dir(this.phoneImageUrlList)
         },
         handlePictureCardPreview(file) {
-          this.dialogImageUrl = file.url
-          this.dialogVisible = true
+            this.dialogImageUrl = file.url
+            this.dialogVisible = true
         },
         getImeiInfo() {
-          getImeiInfo(this.OrderInfoFS.IMEI).then(response => {
-            if (response.data.status === '0') {
-              if (response.data.data === '' || response.data.data === null || response.data.data === 'undefined') {
-                // IMEI对应信息不存在
-                this.IMEIInfoShow = true
-                this.IMEINotExist = true
-                this.OrderInfoFS.productName = ''
-                this.OrderInfoFS.productType = ''
-                this.OrderInfoFS.deadDate = ''
-              } else {
-                this.IMEIInfoShow = true
-                this.IMEINotExist = false
-                this.imeiInfo = response.data.data
-                this.imeiInfo.deadtime = moment(this.imeiInfo.deadtime).format('YYYY-MM-DD')
-                this.OrderInfoFS.productName = this.imeiInfo.productname
-                this.OrderInfoFS.productType = this.imeiInfo.producttype
-                this.OrderInfoFS.deadDate = this.imeiInfo.deadtime
-              }
-            } else {
-              this.$message.error(response.data.message)
-            }
-          })
+            getImeiInfo(this.OrderInfoFS.IMEI).then(response => {
+                if (response.data.status === '0') {
+                    if (response.data.data === '' || response.data.data === null || response.data.data === 'undefined') {
+                        // IMEI对应信息不存在
+                        this.IMEIInfoShow = true
+                        this.IMEINotExist = true
+                        this.OrderInfoFS.productName = ''
+                        this.OrderInfoFS.productType = ''
+                        this.OrderInfoFS.deadDate = ''
+                    } else {
+                        this.IMEIInfoShow = true
+                        this.IMEINotExist = false
+                        this.imeiInfo = response.data.data
+                        this.imeiInfo.deadtime = moment(this.imeiInfo.deadtime).format('YYYY-MM-DD')
+                        this.OrderInfoFS.productName = this.imeiInfo.productname
+                        this.OrderInfoFS.productType = this.imeiInfo.producttype
+                        this.OrderInfoFS.deadDate = this.imeiInfo.deadtime
+                    }
+                } else {
+                    this.$message.error(response.data.message)
+                }
+            })
         },
         active(item) {
-          item.className = 'active'
-          this.OrderInfoFS.productBrand = item.code
-          this.OrderInfoFS.owner = item.owner
-          // 其他元素式样置空
-          this.brandListClassNameCLR(item)
+            item.className = 'active'
+            this.OrderInfoFS.productBrand = item.code
+            this.OrderInfoFS.owner = item.owner
+            // 其他元素式样置空
+            this.brandListClassNameCLR(item)
         },
         brandListClassNameCLR(item) {
-          this.brandList.forEach(brand => {
-            if (brand.code === item.code) {
-              // doNothing
-            } else {
-              brand.className = ''
-            }
-          })
+            this.brandList.forEach(brand => {
+                if (brand.code === item.code) {
+                    // doNothing
+                } else {
+                    brand.className = ''
+                }
+            })
         },
         // 品牌列表获取
         getBrandList() {
-          brandList().then(response => {
-            if (response.data.status === '0') {
-              this.brandList = response.data.data
-              this.brandList.forEach(item => {
-                this.$set(item, 'className', '')
-              })
-              console.log('------------brandList--------------')
-              console.dir(this.brandList)
-              // 品牌默认设定
-              this.brandList[0].className = 'active'
-              this.OrderInfoFS.productBrand = this.brandList[0].code
-              this.OrderInfoFS.owner = this.brandList[0].owner
-            } else {
-              this.$message.error(response.data.message)
-            }
-          })
+            brandList().then(response => {
+                if (response.data.status === '0') {
+                    this.brandList = response.data.data
+                    this.brandList.forEach(item => {
+                        this.$set(item, 'className', '')
+                    })
+                    console.log('------------brandList--------------')
+                    console.dir(this.brandList)
+                    // 品牌默认设定
+                    this.brandList[0].className = 'active'
+                    this.OrderInfoFS.productBrand = this.brandList[0].code
+                    this.OrderInfoFS.owner = this.brandList[0].owner
+                } else {
+                    this.$message.error(response.data.message)
+                }
+            })
         },
         nextStep(formName) {
-            // 追加验证信息
-            // 异常 return false
-            // 图片地址
-            this.OrderInfoFS.imageUrlArray = this.phoneImageUrlList.toString()
-            this.OrderInfoFS.step1 = false
-            console.log('数据传送给父组件applyFS')
-            console.dir(this.OrderInfoFS)
-            // 数据传送给父类 双向绑定
-            this.$emit('apply-fs-order-info', this.OrderInfoFS)
-            // this.$router.push('/Expressinfo')
+            const _this = this
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    alert('submit!')
+                    // 追加验证信息
+                    // 异常 return false
+                    // 图片地址
+                    _this.OrderInfoFS.imageUrlArray = _this.phoneImageUrlList.toString()
+                    _this.OrderInfoFS.step1 = false
+                    console.log('数据传送给父组件applyFS')
+                    console.dir(_this.OrderInfoFS)
+                    // 数据传送给父类 双向绑定
+                    _this.$emit('apply-fs-order-info', _this.OrderInfoFS)
+                    // this.$router.push('/Expressinfo')
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
         }
     }
 }
@@ -313,5 +351,11 @@ export default {
 .el-upload--picture-card {
     background-color: #f3f6fa!important;
     border: 1px solid #aab0d1!important;
+}
+
+.el-textarea__inner {
+    padding: 0 6px;
+    background: #f7f8fd;
+    border: 1px solid #aab0d1;
 }
 </style>

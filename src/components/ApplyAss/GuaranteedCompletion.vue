@@ -3,11 +3,11 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <step></step>
-            <WorkOrderTable :refNumberChild="refNumber"></WorkOrderTable>
-            <UserInfo></UserInfo>
+            <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
+            <UserInfo :userInfoChild="orderInfo"></UserInfo>
             <!--<TestReportTable></TestReportTable>
             <reason></reason>-->
-            <CustomerShipping></CustomerShipping>
+            <CustomerShipping :cusInfoChild="orderInfo,routerInfo"></CustomerShipping>
             <!--<Networkdelivery></Networkdelivery>
             <Evaluated></Evaluated>-->
         </div>
@@ -24,19 +24,59 @@ import reason from './reason'
 import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
+import { getOrderByRefnumber, getRouterLog } from '@/api/order'
+
 export default {
     components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated },
     data () {
         return {
-          refNumber: this.$route.params.orderno
+          refNumber: this.$route.params.orderno,
+          orderInfo: {
+            producttype: '',
+            imei: '',
+            email: '',
+            username: '',
+            telphone: '',
+            trackingno: '',
+            expresscode: '',
+            troubleinfo: '',
+            createdate: '',
+            emergencyname: '',
+            emergencyphone: '',
+            provideraddress: ''
+          },
+          orderArr: [],
+          // routerInfo: {
+          //   refnumber: '',
+          //   routedate: '',
+          //   description: ''
+          // }
+          routerInfo: {}
         }
     },
     created() {
-      this.getOrderNumber()
+      this.getWorkOrderInfo()
+      this.getRouterInfo()
     },
     methods: {
-      getOrderNumber() {
-        console.dir('refNumber==' + this.refNumber)
+      getWorkOrderInfo() {
+        getOrderByRefnumber(this.refNumber).then(response => {
+          if (response.data.status === '0') {
+            this.orderInfo = response.data.data
+            this.orderArr.push(this.orderInfo)
+          } else {
+            console.dir('***************获取工单信息异常*************')
+          }
+        })
+      },
+      getRouterInfo() {
+        getRouterLog(this.refNumber).then(response => {
+          if (response.data.status === '0') {
+            this.routerInfo = response.data.data
+          } else {
+            console.dir('###############获取路由信息异常##############')
+          }
+        })
       }
     }
 }
