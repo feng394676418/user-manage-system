@@ -3,31 +3,31 @@
         <div class="col-md-2">
             <dl>
                 <dt>姓名</dt>
-                <dd>Bill</dd>
+                <dd>{{userInfoChild.username}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>手机号</dt>
-                <dd>8564123789</dd>
+                <dd>{{userInfoChild.telphone}}</dd>
             </dl>
         </div>
         <div class="col-md-4">
             <dl>
                 <dt>邮箱</dt>
-                <dd>Bill8564123789@gmail.com</dd>
+                <dd>{{userInfoChild.email}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>相关联系人</dt>
-                <dd>Sam</dd>
+                <dd>{{userInfoChild.emergencyname}}</dd>
             </dl>
         </div>
         <div class="col-md-2">
             <dl>
                 <dt>相关联系人电话</dt>
-                <dd>8745644561</dd>
+                <dd>{{userInfoChild.emergencyphone}}</dd>
             </dl>
         </div>
     </div>
@@ -35,6 +35,9 @@
 
 <script>
 export default {
+    props: {
+      userInfoChild: ''
+    },
     data () {
         return {
         }
