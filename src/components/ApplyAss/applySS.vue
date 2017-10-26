@@ -26,7 +26,7 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="city">
-                            <el-select v-model="ruleForm.city" placeholder="*城市">
+                            <el-select v-model="ruleForm.city" filterable allow-create placeholder="*城市">
                                 <el-option v-for="city in cityList" :label="city.name" :key="city.name" :value="city.name"></el-option>
                             </el-select>
                         </el-form-item>
@@ -81,26 +81,30 @@
                     <label for="">
                         <b>*</b>服务网点:</label>
                 </div>
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column prop="radio" label="" min-width="5%">
+                <template v-if="providerList.length > 0">
+                <el-table :data="providerList" style="width: 100%">
+                    <el-table-column prop="providerCode" label="" min-width="5%">
                         <template scope="scope">
-                            <input value="radio" name="radio" checked="" type="radio" v-model="radio">
+                            <input name="radio" type="radio" @click="clickRadio(scope.row.providerCode)"></input>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="Outlets" label="网点" min-width="15%">
+                    <el-table-column prop="providerName" label="网点" min-width="15%">
                     </el-table-column>
                     <el-table-column prop="address" label="地址" min-width="40%">
                     </el-table-column>
-                    <el-table-column prop="Zipcode" label="邮编" min-width="10%">
+                    <el-table-column prop="postCode" label="邮编" min-width="10%">
                     </el-table-column>
                     <el-table-column prop="phone" label="电话" min-width="15%">
                     </el-table-column>
-                    <el-table-column prop="name" label="联系人" min-width="15%">
+                    <el-table-column prop="email" label="联系人" min-width="15%">
                     </el-table-column>
                 </el-table>
+                </template>
+                <template v-else>
                 <div class="not_in_area yellow_text">
                     对不起，您选择的城市不在我们的服务区域内!
                 </div>
+                </template>
                 <el-form-item class="pull-right mr_top">
                     <el-button :plain="true" type="info" @click="lastStep()">上一步</el-button>
                     <el-button type="info" @click="submitForm('ruleForm')">提交申请</el-button>
@@ -111,6 +115,7 @@
 </template>
 <script>
 import { country, stateInfo, cityInfo } from '@/api/countryInfo'
+import { getProviderList } from '@/api/provider'
 
 export default {
     props: { // 父组件传递信息
@@ -118,10 +123,11 @@ export default {
     },
     data () {
         return {
-            radio: '',
+            radio: '0',
             countryList: [], // 国家list
             stateList: [], // 省州list
             cityList: [], // 城市list
+            providerList: [], // 服务商list
             countryTmp: '',
             provinceTmp: '',
             cityTmp: '',
@@ -130,13 +136,15 @@ export default {
                 IMEI: '', // IMEI号码
                 productName: '', // 产品名称
                 owner: '', // 货主CODE
-                providercode: '', // 服务商CODE
+                providerCode: '', // 服务商CODE
+                providerAddress: '', // 客户寄件地址 服务商地址
+                expressCode: 'UPS', // 运输方式CODE 客户系统一时固定UPS
                 productType: '', // 产品型号
                 deadDate: '', // 保修期限
-                repairStatus: '', // 保修类型
-                serviceType: '', // 服务类型
-                troubleinfo: '', // 故障描述
-                photogroup: '', // 上传图片组
+                repairStatus: '', // 保修类型 手机进水等等
+                serviceType: '', // 服务类型 0:保内维修 1:保外维修
+                troubleInfo: '', // 故障描述
+                photoGroup: '', // 上传图片组
                 addressDetail: '',
                 country: '',
                 countryCode: '', // 国家二字码
@@ -179,34 +187,24 @@ export default {
                 city: [
                     { required: true, message: '请选择城市', trigger: 'change' }
                 ]
-            },
-            tableData: [{
-                radio: '1',
-                Outlets: '波兰001',
-                address: 'somewhere in the european country but i cannot say where it is',
-                Zipcode: '123456',
-                phone: '12345678910',
-                name: 'weapon'
-            }, {
-                radio: '1',
-                Outlets: '波兰001',
-                address: 'somewhere in the european country but i cannot say where it is',
-                Zipcode: '123456',
-                phone: '12345678910',
-                name: 'weapon'
-            }]
+            }
         }
     },
     created() {
       this.countryAll()
     },
-    // watch: {
-    //   userOrderInfoChild(val) {
-    //     console.log('监视-----------------监视userOrderInfoChild')
-    //     console.dir(val)
-    //   }
-    // },
     methods: {
+        clickRadio(val) {
+          this.ruleForm.providerCode = ''
+          this.providerList.forEach(item => {
+            if (item.providerCode === val) {
+              this.ruleForm.providerCode = val
+              this.ruleForm.providerAddress = item.address
+            } else {
+              // doNothing
+            }
+          })
+        },
         countryAll() {
           // 获取国家所有信息
             country().then(response => {
@@ -236,7 +234,9 @@ export default {
             console.log('-----------city-response------------------')
             console.dir(response)
             if (response.data.status === '0') {
+              console.log('城市列表获取------')
               this.cityList = response.data.rsltData
+              console.dir(this.cityList)
             } else {
               this.$message.error('城市列表获取失败!')
             }
@@ -255,21 +255,45 @@ export default {
         countryChange(val) {
           console.log('-------国家选定--------')
           console.dir(val)
+          this.ruleForm.owner = this.userOrderInfoChild.owner
           this.ruleForm.country = val.split('-')[0]
           this.ruleForm.countryCode = val.split('-')[1]
           let countryId = val.split('-')[2]
           console.log(countryId)
           console.dir(this.ruleForm)
           this.stateInfo(countryId)
-          // 根据国家二字码确定服务网点&货主CODE
+          // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
+          console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
+          getProviderList(this.ruleForm.owner, this.ruleForm.countryCode).then(response => {
+            if (response.data.status === '0') {
+              this.providerList = response.data.data
+            } else {
+              this.$message.error('服务商列表获取失败!')
+            }
+          })
         },
         lastStep() {
+            // 父组件传递数据回传
+            console.log('子组件中父组件传递过来数据再回传---userOrderInfoChild---')
+            console.dir(this.userOrderInfoChild)
+            this.$emit('user-order-info-back', this.userOrderInfoChild)
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!')
+                  // 表单提交
+                  this.ruleForm.productBrand = this.userOrderInfoChild.productBrand
+                  this.ruleForm.IMEI = this.userOrderInfoChild.IMEI
+                  this.ruleForm.productName = this.userOrderInfoChild.productName
+                  this.ruleForm.productType = this.userOrderInfoChild.productType
+                  this.ruleForm.deadDate = this.userOrderInfoChild.deadDate
+                  this.ruleForm.repairStatus = this.userOrderInfoChild.repairStatus
+                  this.ruleForm.serviceType = this.userOrderInfoChild.serviceType
+                  this.ruleForm.troubleInfo = this.userOrderInfoChild.troubleInfo
+                  this.ruleForm.photoGroup = this.userOrderInfoChild.photogroup
+                  console.log('表单提交------form信息')
+                  console.dir(this.ruleForm)
                 } else {
                     console.log('error submit!!')
                     return false

@@ -35,7 +35,8 @@
                 <div class="form-group col-md-12">
                     <label for="">
                         <b>*</b>故障描述:</label>
-                    <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="OrderInfoFS.troubleInfo"></textarea>
+                          <textarea class="form-control" id="" placeholder="" rows="3" type="text" v-model="OrderInfoFS.troubleInfo"></textarea>
+                          <!--追加验证时错误信息-->
                 </div>
             </div>
             <div class="row mr_top">
@@ -224,6 +225,7 @@ export default {
               this.brandList.forEach(item => {
                 this.$set(item, 'className', '')
               })
+              console.log('------------brandList--------------')
               console.dir(this.brandList)
               // 品牌默认设定
               this.brandList[0].className = 'active'
@@ -234,11 +236,14 @@ export default {
             }
           })
         },
-        nextStep() {
+        nextStep(formName) {
+            // 追加验证信息
+            // 异常 return false
             // 图片地址
             this.OrderInfoFS.imageUrlArray = this.phoneImageUrlList.toString()
             this.OrderInfoFS.step1 = false
-            console.log('数据传送给父组件index')
+            console.log('数据传送给父组件applyFS')
+            console.dir(this.OrderInfoFS)
             // 数据传送给父类 双向绑定
             this.$emit('apply-fs-order-info', this.OrderInfoFS)
             // this.$router.push('/Expressinfo')
