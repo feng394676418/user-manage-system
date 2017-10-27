@@ -7,7 +7,7 @@
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
             <!--<TestReportTable></TestReportTable>
             <reason></reason>-->
-            <CustomerShipping :cusInfoChild="orderInfo"></CustomerShipping>
+            <CustomerShipping :cusInfoChild="orderInfo,routerInfo"></CustomerShipping>
             <!--<Networkdelivery></Networkdelivery>
             <Evaluated></Evaluated>-->
         </div>
@@ -24,7 +24,7 @@ import reason from './reason'
 import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
-import { getOrderByRefnumber } from '@/api/order'
+import { getOrderByRefnumber, getRouterLog } from '@/api/order'
 
 export default {
     components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated },
@@ -45,11 +45,18 @@ export default {
             emergencyphone: '',
             provideraddress: ''
           },
-          orderArr: []
+          orderArr: [],
+          // routerInfo: {
+          //   refnumber: '',
+          //   routedate: '',
+          //   description: ''
+          // }
+          routerInfo: {}
         }
     },
     created() {
       this.getWorkOrderInfo()
+      this.getRouterInfo()
     },
     methods: {
       getWorkOrderInfo() {
@@ -58,7 +65,16 @@ export default {
             this.orderInfo = response.data.data
             this.orderArr.push(this.orderInfo)
           } else {
-            console.dir('获取工单信息异常....................')
+            console.dir('***************获取工单信息异常*************')
+          }
+        })
+      },
+      getRouterInfo() {
+        getRouterLog(this.refNumber).then(response => {
+          if (response.data.status === '0') {
+            this.routerInfo = response.data.data
+          } else {
+            console.dir('###############获取路由信息异常##############')
           }
         })
       }

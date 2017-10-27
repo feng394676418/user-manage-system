@@ -269,7 +269,6 @@ export default {
             const _this = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!')
                     // 追加验证信息
                     // 异常 return false
                     // 图片地址

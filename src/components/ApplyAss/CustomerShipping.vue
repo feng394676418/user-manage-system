@@ -26,24 +26,28 @@
         <div class="col-md-2">
             <label for="">{{$t('WarrantyPayment.Sendlogisticsinfo')}}：</label>
         </div>
-        <div class="col-md-10">
-            <p>{{$t('WarrantyPayment.ReceivedPoint')}} 2017/09/09 12:00:00
-                <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
-            </p>
-            <div :class="{des_hide: isShow}">
-                <p>{{$t('WarrantyPayment.ReceivedPoint')}} 2017/09/09 12:00:00</p>
-                <p>{{$t('WarrantyPayment.ReceivedPoint')}} 2017/09/09 12:00:00</p>
-                <p>{{$t('WarrantyPayment.ReceivedPoint')}} 2017/09/09 12:00:00</p>
-                <p>{{$t('WarrantyPayment.ReceivedPoint')}} 2017/09/09 12:00:00</p>
+        <template v-if="isShow">
+             <div class="col-md-10">
+              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
+              <p v-for="(item,index) in routerInfo"  v-if="index==0" >{{item.description}} {{item.routedate}}</p>
             </div>
-        </div>
+        </template>
+        <template v-else-if="!isShow">
+          <div class="col-md-10">
+              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
+              <div :class="{des_hide: isShow}">
+                  <p v-for="item in routerInfo">{{item.description}} {{item.routedate}}</p>
+              </div>
+          </div>
+        </template>
     </div>
 </template>
 
 <script>
 export default {
     props: {
-      cusInfoChild: ''
+      cusInfoChild: '',
+      routerInfo: ''
     },
     data () {
         return {
@@ -51,11 +55,18 @@ export default {
             isrotate: false
         }
     },
+    created() {
+      this.test()
+    },
     methods: {
-        btnClick: function() {
-            this.isShow = !this.isShow
-            this.isrotate = !this.isrotate
-        }
+      btnClick: function() {
+          this.isShow = !this.isShow
+          this.isrotate = !this.isrotate
+      },
+      test() {
+        // console.dir(this.cusInfoChild)
+        // console.dir(this.routerInfo + '.....................')
+      }
     }
 }
 </script>

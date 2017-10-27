@@ -36,7 +36,7 @@ export default new Router({
             component: ApplyAss
         },
         {
-            path: '/Expressorders',
+            path: '/Expressorders/:refNumber',
             name: 'Expressorders',
             component: Expressorders
         },
