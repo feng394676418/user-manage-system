@@ -299,6 +299,13 @@ export default {
                   orderCreate(this.ruleForm).then(response => {
                     console.log('表单提交 response')
                     console.dir(response)
+                    if (response.data.status === '0') {
+                      this.$message.info('工单创建成功,创建工单:' + response.data.data)
+                      this.$router.push('/Expressorders/' + response.data.data)
+                    } else {
+                      console.log(response.data.message)
+                      this.$message.error('工单创建失败!')
+                    }
                   })
                 } else {
                     console.log('error submit!!')
