@@ -139,7 +139,7 @@ export default {
                 owner: '', // 货主CODE
                 providerCode: '', // 服务商CODE
                 providerAddress: '', // 客户寄件地址 服务商地址
-                expressCode: 'UPS', // 运输方式CODE 客户系统一时固定UPS
+                expressCode: 'PLUPS', // 运输方式CODE 客户系统一时固定UPS
                 productType: '', // 产品型号
                 deadDate: '', // 保修期限
                 repairStatus: '', // 保修类型 手机进水等等
@@ -266,7 +266,13 @@ export default {
           this.stateInfo(countryId)
           // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
           console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
-          getProviderList(this.ruleForm.owner, this.ruleForm.countryCode).then(response => {
+          let countryTmpCD = this.ruleForm.countryCode
+          console.log('----countryTmpCD------>' + countryTmpCD)
+          if (countryTmpCD === 'undefined' || countryTmpCD === '' || countryTmpCD !== 'PL') {
+            // 目前只有波兰有服务点,暂定全部取波兰
+            countryTmpCD = 'PL'
+          }
+          getProviderList(this.ruleForm.owner, countryTmpCD).then(response => {
             if (response.data.status === '0') {
               this.providerList = response.data.data
             } else {

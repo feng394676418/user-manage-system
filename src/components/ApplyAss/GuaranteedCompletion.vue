@@ -5,8 +5,8 @@
             <step></step>
             <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
-            <!--<TestReportTable></TestReportTable>
-            <reason></reason>-->
+            <!----><TestReportTable></TestReportTable>
+            <reason></reason>
             <CustomerShipping :cusInfoChild="orderInfo,routerInfo"></CustomerShipping>
             <!--<Networkdelivery></Networkdelivery>
             <Evaluated></Evaluated>-->

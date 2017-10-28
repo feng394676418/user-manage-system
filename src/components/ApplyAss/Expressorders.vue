@@ -3,12 +3,23 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <step></step>
-            <stepnav></stepnav>
-            <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
-                <span class="sky_blue_text">AS201708290001</span>， {{$t('order.downloadorder')}}</h2>
-            <p class="blue_text text-center pd_top">
-                 {{$t('order.sentemail')}}
-            </p>
+            <stepnav :stepNav="stepModel"></stepnav>
+            <template v-if="trackingWait">
+              <!--等待生成运单-->
+              <h2 class="text-center generate_title">申请成功!工单编号
+                  <span class="sky_blue_text">{{refNumber}}</span>，正在为您生成运单……</h2>
+              <p class="blue_text text-center pd_top">
+                  运单生成大约需要1分钟时间，请稍等。您也可以选择离开页面，我们稍后会将运单通过邮件发送给您，请注意查收。
+              </p>
+            </template>
+            <template v-else>
+              <!--成功生成运单-->
+              <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
+                <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
+              <p class="blue_text text-center pd_top">
+                  {{$t('order.sentemail')}}
+              </p>
+            </template>
             <div class="form-group mr_top2">
                 <label for="">
                     <b>*</b> {{$t('order.servicepoint')}}：</label>
@@ -27,16 +38,20 @@
             </el-table>
             <div class="row mr_top">
                 <div class="col-md-8">
+                  <template v-if="imgFlg">
                     <!-- 图片形式 -->
-                    <!-- <img src="../../../static/img/pdf.png" /> -->
+                    <img :src="surfaceURL" width="600px" height="800px" />
+                  </template>
+                  <template v-if="pdfFlg">
                     <!-- Pdf形式 -->
-                    <embed src="../../../static/img/CS6.pdf" width="600px" height="800px" />
+                    <embed :src="surfaceURL" width="600px" height="800px" />
+                  </template>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <el-button type="info">Download</el-button>
+                        <el-button type="info" v-if="imgFlg || pdfFlg" @click="download()">Download</el-button>
                     </div>
                 </div>
             </div>
@@ -45,6 +60,7 @@
 </template>
 
 <script>
+import { getTrackingno, getLogisticsLocatorList } from '@/api/tracking'
 import logintop from './logintop'
 import step from './step'
 import stepnav from './stepnav'
@@ -52,6 +68,14 @@ export default {
     components: { logintop, step, stepnav },
     data () {
         return {
+            stepModel: {
+              step: '3'
+            },
+            imgFlg: false,
+            pdfFlg: false,
+            trackingWait: true,
+            surfaceURL: '',
+            refNumber: this.$route.params.refNumber,
             tableData: [{
                 Outlets: 'UPS法国南希东大街网点',
                 address: '法国一二三四城市喜喜喜喜大道250号',
@@ -61,7 +85,46 @@ export default {
             }]
         }
     },
+    created() {
+      this.getLogisticsLocatorList()
+      this.getTrackingno()
+    },
     methods: {
+      // 附近网点list获取
+      getLogisticsLocatorList() {
+        getLogisticsLocatorList(this.refNumber).then(response => {
+          console.log('获取附近网点信息')
+          console.log('------------------------')
+          console.dir(response)
+          if (response.status === '0') {
+
+          }
+        })
+      },
+      // 获取运单号
+      getTrackingno() {
+        getTrackingno(this.refNumber).then(response => {
+          console.log('获取运单号结果信息')
+          console.dir(response)
+          if (response.data.status === '0') {
+            this.surfaceURL = response.data.data.sendSurfaceURL
+            this.trackingWait = false
+            if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
+              this.imgFlg = true
+              this.pdfFlg = false
+            } else {
+              this.pdfFlg = true
+              this.imgFlg = false
+            }
+          } else {
+            this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!')
+            console.log(response.data.data.message)
+          }
+        })
+      },
+      download() {
+        window.open(this.surfaceURL)
+      }
     }
 }
 </script>
