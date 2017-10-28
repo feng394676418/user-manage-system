@@ -14,14 +14,37 @@
                     <th scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
                 </tr>
                 <tr>
-                    <td>2017/09/09 13:00:00</td>
-                    <td>{{$t('order.InWarranty')}}</td>
-                    <td>{{$t('ConfirmPayment.Screen')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.RearCamera')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.OuterCasing')}}€ <strong class="Orange_text">12</strong> </td>
-                    <td>{{$t('checkprice.Level2')}}€ <strong class="Orange_text">12</strong></td>
-                    <td>{{$t('checkprice.Sentout')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.Sentback')}}€ <strong class="Orange_text">12</strong></td>
-                    <td>€ <strong class="Orange_text">72</strong></td>
-                    <td>€ <strong class="Orange_text">0</strong></td>
-                    <td>€ <strong class="Orange_text">72</strong></td>
+                    <td>{{checkReportInfo.createDate}}</td>
+                    <td>
+                        <template v-if="checkReportInfo.serviceType==0">
+                            {{$t('order.InWarranty')}}
+                        </template>
+                        <template v-if="checkReportInfo.serviceType==1">
+                            {{$t('order.OutofWarranty')}}
+                        </template>
+                    </td>
+                    <!-- <td>{{$t('ConfirmPayment.Screen')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.RearCamera')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.OuterCasing')}}€ <strong class="Orange_text">12</strong> </td> -->
+                    <td>
+                        <template v-for="orderParts in checkReportInfo.orderParts">
+                            {{orderParts.partename}}€ <strong class="Orange_text">{{orderParts.partcost}}</strong> /
+                        </template>
+                    <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost}}</strong></td>
+                    <td>{{$t('checkprice.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost}}</strong> / {{$t('checkprice.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost}}</strong></td>
+                    <td>€ <strong class="Orange_text">{{checkReportInfo.allCost}}</strong></td>
+                    <td>€ <strong class="Orange_text">
+                        <template v-if="checkReportInfo.serviceType==0">
+                            {{checkReportInfo.allCost}}
+                        </template>
+                        <template v-if="checkReportInfo.serviceType==1">
+                            0
+                        </template></strong></td>
+                    <td>€ <strong class="Orange_text">
+                        <template v-if="checkReportInfo.serviceType==0">
+                            0
+                        </template>
+                        <template v-if="checkReportInfo.serviceType==1">
+                            {{checkReportInfo.allCost}}
+                        </template></strong></td>
                 </tr>            
             </table>
         </div>
@@ -30,6 +53,9 @@
 
 <script>
 export default {
+    props: {
+      checkReportInfo: ''
+    },
     data () {
         return {
             tableData: [{
@@ -43,6 +69,9 @@ export default {
                 Payables: ''
             }]
         }
+    },
+    created() {
+
     },
     methods: {
     }

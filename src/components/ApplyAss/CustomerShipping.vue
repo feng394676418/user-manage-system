@@ -29,14 +29,14 @@
         <template v-if="isShow">
              <div class="col-md-10">
               <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
-              <p v-for="(item,index) in routerInfo"  v-if="index==0" >{{item.description}} {{item.routedate}}</p>
+              <p v-for="(item,index) in cusRouterInfo"  v-if="index==0" >{{item.description}} {{item.routedate}}</p>
             </div>
         </template>
         <template v-else-if="!isShow">
           <div class="col-md-10">
               <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
               <div :class="{des_hide: isShow}">
-                  <p v-for="item in routerInfo">{{item.description}} {{item.routedate}}</p>
+                  <p v-for="item in cusRouterInfo">{{item.description}} {{item.routedate}}</p>
               </div>
           </div>
         </template>
@@ -47,7 +47,7 @@
 export default {
     props: {
       cusInfoChild: '',
-      routerInfo: ''
+      cusRouterInfo: ''
     },
     data () {
         return {
@@ -65,7 +65,7 @@ export default {
       },
       test() {
         // console.dir(this.cusInfoChild)
-        // console.dir(this.routerInfo + '.....................')
+        // console.dir(this.cusRouterInfo + '.....................')
       }
     }
 }
