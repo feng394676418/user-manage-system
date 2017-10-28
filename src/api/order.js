@@ -44,10 +44,10 @@ export function getOrderByRefnumber(refnumber) {
     })
 }
 
-export function getRouterLog(refnumber) {
+export function getRouterLog(trackingno) {
   return fetch({
       url: 'api/apply/getRouterLog',
       method: 'get',
-      params: { refnumber }
+      params: { trackingno }
   })
 }

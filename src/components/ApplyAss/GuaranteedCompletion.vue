@@ -2,14 +2,16 @@
     <div class="container">
         <logintop></logintop>
         <div class="main_content main_form_input">
-            <step></step>
+            <step :status="orderInfo.status"></step>
             <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
-            <!----><TestReportTable></TestReportTable>
-            <reason></reason>
-            <CustomerShipping :cusInfoChild="orderInfo,routerInfo"></CustomerShipping>
-            <!--<Networkdelivery></Networkdelivery>
-            <Evaluated></Evaluated>-->
+            <CustomerShipping :cusInfoChild="orderInfo,cusRouterInfo" v-show="orderInfo.status>11"></CustomerShipping>
+            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></TestReportTable>
+            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></reason>
+
+            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19'.indexOf(statusStr)>=0"></Networkdelivery>
+            <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
+            <!-- <Evaluated></Evaluated> -->
         </div>
     </div>
 </template>
@@ -24,10 +26,12 @@ import reason from './reason'
 import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
+import AgreeOfferButtonChild from './AgreeOfferButtonChild'
 import { getOrderByRefnumber, getRouterLog } from '@/api/order'
+import { getCheckReport } from '@/api/checkReport'
 
 export default {
-    components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated },
+    components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild },
     data () {
         return {
           refNumber: this.$route.params.orderno,
@@ -43,40 +47,62 @@ export default {
             createdate: '',
             emergencyname: '',
             emergencyphone: '',
-            provideraddress: ''
+            provideraddress: '',
+            ordernumber: ''
           },
+          statusStr: '',
           orderArr: [],
           // routerInfo: {
           //   refnumber: '',
           //   routedate: '',
           //   description: ''
           // }
-          routerInfo: {}
+          cusRouterInfo: {},
+          delRouterInfo: {},
+          checkReportInfo: {}
         }
     },
     created() {
       this.getWorkOrderInfo()
-      this.getRouterInfo()
     },
     methods: {
       getWorkOrderInfo() {
         getOrderByRefnumber(this.refNumber).then(response => {
           if (response.data.status === '0') {
             this.orderInfo = response.data.data
+            this.statusStr = this.orderInfo.status + ''
             this.orderArr.push(this.orderInfo)
+            this.getCusRouterInfo()
+            this.getDelRouterInfo()
+            this.getCheckReport()
           } else {
             console.dir('***************获取工单信息异常*************')
           }
         })
       },
-      getRouterInfo() {
-        getRouterLog(this.refNumber).then(response => {
+      getCusRouterInfo() {
+        getRouterLog(this.orderInfo.trackingno).then(response => {
           if (response.data.status === '0') {
-            this.routerInfo = response.data.data
+            this.cusRouterInfo = response.data.data
           } else {
-            console.dir('###############获取路由信息异常##############')
+            console.dir('###############获取客户寄往服务商网点的路由信息##############')
           }
         })
+      },
+      getDelRouterInfo() {
+        getRouterLog(this.orderInfo.sendtrackingno).then(response => {
+          if (response.data.status === '0') {
+            this.delRouterInfo = response.data.data
+          } else {
+            console.dir('###############获取服务商网点寄给客户的路由信息##############')
+          }
+        })
+      },
+      getCheckReport() {
+            getCheckReport(this.orderInfo.ordernumber).then(response => {
+                this.checkReportInfo = response.data.data
+                console.dir(this.checkReportInfo)
+            })
       }
     }
 }

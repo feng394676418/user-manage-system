@@ -39,7 +39,7 @@
                     <label for="">
                         <b>*</b>{{$t('order.FailureDescription')}}:</label>
                     <el-form-item label="" prop="troubleInfo">
-                        <el-input type="textarea" v-model="OrderInfoFS.troubleInfo"></el-input>
+                        <el-input type="textarea" rows="3" v-model="OrderInfoFS.troubleInfo"></el-input>
                     </el-form-item>
                     <!--追加验证时错误信息-->
                 </div>

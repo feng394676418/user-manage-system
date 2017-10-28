@@ -4,13 +4,13 @@
             <div class="col-md-12">
                 <div class="pull-right mr_top">
                     <el-button :plain="true" type="info" class="form-group"  @click="dialogVisible2 = true">{{$t('WarrantyPayment.notrepair')}}</el-button>
-                    <el-button type="info"  class="form-group" @click="dialogVisible2 = true">{{$t('WarrantyPayment.Continue')}}</el-button>
+                    <el-button type="info"  class="form-group" @click="dialogVisible = true">{{$t('WarrantyPayment.Continue')}}</el-button>
                 </div>
             </div>
         </div>
         <el-dialog title="" :visible.sync="dialogVisible2" size="tiny">
             <h3 class="text-center">{{$t('WarrantyPayment.surenotrepair')}}</h3>
-            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€12.00</strong></p>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{checkReportInfo.collectionCost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="form-group">NO</el-button>
@@ -19,8 +19,8 @@
         </el-dialog>        
         <el-dialog title="" :visible.sync="dialogVisible" size="tiny">
             <h3 class="text-center">{{$t('WarrantyPayment.agreequote')}}</h3>
-            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€600.00</strong></p>
-            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€600.00 {{$t('WarrantyPayment.startrepair')}} </p>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost}}</strong></p>
+            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost}} {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group">NO</el-button>
                 <el-button type="info" class="form-group">YES</el-button>
@@ -31,6 +31,9 @@
 
 <script>
 export default {
+    props: {
+      checkReportInfo: ''
+    },
     name: 'hello',
     data () {
         return {
