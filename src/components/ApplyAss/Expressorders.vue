@@ -76,7 +76,7 @@ export default {
             trackingWait: true,
             surfaceURL: '',
             refNumber: this.$route.params.refNumber,
-            tableData: [{
+            tableData: [{ // TODO
                 Outlets: 'UPS法国南希东大街网点',
                 address: '法国一二三四城市喜喜喜喜大道250号',
                 Zipcode: '123433',
@@ -107,6 +107,17 @@ export default {
           console.log('获取运单号结果信息')
           console.dir(response)
           if (response.data.status === '0') {
+            this.surfaceURL = response.data.data.sendSurfaceURL
+            this.trackingWait = false
+            if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
+              this.imgFlg = true
+              this.pdfFlg = false
+            } else {
+              this.pdfFlg = true
+              this.imgFlg = false
+            }
+          } else if (response.data.status === '2') {
+            this.$message.info(response.data.message)
             this.surfaceURL = response.data.data.sendSurfaceURL
             this.trackingWait = false
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
