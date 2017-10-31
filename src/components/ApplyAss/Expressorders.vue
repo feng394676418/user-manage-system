@@ -152,8 +152,8 @@ export default {
             this.trackingWait = false
             this.trackingNoFlg = false
             this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!')
-            console.log(response.data.data.message)
-            this.trackingFailMsg = response.data.data.message
+            console.log(response.data.message)
+            this.trackingFailMsg = response.data.message
           }
         })
       },
