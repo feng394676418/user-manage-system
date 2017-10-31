@@ -26,7 +26,7 @@
                     </el-col>
                     <el-col :md="6">
                         <el-form-item label="" prop="city">
-                            <el-select v-model="ruleForm.city" filterable allow-create :placeholder="$t('order.City')">
+                            <el-select v-model="ruleForm.city" filterable allow-create :placeholder="$t('order.City')" @change="cityChange">
                                 <el-option v-for="city in cityList" :label="city.name" :key="city.name" :value="city.name"></el-option>
                             </el-select>
                         </el-form-item>
@@ -139,7 +139,7 @@ export default {
                 owner: '', // 货主CODE
                 providerCode: '', // 服务商CODE
                 providerAddress: '', // 客户寄件地址 服务商地址
-                expressCode: 'UPS', // 运输方式CODE 客户系统一时固定UPS
+                expressCode: 'PLUPS', // 运输方式CODE 客户系统一时固定UPS
                 productType: '', // 产品型号
                 deadDate: '', // 保修期限
                 repairStatus: '', // 保修类型 手机进水等等
@@ -244,6 +244,23 @@ export default {
             }
           })
         },
+        cityChange() {
+          // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
+          console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
+          let countryTmpCD = this.ruleForm.countryCode
+          console.log('----countryTmpCD------>' + countryTmpCD)
+          if (countryTmpCD === 'undefined' || countryTmpCD === '' || countryTmpCD !== 'PL') {
+            // 目前只有波兰有服务点,暂定全部取波兰
+            countryTmpCD = 'PL'
+          }
+          getProviderList(this.ruleForm.owner, countryTmpCD).then(response => {
+            if (response.data.status === '0') {
+              this.providerList = response.data.data
+            } else {
+              this.$message.error('服务商列表获取失败!')
+            }
+          })
+        },
         stateChange(val) {
           console.log('省州选定--------')
           console.dir(val)
@@ -264,6 +281,7 @@ export default {
           console.log(countryId)
           console.dir(this.ruleForm)
           this.stateInfo(countryId)
+<<<<<<< HEAD
           // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
           console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
           getProviderList(this.ruleForm.owner, this.ruleForm.countryCode).then(response => {
@@ -273,6 +291,8 @@ export default {
               this.$message.error(this.$t('order.Servicefailed'))// 服务商列表获取失败!
             }
           })
+=======
+>>>>>>> 6543de8eaedfc2e05ff9c94d5a3ac3d6c4855c4c
         },
         lastStep() {
             // 父组件传递数据回传
