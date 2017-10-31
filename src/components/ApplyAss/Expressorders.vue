@@ -6,10 +6,10 @@
             <stepnav :stepNav="stepModel"></stepnav>
             <template v-if="trackingWait">
               <!--等待生成运单-->
-              <h2 class="text-center generate_title">申请成功!工单编号
-                  <span class="sky_blue_text">{{refNumber}}</span>，正在为您生成运单……</h2>
+              <h2 class="text-center generate_title">{{$t('order.Applicationaccepted')}}{{$t('login.OrderNumber')}}
+                  <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliverynote')}}</h2>
               <p class="blue_text text-center pd_top">
-                  运单生成大约需要1分钟时间，请稍等。您也可以选择离开页面，我们稍后会将运单通过邮件发送给您，请注意查收。
+                  {{$t('order.Pleasewait')}}
               </p>
             </template>
             <template v-else>
@@ -21,10 +21,10 @@
               </p>
             </template>
               <!--运单生成失败-->
-              <h2 class="text-center generate_title">工单编号
-                  <span class="sky_blue_text">{{refNumber}}</span>，运单生成失败!</h2>
+              <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
+                  <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
               <p class="blue_text text-center pd_top">
-                  失败原因：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX。<a class="purple_text" href="/#/ApplyAss">请重新下单</a>
+                  {{$t('order.WHY')}}：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX。<a class="purple_text" href="/#/ApplyAss">{{$t('order.resubmitorder')}}</a>
               </p>
               <p class="text-center mr_top">
                   <img src="../../../static/img/Construction_failed.png" />

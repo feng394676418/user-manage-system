@@ -28,6 +28,7 @@ export default {
         OrderDelivery: '快递下单',
         Brands: '产品品牌',
         Note: '提示：服务地区仅限欧盟内，保外需要客户承担运费！',
+        enterIMEI: '请输入IMEI码',
         checkIMEI: '怎样查看IMEI码？',
         IMEInotexisted: '此IMEI号不存在！请仔细核对。',
         Modelinfo: '产品型号',
@@ -88,7 +89,13 @@ export default {
         Cityfailed: '城市列表获取失败!',
         Servicefailed: '服务商列表获取失败!',
         createworkorder: '工单创建成功,创建工单:',
-        Workorderfailed: '工单创建失败!'
+        Workorderfailed: '工单创建失败!',
+        Applicationaccepted: '申请成功!',
+        deliverynote: '正在为您生成运单……',
+        Pleasewait: '运单生成大约需要1分钟时间，请稍等。您也可以选择离开页面，我们稍后会将运单通过邮件发送给您，请注意查收。',
+        deliveryfailure: '运单生成失败',
+        WHY: '失败原因',
+        resubmitorder: '请重新下单'
     },
     checkprice: {
         home: '首页',

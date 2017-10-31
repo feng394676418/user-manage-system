@@ -29,6 +29,7 @@ export default {
         OrderDelivery: 'Order Delivery',
         Brands: 'Brands',
         Note: 'Note：This service is for EU customers only；Delivery cost is not included for out-of-warranty services.',
+        enterIMEI: 'Please enter the IMEI code',
         checkIMEI: 'How to check your IMEI',
         IMEInotexisted: 'IMEI is not existed，please check again',
         Modelinfo: 'Model info',
@@ -89,7 +90,13 @@ export default {
         Cityfailed: 'City list gets failed!',
         Servicefailed: 'Service provider list failed!',
         createworkorder: 'Work order created successfully, create work order:',
-        Workorderfailed: 'Work order creation failed!'
+        Workorderfailed: 'Work order creation failed!',
+        Applicationaccepted: 'Application accepted!',
+        deliverynote: 'Your delivery note is loading……',
+        Pleasewait: 'Please wait for 1 minute to get your delivery note, or you can find the attachment in your email later. ',
+        deliveryfailure: 'Oops! Your delivery note is failure.',
+        WHY: 'WHY',
+        resubmitorder: 'Please re-submit your order. '
     },
     checkprice: {
         home: 'Home',

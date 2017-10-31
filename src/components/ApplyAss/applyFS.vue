@@ -51,7 +51,7 @@
                     <el-form-item label="" prop="imageUrlArray">
                         <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
-                        </el-upload>
+                        </el-upload>                        
                     </el-form-item>
                 </div>
             </div>
@@ -76,7 +76,7 @@ export default {
     data() {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
-                callback(new Error('请输入IMEI码'))
+                callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
             } else {
                 callback()
             }
@@ -104,7 +104,7 @@ export default {
                     { validator: validatePass2, trigger: 'blur' }
                 ],
                 imageUrlArray: [
-                    { validator: validatePass3, trigger: 'blur' }
+                    { validator: validatePass3, trigger: 'change' }
                 ]
             },
             OrderInfoFS: {
@@ -150,7 +150,7 @@ export default {
         },
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
-                this.$refs.upFile.disabled = true
+                this.$refs.upFile.limit = 3
             }
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
             const isLt5M = file.size / 1024 / 1024 < 5
