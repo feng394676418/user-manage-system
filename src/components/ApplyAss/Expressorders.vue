@@ -114,7 +114,7 @@ export default {
             this.locatorDataArray = response.data.data
             this.locatorDataArray.forEach(item => {
                 console.log(item.operationlTime)
-                this.$set(item, 'operationlTime', item.operationlTime.replace(/CLOSED_ALL_DAY/g, '非营业时间').replace(/ null~null /g, '').replace(/OPEN_BY_HOURS/g, '营业时间'))
+                this.$set(item, 'operationlTime', item.operationlTime.replace(/CLOSED_ALL_DAY/g, 'After Hours:').replace(/ null~null /g, '').replace(/OPEN_BY_HOURS/g, 'Opening Hours:'))
                 this.$set(item, 'code', 'UPS')
             })
           }
