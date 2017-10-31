@@ -27,14 +27,15 @@ import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
 import AgreeOfferButtonChild from './AgreeOfferButtonChild'
-import { getOrderByRefnumber, getRouterLog } from '@/api/order'
+import { getOrderByOrderNumber, getRouterLog } from '@/api/order'
 import { getCheckReport } from '@/api/checkReport'
 
 export default {
     components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild },
     data () {
         return {
-          refNumber: this.$route.params.orderno,
+          orderNumber: this.$route.params.orderNumber,
+          refNumber: '',
           orderInfo: {
             producttype: '',
             imei: '',
@@ -52,11 +53,6 @@ export default {
           },
           statusStr: '',
           orderArr: [],
-          // routerInfo: {
-          //   refnumber: '',
-          //   routedate: '',
-          //   description: ''
-          // }
           cusRouterInfo: {},
           delRouterInfo: {},
           checkReportInfo: {}
@@ -67,9 +63,10 @@ export default {
     },
     methods: {
       getWorkOrderInfo() {
-        getOrderByRefnumber(this.refNumber).then(response => {
+        getOrderByOrderNumber(this.orderNumber).then(response => {
           if (response.data.status === '0') {
             this.orderInfo = response.data.data
+            this.refNumber = response.data.data.refnumber
             this.statusStr = this.orderInfo.status + ''
             this.orderArr.push(this.orderInfo)
             this.getCusRouterInfo()
