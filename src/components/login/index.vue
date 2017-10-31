@@ -48,7 +48,7 @@
 
 <script>
 
-import { loginByOrderNumber } from '@/api/login'
+import { loginByRefnumber } from '@/api/login'
 import Cookies from 'js-cookie'
 
 export default {
@@ -85,9 +85,13 @@ export default {
             location.reload()
         },
         progressInfo() {
-            loginByOrderNumber(this.ruleForm2).then(response => {
-                const orderNumber = this.ruleForm2.orderno
+            loginByRefnumber(this.ruleForm2).then(response => {
+              if (response.data.status === '0') {
+                const orderNumber = response.data.data.ordernumber
                 this.$router.push({ path: '/GuaranteedCompletion/' + orderNumber })
+              } else {
+                this.$message.error('登陆失败!')
+              }
             })
         },
         routeTO() {
