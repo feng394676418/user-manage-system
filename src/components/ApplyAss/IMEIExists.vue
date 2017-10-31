@@ -53,7 +53,7 @@ export default {
       isIndeterminate: false
     }
   },
-    beforeCreate() {
+  beforeCreate() {
     const this_ = this
     let repairName = ''
     Vue.filter('repairName', status => {

@@ -281,18 +281,6 @@ export default {
           console.log(countryId)
           console.dir(this.ruleForm)
           this.stateInfo(countryId)
-<<<<<<< HEAD
-          // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
-          console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
-          getProviderList(this.ruleForm.owner, this.ruleForm.countryCode).then(response => {
-            if (response.data.status === '0') {
-              this.providerList = response.data.data
-            } else {
-              this.$message.error(this.$t('order.Servicefailed'))// 服务商列表获取失败!
-            }
-          })
-=======
->>>>>>> 6543de8eaedfc2e05ff9c94d5a3ac3d6c4855c4c
         },
         lastStep() {
             // 父组件传递数据回传

@@ -2,7 +2,7 @@
     <div class="container">
         <logintop></logintop>
         <div class="main_content main_form_input">
-            <step></step>
+            <step :status="11" ></step>
             <stepnav :stepNav="stepModel"></stepnav>
             <template v-if="step1">
               <!--维修申请第一步-->

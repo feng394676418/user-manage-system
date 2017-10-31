@@ -36,9 +36,9 @@ export default {
         WarrantyDate: 'Warranty Expired Date',
         TypeServices: 'Type of Services',
         repairNameArray: [
-            { name: 'Your device has liquid damage', status: 0 },
-            { name: 'Your device has unauthorized repair', status: 1 },
-            { name: 'Your device has accidental damage', status: 2 }
+            { name: 'Your device has liquid damage', status: '0' },
+            { name: 'Your device has unauthorized repair', status: '1' },
+            { name: 'Your device has accidental damage', status: '2' }
         ],
         NonAbove: 'Non Above',
         InWarranty: 'In Warranty Repair',

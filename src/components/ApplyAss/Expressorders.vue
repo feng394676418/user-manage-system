@@ -2,7 +2,7 @@
     <div class="container">
         <logintop></logintop>
         <div class="main_content main_form_input">
-            <step></step>
+            <step :status="11"></step>
             <stepnav :stepNav="stepModel"></stepnav>
             <template v-if="trackingWait">
               <!--等待生成运单-->
@@ -20,6 +20,15 @@
                   {{$t('order.sentemail')}}
               </p>
             </template>
+              <!--运单生成失败-->
+              <h2 class="text-center generate_title">工单编号
+                  <span class="sky_blue_text">{{refNumber}}</span>，运单生成失败!</h2>
+              <p class="blue_text text-center pd_top">
+                  失败原因：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX。<a class="purple_text" href="/#/ApplyAss">请重新下单</a>
+              </p>
+              <p class="text-center mr_top">
+                  <img src="../../../static/img/Construction_failed.png" />
+              </p>            
             <div class="form-group mr_top2">
                 <label for="">
                     <b>*</b> {{$t('order.servicepoint')}}：</label>
