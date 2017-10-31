@@ -83,14 +83,14 @@ export default {
         }
         var validatePass2 = (rule, value, callback) => {
             if (value === '') {
-                callback(new Error('故障描述不能为空'))
+                callback(new Error(this.$t('order.faultdescriptionempty')))// 故障描述不能为空
             } else {
                 callback()
             }
         }
         var validatePass3 = (rule, value, callback) => {
             if (this.phoneImageUrlList.length === 0) {
-                callback(new Error('图片不能为空'))
+                callback(new Error(this.$t('order.picturenotempty')))// 图片不能为空
             } else {
                 callback()
             }
@@ -157,13 +157,13 @@ export default {
 
             const isCanUpload = this.phoneImageUrlList.length < 3
             if (!isCanUpload) {
-                this.$message.error('最多可以上传3张图片!')
+                this.$message.error(this.$t('order.threepictures'))// 最多可以上传3张图片!
             }
             if (!isJPG) {
-                this.$message.error(this.$t('文件格式不正确!'))
+                this.$message.error(this.$t('order.formatincorrect'))// 文件格式不正确!
             }
             if (!isLt5M) {
-                this.$message.error(this.$t('文件大小需小于2M!'))
+                this.$message.error(this.$t('order.Filesize'))// 文件大小需小于2M!
             }
             return isJPG && isLt5M && isCanUpload
         },

@@ -35,9 +35,11 @@ export default {
         IMEI: 'IMEI',
         WarrantyDate: 'Warranty Expired Date',
         TypeServices: 'Type of Services',
-        devicedamage: 'Your device has liquid damage',
-        devicerepair: 'Your device has unauthorized repair',
-        deviceaccidental: 'Your device has accidental damage',
+        repairNameArray: [
+            { name: 'Your device has liquid damage', status: 0 },
+            { name: 'Your device has unauthorized repair', status: 1 },
+            { name: 'Your device has accidental damage', status: 2 }
+        ],
         NonAbove: 'Non Above',
         InWarranty: 'In Warranty Repair',
         costwarranty: 'Total Service cost is covered by warranty.',
@@ -46,7 +48,12 @@ export default {
         conclusionreference: 'This conclusion is for reference only, the actual test result should prevail',
         ServicePrices: 'Click here for Service Prices',
         FailureDescription: 'Failure Description',
+        faultdescriptionempty: 'The fault description can not be empty',
         UploadPhotos: 'Upload Photos',
+        picturenotempty: 'The picture can not be empty',
+        threepictures: 'Can upload up to three pictures!',
+        formatincorrect: 'File format is incorrect!',
+        Filesize: 'File size to be less than 2M!',
         Next: 'Next',
         addressrequired: 'Note: this address will be used as Return address, please make sure it is accurate. “*”is required',
         Country: 'Country',
@@ -76,7 +83,13 @@ export default {
         downloadorder: 'You can download the delivery note and send your device to us now. ',
         sentemail: 'Please notice that both the Delivery and Order information have been sent to your email. ',
         servicepoint: 'Your nearest UPS service point ',
-        Workinghour: 'Working hour '
+        Workinghour: 'Working hour ',
+        Statelistfailed: 'State list failed',
+        Provincialfailed: 'Provincial state list failed!',
+        Cityfailed: 'City list gets failed!',
+        Servicefailed: 'Service provider list failed!',
+        createworkorder: 'Work order created successfully, create work order:',
+        Workorderfailed: 'Work order creation failed!'
     },
     checkprice: {
         home: 'Home',
