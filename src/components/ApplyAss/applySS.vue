@@ -215,7 +215,7 @@ export default {
               if (response.data.status === '0') {
                 this.countryList = response.data.rsltData
               } else {
-                this.$message.error('国家列表获取失败!')
+                this.$message.error(this.$t('order.Statelistfailed'))// 国家列表获取失败!
               }
             })
         },
@@ -227,7 +227,7 @@ export default {
             if (response.data.status === '0') {
               this.stateList = response.data.rsltData
             } else {
-              this.$message.error('省州列表获取失败!')
+              this.$message.error(this.$t('order.Provincialfailed'))// 省州列表获取失败!
             }
           })
         },
@@ -240,7 +240,7 @@ export default {
               this.cityList = response.data.rsltData
               console.dir(this.cityList)
             } else {
-              this.$message.error('城市列表获取失败!')
+              this.$message.error(this.$t('order.Cityfailed'))// 城市列表获取失败!
             }
           })
         },
@@ -308,11 +308,11 @@ export default {
                     console.log('表单提交 response')
                     console.dir(response)
                     if (response.data.status === '0') {
-                      this.$message.info('工单创建成功,创建工单:' + response.data.data)
+                      this.$message.info(this.$t('order.createworkorder') + response.data.data)// 工单创建成功,创建工单:
                       this.$router.push('/Expressorders/' + response.data.data)
                     } else {
                       console.log(response.data.message)
-                      this.$message.error('工单创建失败!')
+                      this.$message.error(this.$t('order.Workorderfailed'))// 工单创建失败!
                     }
                   })
                 } else {

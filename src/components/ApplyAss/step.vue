@@ -1,7 +1,7 @@
 <template>
     <div>
-    <div v-if="status==11" class="step step1"></div>
-    <div v-if="status==21" class="step step2"></div>
+    <div v-if="status===11" class="step step"></div>
+    <div v-if="status===21" class="step step2"></div>
     <div v-if="status==31" class="step step3"></div>
     <div v-if="status==13" class="step step4"></div>
     <div v-if="status==14" class="step step5"></div>

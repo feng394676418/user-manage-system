@@ -61,7 +61,7 @@ export default new Router({
             component: Warranty
         },
         {
-            path: '/GuaranteedCompletion/:orderno',
+            path: '/GuaranteedCompletion/:orderNumber',
             name: 'GuaranteedCompletion',
             component: GuaranteedCompletion
         },

@@ -36,11 +36,11 @@ export function orderCreate(form) {
     })
 }
 
-export function getOrderByRefnumber(refnumber) {
+export function getOrderByOrderNumber(orderNumber) {
     return fetch({
-        url: 'api/apply/getOrderByRefnumber',
+        url: 'api/apply/getOrderByOrderNumber',
         method: 'get',
-        params: { refnumber }
+        params: { orderNumber }
     })
 }
 

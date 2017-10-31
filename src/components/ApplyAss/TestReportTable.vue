@@ -60,7 +60,8 @@ export default {
         return {
             tableData: [{
                 time: '2017/09/09 13:00:00',
-                model: '保内',
+                model: this.$t('order.InWarranty'),
+                // 保内
                 parts: '',
                 Maintenance: '',
                 Courier: '',
