@@ -12,6 +12,10 @@
             <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19'.indexOf(statusStr)>=0"></Networkdelivery>
             <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
             <!-- <Evaluated></Evaluated> -->
+            <!-- 确认收货按钮 -->
+            <confirmReceiptButton></confirmReceiptButton>
+            <!-- 结算按钮 -->
+            <settlementButton></settlementButton>
         </div>
     </div>
 </template>
@@ -27,11 +31,13 @@ import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
 import AgreeOfferButtonChild from './AgreeOfferButtonChild'
+import confirmReceiptButton from './confirmReceiptButton'
+import settlementButton from './settlementButton'
 import { getOrderByOrderNumber, getRouterLog } from '@/api/order'
 import { getCheckReport } from '@/api/checkReport'
 
 export default {
-    components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild },
+    components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild, confirmReceiptButton, settlementButton },
     data () {
         return {
           orderNumber: this.$route.params.orderNumber,

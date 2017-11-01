@@ -137,7 +137,7 @@ export default {
               this.imgFlg = false
             }
           } else {
-            this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!')
+            this.$message.error('运单单号获取失败,稍后客服会和您联系,请稍等!')
             console.log(response.data.data.message)
           }
         })
