@@ -12,7 +12,7 @@ export default {
     },
     order: {
         hello: '你好!',
-        Chinese: '简体中文',
+        Language: '语言',
         checktime: '选择时间',
         Apply: '申请',
         Delivery: '寄出',
@@ -92,7 +92,7 @@ export default {
         Workorderfailed: '工单创建失败!',
         Applicationaccepted: '申请成功!',
         deliverynote: '正在为您生成运单……',
-        Pleasewait: '运单生成大约需要1分钟时间，请稍等。您也可以选择离开页面，我们稍后会将运单通过邮件发送给您，请注意查收。',
+        Pleasewait: '运单生成大约需要1分钟时间，请稍等。',
         deliveryfailure: '运单生成失败',
         WHY: '失败原因',
         resubmitorder: '请重新下单'

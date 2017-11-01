@@ -4,7 +4,7 @@
             <div class="pull-right">
                 <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
-                        简体中文
+                        {{$t('order.Language')}}
                         <i class="icon-language"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
