@@ -13,36 +13,40 @@
               </p>
             </template>
             <template v-else>
-              <!--成功生成运单-->
-              <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
-                <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
-              <p class="blue_text text-center pd_top">
-                  {{$t('order.sentemail')}}
-              </p>
-            </template>
-              <!--运单生成失败-->
-              <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
-                  <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
-              <p class="blue_text text-center pd_top">
-                  {{$t('order.WHY')}}：XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX。<a class="purple_text" href="/#/ApplyAss">{{$t('order.resubmitorder')}}</a>
-              </p>
-              <p class="text-center mr_top">
-                  <img src="../../../static/img/Construction_failed.png" />
-              </p>            
+                <template v-if="trackingNoFlg">
+                  <!--成功生成运单-->
+                  <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
+                    <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
+                  <p class="blue_text text-center pd_top">
+                      {{$t('order.sentemail')}}
+                  </p>
+                </template>
+                <template v-else>
+                  <!--运单生成失败-->
+                  <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
+                      <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
+                  <p class="blue_text text-center pd_top"> <!--错误信息显示-->
+                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss">{{$t('order.resubmitorder')}}</a>
+                  </p>
+                  <p class="text-center mr_top">
+                      <img src="../../../static/img/Construction_failed.png" />
+                  </p>
+                </template>
+              </template>
             <div class="form-group mr_top2">
                 <label for="">
                     <b>*</b> {{$t('order.servicepoint')}}：</label>
             </div>
-            <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="Outlets" :label="$t('order.Point')" min-width="18%">
+            <el-table :data="locatorDataArray" style="width: 100%">
+                <el-table-column prop="code" :label="$t('order.Point')" min-width="18%">UPS
                 </el-table-column>
                 <el-table-column prop="address" :label="$t('order.Address')" min-width="26%">
                 </el-table-column>
-                <el-table-column prop="Zipcode" :label="$t('order.PostCode')" min-width="9%">
+                <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="9%">
                 </el-table-column>
-                <el-table-column prop="phone" :label="$t('order.Telephone')" min-width="14%">
+                <el-table-column prop="telPhone" :label="$t('order.Telephone')" min-width="14%">
                 </el-table-column>
-                <el-table-column prop="time" :label="$t('order.Workinghour')" min-width="30%">
+                <el-table-column prop="operationlTime" :label="$t('order.Workinghour')" min-width="30%">
                 </el-table-column>
             </el-table>
             <div class="row mr_top">
@@ -80,11 +84,14 @@ export default {
             stepModel: {
               step: '3'
             },
+            trackingNoFlg: false, // 运单号获取flag
+            trackingFailMsg: '', // 运单号获取失败原因
             imgFlg: false,
             pdfFlg: false,
             trackingWait: true,
             surfaceURL: '',
             refNumber: this.$route.params.refNumber,
+            locatorDataArray: [],
             tableData: [{ // TODO
                 Outlets: 'UPS法国南希东大街网点',
                 address: '法国一二三四城市喜喜喜喜大道250号',
@@ -103,10 +110,13 @@ export default {
       getLogisticsLocatorList() {
         getLogisticsLocatorList(this.refNumber).then(response => {
           console.log('获取附近网点信息')
-          console.log('------------------------')
-          console.dir(response)
-          if (response.status === '0') {
-
+          if (response.data.status === '0') {
+            this.locatorDataArray = response.data.data
+            this.locatorDataArray.forEach(item => {
+                console.log(item.operationlTime)
+                this.$set(item, 'operationlTime', item.operationlTime.replace(/CLOSED_ALL_DAY/g, 'After Hours:').replace(/ null~null /g, '').replace(/OPEN_BY_HOURS/g, 'Opening Hours:'))
+                this.$set(item, 'code', 'UPS')
+            })
           }
         })
       },
@@ -118,6 +128,7 @@ export default {
           if (response.data.status === '0') {
             this.surfaceURL = response.data.data.sendSurfaceURL
             this.trackingWait = false
+            this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
               this.imgFlg = true
               this.pdfFlg = false
@@ -129,6 +140,7 @@ export default {
             this.$message.info(response.data.message)
             this.surfaceURL = response.data.data.sendSurfaceURL
             this.trackingWait = false
+            this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
               this.imgFlg = true
               this.pdfFlg = false
@@ -137,8 +149,11 @@ export default {
               this.imgFlg = false
             }
           } else {
-            this.$message.error('运单单号获取失败,稍后客服会和您联系,请稍等!')
-            console.log(response.data.data.message)
+            this.trackingWait = false
+            this.trackingNoFlg = false
+            // this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!') 一期 重新下单
+            console.log(response.data.message)
+            this.trackingFailMsg = response.data.message
           }
         })
       },

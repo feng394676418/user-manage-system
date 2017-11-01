@@ -139,7 +139,7 @@ export default {
                 owner: '', // 货主CODE
                 providerCode: '', // 服务商CODE
                 providerAddress: '', // 客户寄件地址 服务商地址
-                expressCode: 'PLUPS', // 运输方式CODE 客户系统一时固定UPS
+                expressCode: 'REPLUPS_S', // 运输方式CODE 客户系统一时固定UPS
                 productType: '', // 产品型号
                 deadDate: '', // 保修期限
                 repairStatus: '', // 保修类型 手机进水等等
