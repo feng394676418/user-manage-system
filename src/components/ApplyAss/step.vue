@@ -8,7 +8,8 @@
     <div v-if="status==15" class="step step6"></div>
     <div v-if="status==17" class="step step7"></div>
     <div v-if="status==18" class="step step8"></div>
-    <div v-if="status==19" class="step step9"></div>
+    <div v-if="status==19" class="step step8"></div>
+    <div v-if="status==20" class="step step9"></div>
     <!-- <div class="step step2"></div>
                 <div class="step step3"></div>
                 <div class="step step4"></div>

@@ -15,3 +15,35 @@ export function getCheckReportByRefNumber(refNumber) {
         params: { refNumber }
     })
 }
+
+export function confirmQuotes(orderNumber) {
+    return fetch({
+        url: 'api/checkReport/confirmQuotes',
+        method: 'get',
+        params: {orderNumber}
+    })
+}
+
+export function notRepair(orderNumber) {
+    return fetch({
+        url: 'api/checkReport/notRepair',
+        method: 'get',
+        params: {orderNumber}
+    })
+}
+
+export function getOrderBillByOrderNumber(orderNumber) {
+    return fetch({
+        url: 'api/checkReport/getOrderBillByOrderNumber',
+        method: 'get',
+        params: {orderNumber}
+    })
+}
+
+export function confirmReceipt(orderNumber) {
+    return fetch({
+        url: 'api/checkReport/confirmReceipt',
+        method: 'get',
+        params: {orderNumber}
+    })
+}

@@ -46,7 +46,7 @@ export default new Router({
             component: checkprice
         },
         {
-            path: '/ConfirmPayment',
+            path: '/ConfirmPayment/:orderNumber/:isRepair',
             name: 'ConfirmPayment',
             component: ConfirmPayment
         },

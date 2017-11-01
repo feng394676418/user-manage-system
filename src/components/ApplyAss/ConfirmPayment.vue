@@ -26,8 +26,8 @@
             </div>
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
-                <el-button :plain="true" type="info" class="form-group">{{$t('ConfirmPayment.Paylater')}}</el-button>
-                <el-button type="info"  class="form-group">{{$t('ConfirmPayment.PayNow')}}</el-button>
+                <el-button :plain="true" type="info" class="form-group" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
+                <el-button type="info"  class="form-group" @click="payNow">{{$t('ConfirmPayment.PayNow')}}</el-button>
             </div>
         </div>
     </div>
@@ -35,76 +35,109 @@
 
 <script>
 import logintop from './logintop'
+import { getCheckReport } from '@/api/checkReport'
 export default {
     components: { logintop },
     data () {
         return {
-            tableData: [{
-                item: this.$t('ConfirmPayment.ServiceParts'),
-                // 备件
-                Details: this.$t('ConfirmPayment.Screen'),
-                // 屏幕
-                price: '12'
-            },
-            {
-                item: '',
-                Details: this.$t('checkprice.RearCamera'),
-                // 后置摄像头
-                price: '12'
-            },
-            {
-                item: '',
-                Details: this.$t('checkprice.OuterCasing'),
-                // 外壳
-                price: '12'
-            },
-            {
-                item: this.$t('ConfirmPayment.ServiceCost'),
-                // 维修费
-                Details: this.$t('checkprice.Level2'),
-                // L2级维修
-                price: '12'
-            },
-            {
-                item: '',
-                Details: this.$t('checkprice.OuterCasing'),
-                // 外壳
-                price: '12'
-            },
-            {
-                item: this.$t('ConfirmPayment.DeliveryCost'),
-                // 快递费
-                Details: this.$t('ConfirmPayment.Sentout'),
-                // 寄出
-                price: '12'
-            },
-            {
-                item: '',
-                Details: this.$t('ConfirmPayment.Sentback'),
-                // 寄回
-                price: '12'
-            },
-            {
-                item: this.$t('ConfirmPayment.TotalCost'),
-                // 总价
-                Details: '',
-                price: '72'
-            },
-            {
-                item: this.$t('order.InWarranty'),
-                // 保内
-                Details: '',
-                price: '0'
-            },
-            {
-                item: this.$t('ConfirmPayment.RemaintoPay'),
-                // 实付
-                Details: '',
-                price: '72.00'
-            }]
+            isRepair: this.$route.params.isRepair,
+            orderNumber: this.$route.params.orderNumber,
+            remaintoPay: 0,
+            tableData: []
         }
     },
+     created() {
+      this.getCheckReport()
+    },
     methods: {
+        getCheckReport() {
+            getCheckReport(this.orderNumber).then(response => {
+                this.checkReportInfo = response.data.data
+                if (this.isRepair === 'true') {
+                    let item = {}
+                    // 备件
+                    let type = this.$t('ConfirmPayment.ServiceParts')
+                    this.checkReportInfo.orderParts.forEach(part => {
+                        item = {}
+                        item.item = type
+                        item.Details = part.partename
+                        item.price = part.partcost
+                        this.tableData.push(item)
+                        type = ''
+                    })
+                    // 维修费
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.ServiceCost')
+                    item.Details = this.checkReportInfo.repairLevel
+                    item.price = this.checkReportInfo.repairCost
+                    this.tableData.push(item)
+
+                    // 快递费 寄出
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.DeliveryCost')
+                    item.Details = this.$t('ConfirmPayment.Sentout')
+                    item.price = this.checkReportInfo.collectionCost
+                    this.tableData.push(item)
+
+                    // 快递费 寄回
+                    item = {}
+                    item.item = ''
+                    item.Details = this.$t('ConfirmPayment.Sentback')
+                    item.price = this.checkReportInfo.mailingcost
+                    this.tableData.push(item)
+
+                    // 总价
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.TotalCost')
+                    item.Details = ''
+                    item.price = this.checkReportInfo.allCost
+                    this.tableData.push(item)
+
+                    // 保内
+                    item = {}
+                    item.item = this.$t('order.InWarranty')
+                    item.Details = ''
+                    item.price = this.checkReportInfo.coveredbyWarranty
+                    this.tableData.push(item)
+
+                    // 实付
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.RemaintoPay')
+                    item.Details = ''
+                    item.price = this.checkReportInfo.remaintoPay
+                    this.tableData.push(item)
+                    this.remaintoPay = this.checkReportInfo.remaintoPay
+                } else {
+                    // 快递费 寄出
+                    let item = {}
+                    item.item = this.$t('ConfirmPayment.DeliveryCost')
+                    item.Details = this.$t('ConfirmPayment.Sentout')
+                    item.price = this.checkReportInfo.collectionCost
+                    this.tableData.push(item)
+
+                    // 快递费 寄回
+                    item = {}
+                    item.item = ''
+                    item.Details = this.$t('ConfirmPayment.Sentback')
+                    item.price = this.checkReportInfo.mailingcost
+                    this.tableData.push(item)
+
+                    // 实付
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.RemaintoPay')
+                    item.Details = ''
+                    item.price = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
+                    this.tableData.push(item)
+                    this.remaintoPay = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
+                }
+            })
+      },
+      payLater() {
+          this.$router.go(-1)
+      },
+      payNow() {
+          console.dir('RemaintoPay:' + this.remaintoPay)
+      }
     }
 }
 </script>

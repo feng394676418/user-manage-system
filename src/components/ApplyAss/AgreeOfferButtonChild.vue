@@ -10,11 +10,11 @@
         </div>
         <el-dialog title="" :visible.sync="dialogVisible2" size="tiny">
             <h3 class="text-center">{{$t('WarrantyPayment.surenotrepair')}}</h3>
-            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{checkReportInfo.collectionCost}}</strong></p>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{checkReportInfo.collectionCost + checkReportInfo.mailingcost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="form-group">NO</el-button>
-                <el-button type="info" class="form-group">YES</el-button>
+                <el-button type="info" class="form-group" @click="repair(false)">YES</el-button>
             </span>
         </el-dialog>        
         <el-dialog title="" :visible.sync="dialogVisible" size="tiny">
@@ -23,13 +23,14 @@
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost}} {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">                
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group">NO</el-button>
-                <el-button type="info" class="form-group">YES</el-button>
+                <el-button type="info" class="form-group" @click="repair(true)">YES</el-button>
             </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
+import { confirmQuotes, notRepair } from '@/api/checkReport'
 export default {
     props: {
       checkReportInfo: ''
@@ -42,6 +43,21 @@ export default {
         }
     },
     methods: {
+        repair(isRepair) {
+            //  isRepair 是否继续维修  true  false
+            if (isRepair) {
+                confirmQuotes(this.checkReportInfo.orderNunber).then(response => {
+                        console.dir('##############   confirmQuotes   ###############')
+                        console.dir(response)
+                })
+            } else {
+                notRepair(this.checkReportInfo.orderNunber).then(response => {
+                        console.dir('############   notRepair  #################')
+                        console.dir(response)
+                })
+            }
+            this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
+        }
     }
 }
 </script>
