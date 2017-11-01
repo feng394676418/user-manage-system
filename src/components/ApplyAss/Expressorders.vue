@@ -151,7 +151,7 @@ export default {
           } else {
             this.trackingWait = false
             this.trackingNoFlg = false
-            this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!')
+            // this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!') 一期 重新下单
             console.log(response.data.message)
             this.trackingFailMsg = response.data.message
           }
