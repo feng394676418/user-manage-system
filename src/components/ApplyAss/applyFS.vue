@@ -77,11 +77,14 @@ export default {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
+            } else if (value.length !== 15) {
+                callback(new Error('IMEI长度必须为15位'))// IMEI长度必须为15位
             } else {
                 callback()
             }
         }
         var validatePass2 = (rule, value, callback) => {
+            console.dir('描述长度：' + value.length)
             if (value === '') {
                 callback(new Error(this.$t('order.faultdescriptionempty')))// 故障描述不能为空
             } else {
