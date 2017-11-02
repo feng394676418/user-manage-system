@@ -270,13 +270,12 @@ h3{
     border-bottom:1px solid #e8ebfa;
     padding: 13px;
 }
-.my_table th{    
-    color: #1f2d3d;
+.my_table th{ 
     white-space: nowrap;
 }
 .my_table td{    
     color: #8c8c9e;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 .Fault_picture li{
     float: left;

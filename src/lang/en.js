@@ -96,7 +96,10 @@ export default {
         Pleasewait: 'Please wait for 1 minute to get your delivery note. ',
         deliveryfailure: 'Oops! Your delivery note is failure.',
         WHY: 'WHY',
-        resubmitorder: 'Please re-submit your order. '
+        resubmitorder: 'Please re-submit your order. ',
+        selectnetwork: 'Please select a service network!',
+        Confirmreceipt: 'Confirm receipt',
+        receiptsuccess: 'Confirm receipt of success'
     },
     checkprice: {
         home: 'Home',

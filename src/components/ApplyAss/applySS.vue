@@ -257,7 +257,7 @@ export default {
                 if (response.data.status === '0') {
                     this.providerList = response.data.data
                 } else {
-                    this.$message.error('服务商列表获取失败!')
+                    this.$message.error(this.$t('order.Servicefailed'))// 服务商列表获取失败
                 }
             })
         },
@@ -292,7 +292,7 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (this.ruleForm.providerCode === '') {
-                    this.$message.error('请选择服务网点！')
+                    this.$message.error(this.$t('order.selectnetwork'))// 请选择服务网点！
                     return
                 }
                 if (valid) {

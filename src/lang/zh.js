@@ -95,7 +95,10 @@ export default {
         Pleasewait: '运单生成大约需要1分钟时间，请稍等。',
         deliveryfailure: '运单生成失败',
         WHY: '失败原因',
-        resubmitorder: '请重新下单'
+        resubmitorder: '请重新下单',
+        selectnetwork: '请选择服务网点！',
+        Confirmreceipt: '确认收货',
+        receiptsuccess: '确认收货成功！'
     },
     checkprice: {
         home: '首页',
