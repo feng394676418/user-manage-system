@@ -7,10 +7,10 @@
             <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
             <CustomerShipping :cusInfoChild="orderInfo,cusRouterInfo" v-show="orderInfo.status>11"></CustomerShipping>
-            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></TestReportTable>
-            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></reason>
+            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></TestReportTable>
+            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></reason>
 
-            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19'.indexOf(statusStr)>=0"></Networkdelivery>
+            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19,20'.indexOf(statusStr)>=0"></Networkdelivery>
             <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
             <Evaluated :orderComment="orderComment" v-show="'20'.indexOf(statusStr)>=0"></Evaluated>
             <!-- 确认收货按钮 -->

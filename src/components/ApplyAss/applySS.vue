@@ -38,7 +38,7 @@
                 </el-col>
             </el-row>
             <el-form-item label="" prop="addressDetail">
-                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')"></el-input>
+                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')" maxlength="35"></el-input>
             </el-form-item>
             <div class="form-group">
                 <label for="">
@@ -63,7 +63,7 @@
             </el-row>
             <div class="form-group mr_top2">
                 <label for="">
-                    <b>*</b> {{$t('order.Alternativecontact')}}：</label>
+                    {{$t('order.Alternativecontact')}}：</label>
             </div>
             <el-row class="row-bg" :gutter="30">
                 <el-col :md="6">
@@ -172,12 +172,12 @@ export default {
                 phone: [
                     { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 手机不能为空
                 ],
-                emergencyName: [
-                    { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 相关联系人姓名不能为空
-                ],
-                emergencyPhone: [
-                    { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 相关联系人手机不能为空
-                ],
+                // emergencyName: [
+                //     { required: true, message: this.$t('order.FullNamerequired'), trigger: 'blur' }// 相关联系人姓名不能为空
+                // ],
+                // emergencyPhone: [
+                //     { required: true, message: this.$t('login.Mobilerequired'), trigger: 'blur' }// 相关联系人手机不能为空
+                // ],
                 email: [
                     { required: true, message: this.$t('order.Emailrequired'), trigger: 'blur' },
                     // 邮箱不能为空
