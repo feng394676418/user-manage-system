@@ -150,7 +150,13 @@ export default {
         RemaintoPay: 'Remain to Pay',
         WaystoPay: 'Ways to Pay',
         Paylater: 'Pay later',
-        PayNow: 'Pay Now'
+        PayNow: 'Pay Now',
+        paymentsuccess: 'Payment Success',
+        TransactionNo: 'Transaction No.',
+        Cost: 'Cost',
+        PaymentFailure: 'Payment Failure',
+        tryagain: 'Oops, failed payment. Please try again. ',
+        Back: 'Back'
     },
     WarrantyPayment: {
         DiagnosticReport: 'Diagnostic Report',

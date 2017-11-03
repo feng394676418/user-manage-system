@@ -149,7 +149,13 @@ export default {
         RemaintoPay: '实付',
         WaystoPay: '支付方式',
         Paylater: '稍后再付',
-        PayNow: '去付款'
+        PayNow: '去付款',
+        paymentsuccess: '支付成功',
+        TransactionNo: '交易流水号',
+        Cost: '金额',
+        PaymentFailure: '支付失败',
+        tryagain: '支付失败，请重新支付！',
+        Back: '返回支付页面'
     },
     WarrantyPayment: {
         DiagnosticReport: '检测报告',
