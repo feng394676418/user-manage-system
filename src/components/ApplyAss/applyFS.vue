@@ -48,7 +48,7 @@
                 <div class="form-group col-md-12">
                     <label for="">
                         <b>*</b>{{$t('order.UploadPhotos')}}:</label>
-                    <el-form-item label="" prop="imageUrlArray">
+                    <el-form-item label="">
                         <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
@@ -77,20 +77,16 @@ export default {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
+            } else if (value.length !== 15) {
+                callback(new Error('IMEI长度必须为15位'))// IMEI长度必须为15位
             } else {
                 callback()
             }
         }
         var validatePass2 = (rule, value, callback) => {
+            console.dir('描述长度：' + value.length)
             if (value === '') {
                 callback(new Error(this.$t('order.faultdescriptionempty')))// 故障描述不能为空
-            } else {
-                callback()
-            }
-        }
-        var validatePass3 = (rule, value, callback) => {
-            if (this.phoneImageUrlList.length === 0) {
-                callback(new Error(this.$t('order.picturenotempty')))// 图片不能为空
             } else {
                 callback()
             }
@@ -102,9 +98,6 @@ export default {
                 ],
                 troubleInfo: [
                     { validator: validatePass2, trigger: 'blur' }
-                ],
-                imageUrlArray: [
-                    { validator: validatePass3, trigger: 'change' }
                 ]
             },
             OrderInfoFS: {
@@ -268,6 +261,10 @@ export default {
         nextStep(formName) {
             const _this = this
             this.$refs[formName].validate((valid) => {
+                if (this.phoneImageUrlList.length === 0) {
+                    this.$message.error(this.$t('order.picturenotempty'))// 图片不能为空
+                    return
+                }
                 if (valid) {
                     // 追加验证信息
                     // 异常 return false

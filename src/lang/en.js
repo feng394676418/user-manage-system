@@ -13,7 +13,7 @@ export default {
     },
     order: {
         hello: 'hello!',
-        Chinese: 'Chinese',
+        Language: 'Language',
         checktime: 'Choose Time',
         Apply: 'Apply',
         Delivery: 'Delivery',
@@ -93,10 +93,13 @@ export default {
         Workorderfailed: 'Work order creation failed!',
         Applicationaccepted: 'Application accepted!',
         deliverynote: 'Your delivery note is loading……',
-        Pleasewait: 'Please wait for 1 minute to get your delivery note, or you can find the attachment in your email later. ',
+        Pleasewait: 'Please wait for 1 minute to get your delivery note. ',
         deliveryfailure: 'Oops! Your delivery note is failure.',
         WHY: 'WHY',
-        resubmitorder: 'Please re-submit your order. '
+        resubmitorder: 'Please re-submit your order. ',
+        selectnetwork: 'Please select a service network!',
+        Confirmreceipt: 'Confirm receipt',
+        receiptsuccess: 'Confirm receipt of success'
     },
     checkprice: {
         home: 'Home',

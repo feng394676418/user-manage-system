@@ -3,15 +3,20 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <step :status="orderInfo.status"></step>
+            <Evaluation :orderNumber="checkReportInfo.orderNunber"  v-show="'19'.indexOf(statusStr)>=0"></Evaluation>
             <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
             <CustomerShipping :cusInfoChild="orderInfo,cusRouterInfo" v-show="orderInfo.status>11"></CustomerShipping>
-            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></TestReportTable>
-            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19'.indexOf(statusStr)>=0"></reason>
+            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></TestReportTable>
+            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></reason>
 
-            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19'.indexOf(statusStr)>=0"></Networkdelivery>
-            <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
-            <!-- <Evaluated></Evaluated> -->
+            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19,20'.indexOf(statusStr)>=0"></Networkdelivery>
+            <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
+            <Evaluated :orderComment="orderComment" v-show="'20'.indexOf(statusStr)>=0"></Evaluated>
+            <!-- 确认收货按钮 -->
+            <confirmReceiptButton :orderNumber="checkReportInfo.orderNunber" v-show="'18'.indexOf(statusStr)>=0"></confirmReceiptButton>
+            <!-- 结算按钮 -->
+            <settlementButton v-show="isPay && checkReportInfo.serviceType==1 && '14,15,17'.indexOf(statusStr)>=0"></settlementButton>
         </div>
     </div>
 </template>
@@ -20,6 +25,7 @@
 import logintop from './logintop'
 import step from './step'
 import WorkOrderTable from './WorkOrderTable'
+import Evaluation from './Evaluation'
 import UserInfo from './UserInfo'
 import TestReportTable from './TestReportTable'
 import reason from './reason'
@@ -27,11 +33,14 @@ import CustomerShipping from './CustomerShipping'
 import Networkdelivery from './Networkdelivery'
 import Evaluated from './Evaluated'
 import AgreeOfferButtonChild from './AgreeOfferButtonChild'
+import confirmReceiptButton from './confirmReceiptButton'
+import settlementButton from './settlementButton'
 import { getOrderByOrderNumber, getRouterLog } from '@/api/order'
-import { getCheckReport } from '@/api/checkReport'
+import { getCheckReport, getOrderBillByOrderNumber } from '@/api/checkReport'
+import { getOrderCommentByOrderNumber } from '@/api/orderComment'
 
 export default {
-    components: { logintop, step, WorkOrderTable, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild },
+    components: { logintop, step, WorkOrderTable, Evaluation, UserInfo, TestReportTable, reason, CustomerShipping, Networkdelivery, Evaluated, AgreeOfferButtonChild, confirmReceiptButton, settlementButton },
     data () {
         return {
           orderNumber: this.$route.params.orderNumber,
@@ -55,7 +64,10 @@ export default {
           orderArr: [],
           cusRouterInfo: {},
           delRouterInfo: {},
-          checkReportInfo: {}
+          checkReportInfo: {},
+          orderBill: {},
+          isPay: true,
+          orderComment: {}
         }
     },
     created() {
@@ -72,6 +84,8 @@ export default {
             this.getCusRouterInfo()
             this.getDelRouterInfo()
             this.getCheckReport()
+            this.getOrderBillByOrderNumber()
+            this.getOrderCommentByOrderNumber()
           } else {
             console.dir('***************获取工单信息异常*************')
           }
@@ -99,6 +113,22 @@ export default {
             getCheckReport(this.orderInfo.ordernumber).then(response => {
                 this.checkReportInfo = response.data.data
                 console.dir(this.checkReportInfo)
+            })
+      },
+      getOrderBillByOrderNumber() {
+            getOrderBillByOrderNumber(this.orderInfo.ordernumber).then(response => {
+                this.orderBill = response.data.data
+                console.dir('***********************  getOrderBillByOrderNumber ')
+                if (this.orderBill != null) {
+                  this.isPay = false
+                }
+            })
+      },
+      getOrderCommentByOrderNumber() {
+             getOrderCommentByOrderNumber(this.orderInfo.ordernumber).then(response => {
+                this.orderComment = response.data.data
+                console.dir('***********************  getOrderCommentByOrderNumber ')
+                console.dir(this.orderComment)
             })
       }
     }
