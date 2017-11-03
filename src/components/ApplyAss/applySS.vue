@@ -5,7 +5,7 @@
         </p>
         <div class="form-group">
             <label for="">
-                <b>*</b>IMEI:{{userOrderInfoChild.IMEI}}</label>
+                <b>*</b>{{$t('WarrantyPayment.DeliveryAddress')}}</label>
         </div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
             <el-row class="row-bg" :gutter="30">
@@ -38,7 +38,7 @@
                 </el-col>
             </el-row>
             <el-form-item label="" prop="addressDetail">
-                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')" maxlength="35"></el-input>
+                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')" :maxlength="35" :minlength="3"></el-input>
             </el-form-item>
             <div class="form-group">
                 <label for="">

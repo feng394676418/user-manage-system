@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" v-if="imgFlg || pdfFlg" @click="download()">Download</el-button>
+                        <el-button type="info" v-if="imgFlg || pdfFlg" @click="download()">{{$t('order.Download')}}</el-button>
                     </div>
                 </div>
             </div>

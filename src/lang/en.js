@@ -57,14 +57,14 @@ export default {
         Filesize: 'File size to be less than 2M!',
         Next: 'Next',
         addressrequired: 'Note: this address will be used as Return address, please make sure it is accurate. “*”is required',
-        Country: 'Country',
+        Country: 'Country*',
         SelectCountry: 'Please Select a Country',
         County: 'County',
-        City: 'City',
+        City: 'City*',
         SelectCity: 'Please Select a City',
-        PostCode: 'Post Code',
+        PostCode: 'Post Code*',
         Coderequired: 'A Post Code is required',
-        DetailedAddress: 'Detailed Address',
+        DetailedAddress: 'Detailed Address*',
         Detailedaddrequired: 'Detailed address is required',
         ContactInfo: 'Contact Info',
         Fullname: 'Full Name',
@@ -99,7 +99,8 @@ export default {
         resubmitorder: 'Please re-submit your order. ',
         selectnetwork: 'Please select a service network!',
         Confirmreceipt: 'Confirm receipt',
-        receiptsuccess: 'Confirm receipt of success'
+        receiptsuccess: 'Confirm receipt of success',
+        Download: 'Download'
     },
     checkprice: {
         home: 'Home',
