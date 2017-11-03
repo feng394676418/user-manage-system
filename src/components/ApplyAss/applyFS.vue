@@ -51,7 +51,7 @@
                     <el-form-item label="" prop="imageUrlArray">
                         <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
-                        </el-upload>                        
+                        </el-upload>
                     </el-form-item>
                 </div>
             </div>
