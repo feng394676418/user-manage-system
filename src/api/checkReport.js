@@ -20,7 +20,7 @@ export function confirmQuotes(orderNumber) {
     return fetch({
         url: 'api/checkReport/confirmQuotes',
         method: 'get',
-        params: {orderNumber}
+        params: { orderNumber }
     })
 }
 
@@ -28,7 +28,7 @@ export function notRepair(orderNumber) {
     return fetch({
         url: 'api/checkReport/notRepair',
         method: 'get',
-        params: {orderNumber}
+        params: { orderNumber }
     })
 }
 
@@ -36,7 +36,7 @@ export function getOrderBillByOrderNumber(orderNumber) {
     return fetch({
         url: 'api/checkReport/getOrderBillByOrderNumber',
         method: 'get',
-        params: {orderNumber}
+        params: { orderNumber }
     })
 }
 
@@ -44,14 +44,6 @@ export function confirmReceipt(orderNumber) {
     return fetch({
         url: 'api/checkReport/confirmReceipt',
         method: 'get',
-        params: {orderNumber}
-    })
-}
-
-export function pay(payParams) {
-    return fetch({
-        url: 'api/checkReport/pay',
-        method: 'get',
-        params: payParams
+        params: { orderNumber }
     })
 }
