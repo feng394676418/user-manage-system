@@ -8,7 +8,13 @@
                 <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.paymentsuccess')}}</a>
             </div>
-            <!--支付成功-->
+            <template v-if="successWait">
+              <!--支付结果确认等待-->
+              支付确认中,请稍等！ TODO @Yvan
+            </template>
+            <template v-else>
+              <template v-if="successFlg">
+                <!--支付成功-->
             <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.paymentsuccess')}}</h2>
             <p class="text-center mr_top">
                 <img src="../../../static/img/payment_successful.png" />
@@ -20,27 +26,84 @@
                     <th scope="col" width="15%">{{$t('ConfirmPayment.Cost')}}</th>
                 </tr>
                 <tr>
-                    <td>45641654989494165266</td>
-                    <td>PayPal</td>
-                    <td>€ <strong class="Orange_text">72.00</strong></td> 
-                </tr>            
-            </table>            
-            <div class="col-md-12 text-center">
-                <el-button type="info" class="next_step mr_top">{{$t('login.CheckProgress')}}</el-button>
+                    <td>{{serialnumber}}</td>
+                    <td>{{billType}}</td>
+                    <td>€ <strong class="Orange_text">{{totalCost}}</strong></td>
+                </tr>
+            </table>
+             <div class="col-md-12 text-center">
+                <el-button type="info" class="next_step mr_top" @click="checkProgress()">{{$t('login.CheckProgress')}}</el-button>
             </div>
+              </template>
+              <template v-else>
+                <!--支付失败-->
+                 <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.tryagain')}}</h2>
+                <p class="blue_text text-center pd_top">
+                    <!--错误信息显示-->
+                    {{$t('order.WHY')}}：{{errorInfo}}
+                </p>
+                <p class="text-center mr_top">
+                    <img src="../../../static/img/Payment_failed.png" />
+                </p>
+                <div class="col-md-12 text-center">
+                    <el-button type="info" class="next_step mr_top" @click="paymentAgain()">{{$t('ConfirmPayment.Back')}}</el-button>
+                </div>
+              </template>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
 import logintop from './logintop'
+import { payResult } from '@/api/payment'
+
 export default {
     components: { logintop },
     data() {
         return {
+          errorInfo: '', // 异常信息
+          successWait: true, // 支付结果判定flag
+          successFlg: false, // 支付成功flag
+          billType: '',
+          serialnumber: '',
+          totalCost: '',
+          paymentResult: {
+            guid: this.$route.query.guid,
+            paymentId: this.$route.query.paymentId,
+            token: this.$route.query.token,
+            payerId: this.$route.query.PayerID,
+            orderNumber: this.$route.query.nber
+          }
         }
     },
+    created() {
+      this.validatePay()
+    },
     methods: {
+      checkProgress() {
+        this.$router.push('/GuaranteedCompletion/' + this.paymentResult.orderNumber)
+      },
+      paymentAgain() {
+        this.$router.push('/ConfirmPayment/' + this.paymentResult.orderNumber + '/true')
+      },
+      validatePay() {
+        console.dir(this.paymentResult)
+        payResult(this.paymentResult).then(response => {
+          if (response.data.status === '0') {
+            // 支付成功
+            this.successWait = false
+            this.successFlg = true
+            this.totalCost = response.data.data.totalCost
+            this.serialnumber = response.data.data.serialnumber
+            this.billType = response.data.data.billType
+          } else {
+            this.successWait = false
+            this.successFlg = false
+            this.errorInfo = response.data.message
+          }
+        })
+      }
     }
 }
 </script>

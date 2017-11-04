@@ -27,7 +27,7 @@
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
                 <el-button :plain="true" type="info" class="form-group" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
-                <el-button type="info"  class="form-group" @click="payNow">{{$t('ConfirmPayment.PayNow')}}</el-button>
+                <el-button type="info"  class="form-group" @click="payNow" v-loading.fullscreen.lock="fullscreenLoading">{{$t('ConfirmPayment.PayNow')}}</el-button>
             </div>
         </div>
     </div>
@@ -36,10 +36,14 @@
 <script>
 import logintop from './logintop'
 import { getCheckReport } from '@/api/checkReport'
+import { payOrder, payOverCheck } from '@/api/payment'
 export default {
     components: { logintop },
     data () {
         return {
+            fullscreenLoading: false,
+            paymenturi: '',
+            billType: '',
             isRepair: this.$route.params.isRepair, // true同意报价 false不同意报价 高风险 废弃 2017/11/3 dbsix.liu
             orderNumber: this.$route.params.orderNumber,
             remaintoPay: 0,
@@ -47,14 +51,24 @@ export default {
         }
     },
      created() {
+      this.payCheck()
       this.getCheckReport()
     },
     methods: {
+        payCheck() {
+          // 是否已经付款check
+          payOverCheck(this.orderNumber).then(response => {
+            console.log('2222222222222222222222')
+            console.dir(response)
+            if (response.data.status === '0') {
+              // 已付款 直接跳转
+              this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
+            }
+          })
+        },
         getCheckReport() {
             getCheckReport(this.orderNumber).then(response => {
                 this.checkReportInfo = response.data.data
-                console.log('同意报价状态---------------------同意报价状态')
-                console.dir(this.getCheckReport)
                 if (this.checkReportInfo.confirmQuotes) { // 数据库内部信息获取 dbsix.liu
                     // 同意报价的情况收费
                     let item = {}
@@ -140,7 +154,22 @@ export default {
           this.$router.go(-1)
       },
       payNow() {
-          console.dir('RemaintoPay:' + this.remaintoPay)
+          console.log('RemaintoPay:' + this.remaintoPay)
+          // paypal支付一时固定
+          this.billType = 'paypal'
+          this.fullscreenLoading = true
+          payOrder(this.orderNumber, this.billType).then(response => {
+            if (response.data.status === '0') {
+              this.paymenturi = response.data.data.paymenturi
+              console.log(this.paymenturi)
+              window.open(this.paymenturi, '_self')
+              this.fullscreenLoading = false
+            } else {
+              this.$message.error(response.data.message)
+              this.$router.push('/PaymentFailed')
+              this.fullscreenLoading = false
+            }
+          })
       }
     }
 }

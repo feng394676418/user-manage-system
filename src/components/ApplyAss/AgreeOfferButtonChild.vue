@@ -50,17 +50,20 @@ export default {
         repair(isRepair) {
             //  isRepair 是否继续维修  true  false
             if (isRepair) {
+                // 同意报价 全价付款(保外)
                 confirmQuotes(this.checkReportInfo.orderNunber).then(response => {
                         console.dir('##############   confirmQuotes   ###############')
                         console.dir(response)
+                        this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })
             } else {
+                // 不同意报价 邮寄费用付款(保外)
                 notRepair(this.checkReportInfo.orderNunber).then(response => {
                         console.dir('############   notRepair  #################')
                         console.dir(response)
+                        this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })
             }
-            this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
         }
     }
 }
