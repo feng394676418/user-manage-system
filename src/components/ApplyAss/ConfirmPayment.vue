@@ -16,9 +16,9 @@
                 <el-table-column :label="$t('ConfirmPayment.Price')" min-width="33%">
                     <template scope="scope">
                         € <strong class="Orange_text">{{ scope.row.price }}</strong>
-                    </template>     
+                    </template>
                 </el-table-column>
-                
+
             </el-table>
             <div class="pd_tb">
                 <label>
@@ -40,7 +40,7 @@ export default {
     components: { logintop },
     data () {
         return {
-            isRepair: this.$route.params.isRepair,
+            isRepair: this.$route.params.isRepair, // true同意报价 false不同意报价 高风险 废弃 2017/11/3 dbsix.liu
             orderNumber: this.$route.params.orderNumber,
             remaintoPay: 0,
             tableData: []
@@ -53,7 +53,10 @@ export default {
         getCheckReport() {
             getCheckReport(this.orderNumber).then(response => {
                 this.checkReportInfo = response.data.data
-                if (this.isRepair === 'true') {
+                console.log('同意报价状态---------------------同意报价状态')
+                console.dir(this.getCheckReport)
+                if (this.checkReportInfo.confirmQuotes) { // 数据库内部信息获取 dbsix.liu
+                    // 同意报价的情况收费
                     let item = {}
                     // 备件
                     let type = this.$t('ConfirmPayment.ServiceParts')
@@ -108,6 +111,7 @@ export default {
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.remaintoPay
                 } else {
+                    // 不同意报价的场合 只收取快递费用
                     // 快递费 寄出
                     let item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')

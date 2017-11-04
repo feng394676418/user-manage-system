@@ -6,10 +6,10 @@
                 <a href="#">{{$t('checkprice.home')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
-                <a href="#">支付失败</a>
+                <a href="#">{{$t('ConfirmPayment.PaymentFailure')}}</a>
             </div>
             <!--支付失败-->
-            <h2 class="text-center generate_title mr_top pay_title">支付失败，请重新支付！</h2>
+            <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.tryagain')}}</h2>
             <p class="blue_text text-center pd_top">
                 <!--错误信息显示-->
                 {{$t('order.WHY')}}：xxxxxxxxxxxxxxxxxxxxxxxxxx。                
@@ -18,7 +18,7 @@
                 <img src="../../../static/img/Payment_failed.png" />
             </p>
             <div class="col-md-12 text-center">
-                <el-button type="info" class="next_step mr_top">返回支付页面</el-button>
+                <el-button type="info" class="next_step mr_top">{{$t('ConfirmPayment.Back')}}</el-button>
             </div>
         </div>
     </div>

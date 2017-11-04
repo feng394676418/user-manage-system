@@ -6,18 +6,18 @@
                 <a href="#">{{$t('checkprice.home')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
-                <a href="#">支付成功</a>
+                <a href="#">{{$t('ConfirmPayment.paymentsuccess')}}</a>
             </div>
             <!--支付成功-->
-            <h2 class="text-center generate_title mr_top pay_title">支付成功</h2>
+            <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.paymentsuccess')}}</h2>
             <p class="text-center mr_top">
                 <img src="../../../static/img/payment_successful.png" />
             </p>
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table my_table mr_top">
                 <tr>
-                    <th scope="col" width="45%">交易流水号</th>
+                    <th scope="col" width="45%">{{$t('ConfirmPayment.TransactionNo')}}</th>
                     <th scope="col" width="40%">{{$t('ConfirmPayment.WaystoPay')}}</th>
-                    <th scope="col" width="15%">金额</th>
+                    <th scope="col" width="15%">{{$t('ConfirmPayment.Cost')}}</th>
                 </tr>
                 <tr>
                     <td>45641654989494165266</td>

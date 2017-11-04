@@ -56,14 +56,14 @@ export default {
         Filesize: '文件大小需小于2M!',
         Next: '下一步',
         addressrequired: '提示：此寄件地址会用做寄回地址，以下内容需填写真实有效信息以防包裹丢失。“*”为必填内容。',
-        Country: '国家',
+        Country: '国家*',
         SelectCountry: '请选择国家',
         County: '州',
-        City: '城市',
+        City: '城市*',
         SelectCity: '请选择城市',
-        PostCode: '邮编',
+        PostCode: '邮编*',
         Coderequired: '邮编不能为空',
-        DetailedAddress: '详细地址',
+        DetailedAddress: '详细地址*',
         Detailedaddrequired: '详细地址不能为空',
         ContactInfo: '联系方式',
         Fullname: '姓名',
@@ -98,7 +98,8 @@ export default {
         resubmitorder: '请重新下单',
         selectnetwork: '请选择服务网点！',
         Confirmreceipt: '确认收货',
-        receiptsuccess: '确认收货成功！'
+        receiptsuccess: '确认收货成功！',
+        Download: '下载'
     },
     checkprice: {
         home: '首页',
@@ -149,7 +150,13 @@ export default {
         RemaintoPay: '实付',
         WaystoPay: '支付方式',
         Paylater: '稍后再付',
-        PayNow: '去付款'
+        PayNow: '去付款',
+        paymentsuccess: '支付成功',
+        TransactionNo: '交易流水号',
+        Cost: '金额',
+        PaymentFailure: '支付失败',
+        tryagain: '支付失败，请重新支付！',
+        Back: '返回支付页面'
     },
     WarrantyPayment: {
         DiagnosticReport: '检测报告',

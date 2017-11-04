@@ -11,6 +11,7 @@
             <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></reason>
 
             <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19,20'.indexOf(statusStr)>=0"></Networkdelivery>
+            <!--同意报价按钮-->
             <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
             <Evaluated :orderComment="orderComment" v-show="'20'.indexOf(statusStr)>=0"></Evaluated>
             <!-- 确认收货按钮 -->
