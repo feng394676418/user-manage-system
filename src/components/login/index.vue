@@ -90,7 +90,7 @@ export default {
                 const orderNumber = response.data.data.ordernumber
                 this.$router.push({ path: '/GuaranteedCompletion/' + orderNumber })
               } else {
-                this.$message.error('登陆失败!')
+                this.$message.error(this.$t(response.data.message))
               }
             })
         },

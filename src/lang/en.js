@@ -9,7 +9,9 @@ export default {
         ApplyService: 'Apply for a Service',
         Orderrequired: 'Order No. is required',
         Mobilerequired: 'Mobile No. is required',
-        Numbersonly: 'Numbers only'
+        Numbersonly: 'Numbers only',
+        noRefNumber: '验证失败，没有此工单号',
+        noMatchPhone: '验证失败，手机号和工单编号不匹配'
     },
     order: {
         hello: 'hello!',

@@ -8,7 +8,9 @@ export default {
         ApplyService: '申请售后服务',
         Orderrequired: '工单编号不能为空',
         Mobilerequired: '手机号不能为空',
-        Numbersonly: '手机号只能为数字'
+        Numbersonly: '手机号只能为数字',
+        noRefNumber: '验证失败，没有此工单号',
+        noMatchPhone: '验证失败，手机号和工单编号不匹配'
     },
     order: {
         hello: '你好!',
