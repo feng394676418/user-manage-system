@@ -18,7 +18,7 @@
                     <label for="">
                         <b>*</b>IMEI:</label>
                     <el-form-item label="" prop="IMEI" style="margin-bottom:0">
-                        <el-input type="text" v-model="OrderInfoFS.IMEI" auto-complete="off" @blur="getImeiInfo()"></el-input>
+                        <el-input type="text" v-model.number="OrderInfoFS.IMEI" auto-complete="off" @blur="getImeiInfo()"></el-input>
                     </el-form-item>
                 </div>
                 <div class="col-md-6 how_check">
@@ -39,7 +39,7 @@
                     <label for="">
                         <b>*</b>{{$t('order.FailureDescription')}}:</label>
                     <el-form-item label="" prop="troubleInfo">
-                        <el-input type="textarea" rows="3" v-model="OrderInfoFS.troubleInfo"></el-input>
+                        <el-input type="textarea" :rows="3" v-model="OrderInfoFS.troubleInfo" :maxlength="600"></el-input>
                     </el-form-item>
                     <!--追加验证时错误信息-->
                 </div>
@@ -47,7 +47,7 @@
             <div class="row mr_top">
                 <div class="form-group col-md-12">
                     <label for="">
-                        <b>*</b>{{$t('order.UploadPhotos')}}:</label>
+                        {{$t('order.UploadPhotos')}}:</label>
                     <el-form-item label="">
                         <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
@@ -77,11 +77,14 @@ export default {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
-            } else if (value.length !== 15) {
+            } else if ((value + '').length !== 15) {
                 callback(new Error('IMEI长度必须为15位'))// IMEI长度必须为15位
             } else {
                 callback()
             }
+            //  else if (typeof (value) !== 'number') {
+            //     callback(new Error('IMEI必须为纯数字'))// IMEI必须为纯数字
+            // }
         }
         var validatePass2 = (rule, value, callback) => {
             console.dir('描述长度：' + value.length)
@@ -144,6 +147,7 @@ export default {
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
                 this.$refs.upFile.limit = 3
+                this.$refs.upFile.disabled = true
             }
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
             const isLt5M = file.size / 1024 / 1024 < 5
@@ -261,10 +265,10 @@ export default {
         nextStep(formName) {
             const _this = this
             this.$refs[formName].validate((valid) => {
-                if (this.phoneImageUrlList.length === 0) {
-                    this.$message.error(this.$t('order.picturenotempty'))// 图片不能为空
-                    return
-                }
+                // if (this.phoneImageUrlList.length === 0) {
+                //     this.$message.error(this.$t('order.picturenotempty'))// 图片不能为空
+                //     return
+                // }
                 if (valid) {
                     // 追加验证信息
                     // 异常 return false

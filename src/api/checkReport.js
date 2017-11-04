@@ -47,3 +47,11 @@ export function confirmReceipt(orderNumber) {
         params: {orderNumber}
     })
 }
+
+export function pay(payParams) {
+    return fetch({
+        url: 'api/checkReport/pay',
+        method: 'get',
+        params: payParams
+    })
+}

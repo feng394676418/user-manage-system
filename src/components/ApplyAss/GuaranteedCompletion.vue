@@ -17,7 +17,7 @@
             <!-- 确认收货按钮 -->
             <confirmReceiptButton :orderNumber="checkReportInfo.orderNunber" v-show="'18'.indexOf(statusStr)>=0"></confirmReceiptButton>
             <!-- 结算按钮 -->
-            <settlementButton v-show="isPay && checkReportInfo.serviceType==1 && '14,15,17'.indexOf(statusStr)>=0"></settlementButton>
+            <settlementButton :checkReportInfo="checkReportInfo" v-show="isPay && checkReportInfo.serviceType==1 && '14,15,17'.indexOf(statusStr)>=0"></settlementButton>
         </div>
     </div>
 </template>

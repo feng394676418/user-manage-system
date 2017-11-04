@@ -3,7 +3,7 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <div class="pull-right">
-                    <el-button type="info" class="next_step mr_top">结算</el-button>
+                    <el-button type="info" class="next_step mr_top" @click="payment">结算</el-button>
                 </div>
             </div>
         </div>
@@ -13,13 +13,17 @@
 <script>
 export default {
     props: {
-        status: ''
+        checkReportInfo: ''
     },
     data() {
         return {
         }
     },
     methods: {
+        payment() {
+            this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + this.checkReportInfo.confirmQuotes)
+        }
     }
 }
 </script>
+

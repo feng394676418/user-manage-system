@@ -8,7 +8,9 @@ export default {
         ApplyService: '申请售后服务',
         Orderrequired: '工单编号不能为空',
         Mobilerequired: '手机号不能为空',
-        Numbersonly: '手机号只能为数字'
+        Numbersonly: '手机号只能为数字',
+        noRefNumber: '验证失败，没有此工单号',
+        noMatchPhone: '验证失败，手机号和工单编号不匹配'
     },
     order: {
         hello: '你好!',
@@ -56,14 +58,14 @@ export default {
         Filesize: '文件大小需小于2M!',
         Next: '下一步',
         addressrequired: '提示：此寄件地址会用做寄回地址，以下内容需填写真实有效信息以防包裹丢失。“*”为必填内容。',
-        Country: '国家',
+        Country: '国家*',
         SelectCountry: '请选择国家',
         County: '州',
-        City: '城市',
+        City: '城市*',
         SelectCity: '请选择城市',
-        PostCode: '邮编',
+        PostCode: '邮编*',
         Coderequired: '邮编不能为空',
-        DetailedAddress: '详细地址',
+        DetailedAddress: '详细地址*',
         Detailedaddrequired: '详细地址不能为空',
         ContactInfo: '联系方式',
         Fullname: '姓名',
@@ -98,7 +100,8 @@ export default {
         resubmitorder: '请重新下单',
         selectnetwork: '请选择服务网点！',
         Confirmreceipt: '确认收货',
-        receiptsuccess: '确认收货成功！'
+        receiptsuccess: '确认收货成功！',
+        Download: '下载'
     },
     checkprice: {
         home: '首页',
