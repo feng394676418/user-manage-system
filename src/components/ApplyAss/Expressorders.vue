@@ -158,7 +158,7 @@ export default {
         })
       },
       download() {
-        window.open(this.surfaceURL)
+        window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.surfaceURL)
       }
     }
 }

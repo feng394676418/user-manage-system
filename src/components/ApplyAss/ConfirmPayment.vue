@@ -35,7 +35,7 @@
 
 <script>
 import logintop from './logintop'
-import { getCheckReport } from '@/api/checkReport'
+import { getCheckReport, pay } from '@/api/checkReport'
 export default {
     components: { logintop },
     data () {
@@ -137,6 +137,12 @@ export default {
       },
       payNow() {
           console.dir('RemaintoPay:' + this.remaintoPay)
+          let payParams = {}
+          payParams.orderNumber = this.orderNumber
+          payParams.payNum = this.remaintoPay
+          pay(payParams).then(response => {
+              console.dir(response)
+          })
       }
     }
 }
