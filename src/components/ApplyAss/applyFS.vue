@@ -18,7 +18,7 @@
                     <label for="">
                         <b>*</b>IMEI:</label>
                     <el-form-item label="" prop="IMEI" style="margin-bottom:0">
-                        <el-input type="text" v-model.number="OrderInfoFS.IMEI" auto-complete="off" @blur="getImeiInfo()"></el-input>
+                        <el-input type="text" v-model="OrderInfoFS.IMEI" auto-complete="off" @blur="getImeiInfo()"></el-input>
                     </el-form-item>
                 </div>
                 <div class="col-md-6 how_check">
@@ -53,6 +53,9 @@
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
+                    <p class="blue_text">
+                       上传图片大小不得超过5Mb，支持JPEG、PNG、GIF。最多上传三张。
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -79,12 +82,11 @@ export default {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
             } else if ((value + '').length !== 15) {
                 callback(new Error('IMEI长度必须为15位'))// IMEI长度必须为15位
+            } else if (isNaN(value / 1)) {
+                callback(new Error('IMEI必须为纯数字'))// IMEI必须为纯数字
             } else {
                 callback()
             }
-            //  else if (typeof (value) !== 'number') {
-            //     callback(new Error('IMEI必须为纯数字'))// IMEI必须为纯数字
-            // }
         }
         var validatePass2 = (rule, value, callback) => {
             console.dir('描述长度：' + value.length)
