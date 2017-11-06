@@ -20,7 +20,7 @@
         <el-checkbox-group v-model="functionButtonInfo.checkedRepairOptions" @change="handleCheckedRepairOptionsChange">
           <el-checkbox v-for="repair in repairOptionArray" :label="repair" :key="repair">{{repair | repairName}}</el-checkbox>
         </el-checkbox-group>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkNot" @change="handleCheckNotChange">{{$t('order.NonAbove')}}</el-checkbox>
+        <el-checkbox :indeterminate="isIndeterminate" v-model="functionButtonInfo.checkNot" @change="handleCheckNotChange">{{$t('order.NonAbove')}}</el-checkbox>
       </div>
     </div>
     <Functionbutton :functionButtonInfoChild="functionButtonInfo"></Functionbutton>
@@ -45,10 +45,10 @@ export default {
       repairNameArray: this.$t('order.repairNameArray'),
       functionButtonInfo: {
         timeIn: false,
+        checkNot: false,
         timeOutClassName: '',
         checkedRepairOptions: [] // 维修工单状态
       },
-      checkNot: false,
       repairOptionArray: repairOptions,
       isIndeterminate: false
     }
@@ -139,7 +139,7 @@ export default {
           this.functionButtonInfo.timeIn = false
         }
       } else {
-        this.checkNot = false
+        this.functionButtonInfo.checkNot = false
         this.functionButtonInfo.timeIn = false
       }
       console.log('-------->>保内>>>--' + this.functionButtonInfo.timeIn)
