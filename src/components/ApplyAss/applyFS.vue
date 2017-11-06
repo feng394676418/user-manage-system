@@ -54,7 +54,7 @@
                         </el-upload>
                     </el-form-item>
                     <p class="blue_text">
-                       上传图片大小不得超过5Mb，支持JPEG、PNG、GIF。最多上传三张。
+                        上传图片大小不得超过5Mb，支持JPEG、PNG、GIF。最多上传三张。
                     </p>
                 </div>
             </div>
@@ -145,6 +145,7 @@ export default {
             // 0: 保内维修 1: 保外维修
             this.OrderInfoFS.serviceType = functionButtonInfo.timeIn ? '0' : '1'
             this.OrderInfoFS.repairStatus = functionButtonInfo.checkedRepairOptions.toString()
+            this.OrderInfoFS.checkNot = functionButtonInfo.checkNot
         },
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
@@ -271,6 +272,10 @@ export default {
                 //     this.$message.error(this.$t('order.picturenotempty'))// 图片不能为空
                 //     return
                 // }
+                if (_this.OrderInfoFS.repairStatus.length === 0 && _this.OrderInfoFS.checkNot === false) {
+                    valid = false
+                   this.$message.error('保修类型不能为空')
+                }
                 if (valid) {
                     // 追加验证信息
                     // 异常 return false
