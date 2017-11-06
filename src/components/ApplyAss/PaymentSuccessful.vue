@@ -10,7 +10,7 @@
             </div>
             <template v-if="successWait">
               <!--支付结果确认等待-->
-              支付确认中,请稍等！ TODO @Yvan
+              支付确认中,请稍等!
             </template>
             <template v-else>
               <template v-if="successFlg">
