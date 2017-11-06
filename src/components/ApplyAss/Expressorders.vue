@@ -84,6 +84,7 @@ export default {
             stepModel: {
               step: '3'
             },
+            orderNumber: '', // 系统内部单号
             trackingNoFlg: false, // 运单号获取flag
             trackingFailMsg: '', // 运单号获取失败原因
             imgFlg: false,
@@ -127,6 +128,7 @@ export default {
           console.dir(response)
           if (response.data.status === '0') {
             this.surfaceURL = response.data.data.sendSurfaceURL
+            this.orderNumber = response.data.data.orderNumber
             this.trackingWait = false
             this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
@@ -139,6 +141,7 @@ export default {
           } else if (response.data.status === '2') {
             this.$message.info(response.data.message)
             this.surfaceURL = response.data.data.sendSurfaceURL
+            this.orderNumber = response.data.data.orderNumber
             this.trackingWait = false
             this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
@@ -159,6 +162,7 @@ export default {
       },
       download() {
         window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.surfaceURL)
+        window.open('/GuaranteedCompletion/' + this.orderNumber, '_self')
       }
     }
 }
