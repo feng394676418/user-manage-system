@@ -48,7 +48,7 @@ export default {
         timeOutClassName: '',
         checkedRepairOptions: [] // 维修工单状态
       },
-      checkNot: true,
+      checkNot: false,
       repairOptionArray: repairOptions,
       isIndeterminate: false
     }
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     handleCheckNotChange(event) {
-      this.functionButtonInfo.checkedRepairOptions = event.target.checked ? [] : repairOptions
+      this.functionButtonInfo.checkedRepairOptions = event.target.checked ? [] : []
       if (this.functionButtonInfo.checkedRepairOptions.length === 0) {
         if (this.checkTimeIn()) {
           this.functionButtonInfo.timeIn = true
@@ -132,7 +132,7 @@ export default {
       if (checkedCount === 0) {
         // 没有人为之类损坏
         console.log('-------------------------------')
-        this.checkNot = true
+       // this.checkNot = true
         if (this.checkTimeIn()) {
           this.functionButtonInfo.timeIn = true
         } else {
