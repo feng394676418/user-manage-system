@@ -26,8 +26,8 @@
             </div>
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
-                <el-button :plain="true" type="info" class="form-group" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
-                <el-button type="info"  class="form-group" @click="payNow" v-loading.fullscreen.lock="fullscreenLoading">{{$t('ConfirmPayment.PayNow')}}</el-button>
+                <el-button ref="btn_paylater" :plain="true" type="info" class="form-group" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
+                <el-button ref="btn_paynow" type="info" class="form-group" @click="payNow" v-loading.fullscreen.lock="fullscreenLoading">{{$t('ConfirmPayment.PayNow')}}</el-button>
             </div>
         </div>
     </div>
@@ -58,7 +58,6 @@ export default {
         payCheck() {
           // 是否已经付款check
           payOverCheck(this.orderNumber).then(response => {
-            console.log('2222222222222222222222')
             console.dir(response)
             if (response.data.status === '0') {
               // 已付款 直接跳转
@@ -151,10 +150,20 @@ export default {
             })
       },
       payLater() {
+          // 防止连续点击两次
+          this.$refs.btn_paylater.disabled = true
+          setTimeout(() => {
+              this.$refs.btn_paylater.disabled = false
+          }, 3000)
           this.$router.go(-1)
       },
       payNow() {
-          console.log('RemaintoPay:' + this.remaintoPay)
+          // 防止连续点击两次
+          this.$refs.btn_paynow.disabled = true
+          setTimeout(() => {
+              this.$refs.btn_paynow.disabled = false
+          }, 3000)
+
           // paypal支付一时固定
           this.billType = 'paypal'
           this.fullscreenLoading = true
