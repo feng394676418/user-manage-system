@@ -16,7 +16,7 @@
                 <template v-if="trackingNoFlg">
                   <!--成功生成运单-->
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
-                    <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
+                    <span class="sky_blue_text" style="cursor:pointer;" @click="openServiceProgress">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
                   <p class="blue_text text-center pd_top">
                       {{$t('order.sentemail')}}
                   </p>
@@ -128,7 +128,7 @@ export default {
           console.dir(response)
           if (response.data.status === '0') {
             this.surfaceURL = response.data.data.sendSurfaceURL
-            this.orderNumber = response.data.data.orderNumber
+            this.orderNumber = response.data.data.ordernumber
             this.trackingWait = false
             this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
@@ -141,7 +141,7 @@ export default {
           } else if (response.data.status === '2') {
             this.$message.info(response.data.message)
             this.surfaceURL = response.data.data.sendSurfaceURL
-            this.orderNumber = response.data.data.orderNumber
+            this.orderNumber = response.data.data.ordernumber
             this.trackingWait = false
             this.trackingNoFlg = true
             if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
@@ -162,7 +162,10 @@ export default {
       },
       download() {
         window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.surfaceURL)
-        window.open('/GuaranteedCompletion/' + this.orderNumber, '_self')
+        // window.open('/GuaranteedCompletion/' + this.orderNumber, '_self')
+      },
+      openServiceProgress() {
+        this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
       }
     }
 }
