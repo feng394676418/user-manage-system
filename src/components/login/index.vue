@@ -1,4 +1,5 @@
 <template>
+<div style="background: #f7f8fd url(../../../static/img/login_bg.jpg) no-repeat fixed center center / cover">
     <div class="container">
         <div class="login_top">
             <img src="../../../static/img/login_logo.png" />
@@ -44,6 +45,7 @@
         </div>
         <div class="copy">Copyright： Wing sing supply chain co.,Ltd © wingsingsupplychain.com All Rights Reserved.</div>
     </div>
+</div>
 </template>
 
 <script>
@@ -141,9 +143,9 @@ export default {
     line-height: 48px!important;
 }
 
-body {
+/* body {
     background: #f7f8fd url(../../../static/img/login_bg.jpg) no-repeat fixed center center / cover;
-}
+} */
 
 h1 {
     font-size: 18px;
