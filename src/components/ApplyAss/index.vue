@@ -6,7 +6,7 @@
             <stepnav :stepNav="stepModel"></stepnav>
             <template v-if="step1">
               <!--维修申请第一步-->
-              <apply-f-s @apply-fs-order-info="applyFSOrderInfo"></apply-f-s>
+              <apply-f-s @apply-fs-order-info="applyFSOrderInfo" :OrderInfoFS="userOrderInfo"></apply-f-s>
             </template>
 
             <template v-if="step2">
@@ -76,7 +76,7 @@ export default {
           this.userOrderInfo.repairStatus = OrderInfoFS.repairStatus
           this.userOrderInfo.serviceType = OrderInfoFS.serviceType
           this.userOrderInfo.troubleInfo = OrderInfoFS.troubleInfo
-          this.userOrderInfo.photogroup = OrderInfoFS.imageUrlArray
+          this.userOrderInfo.photogroup = OrderInfoFS.photogroup
         },
         applySSOrderInfo(userOrderInfoChildF) { // 机能未启用
           console.log('获取子组件applySS信息')

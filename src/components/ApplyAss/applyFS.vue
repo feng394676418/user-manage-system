@@ -49,7 +49,7 @@
                     <label for="">
                         {{$t('order.UploadPhotos')}}:</label>
                     <el-form-item label="">
-                        <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.imageUrlArray" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+                        <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.photogroup" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                     </el-form-item>
@@ -76,6 +76,9 @@ import { brandList, getImeiInfo } from '@/api/apply'
 
 export default {
     components: { IMEIExists },
+    props: { // 父组件传递信息
+        OrderInfoFS: {}
+    },
     data() {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
@@ -105,19 +108,19 @@ export default {
                     { validator: validatePass2, trigger: 'blur' }
                 ]
             },
-            OrderInfoFS: {
-                step1: true, // 第一步
-                productBrand: '', // 品牌
-                owner: '', // 货主
-                IMEI: '', // IMEI号码
-                productName: '', // 产品名称
-                productType: '', // 产品型号
-                deadDate: '', // 保修期限
-                repairStatus: '', // 保修类型
-                serviceType: '', // 服务类型
-                troubleInfo: '', // 故障描述
-                imageUrlArray: '' // 上传图片地址
-            },
+            // OrderInfoFS: {
+            //     step1: true, // 第一步
+            //     productBrand: '', // 品牌
+            //     owner: '', // 货主
+            //     IMEI: '', // IMEI号码
+            //     productName: '', // 产品名称
+            //     productType: '', // 产品型号
+            //     deadDate: '', // 保修期限
+            //     repairStatus: '', // 保修类型
+            //     serviceType: '', // 服务类型
+            //     troubleInfo: '', // 故障描述
+            //     imageUrlArray: '' // 上传图片地址
+            // },
             imeiInfo: {
                 imei: '',
                 producttype: '',
@@ -137,6 +140,9 @@ export default {
     },
     created() {
         this.getBrandList()
+        if (this.OrderInfoFS.IMEI !== null && this.OrderInfoFS.IMEI !== '') {
+            this.getImeiInfo()
+        }
     },
     methods: {
         timeInOut(functionButtonInfo) {
@@ -224,6 +230,7 @@ export default {
                         this.OrderInfoFS.productName = this.imeiInfo.productname
                         this.OrderInfoFS.productType = this.imeiInfo.producttype
                         this.OrderInfoFS.deadDate = this.imeiInfo.deadtime
+                        this.imeiInfo.repairStatus = this.OrderInfoFS.repairStatus
                     }
                 } else {
                     this.$message.error(response.data.message)
@@ -285,7 +292,7 @@ export default {
                     // 追加验证信息
                     // 异常 return false
                     // 图片地址
-                    _this.OrderInfoFS.imageUrlArray = _this.phoneImageUrlList.toString()
+                    _this.OrderInfoFS.photogroup = _this.phoneImageUrlList.toString()
                     _this.OrderInfoFS.step1 = false
                     console.log('数据传送给父组件applyFS')
                     console.dir(_this.OrderInfoFS)
