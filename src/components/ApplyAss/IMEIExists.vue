@@ -123,6 +123,8 @@ export default {
       }
       console.log('-------->>保内>>>--' + this.functionButtonInfo.timeIn)
       this.timeInOutClassName(this.functionButtonInfo.timeIn)
+      // 父组件数据传递
+      this.$emit('on-time-in-out', this.functionButtonInfo)
     },
     handleCheckedRepairOptionsChange(value) {
       console.log('======================>' + this.imeiInfoChild.deadtime)
