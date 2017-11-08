@@ -38,7 +38,7 @@ export default {
         IMEI: 'IMEI',
         lengthdigits: 'The length of IMEI must be 15 digits',
         purenumber: 'IMEI must be pure number',
-        Formatsinclude: 'Upload photo size no more than 5Mb. Formats include JPEG, PNG and GIF. Upload up to three.',
+        Formatsinclude: 'Please Upload files under 5Mb. Supported format: JPEG, PNG, GIF. Maximum 3 files',
         Servicesrequired: 'Type of Services is required',
         WarrantyDate: 'Warranty Expired Date',
         TypeServices: 'Type of Services',
