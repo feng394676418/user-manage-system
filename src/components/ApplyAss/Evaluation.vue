@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h3>{{$t('Warranty.Rate')}}</h3>
-            <div class="Please_score pull-left">                
+            <div class="Please_score pull-left">
                 <span class="pull-left">{{$t('Warranty.rateservice')}} ：&nbsp;</span>
                 <el-rate class="pull-left" v-model="orderComment.score" text-template="{value}"></el-rate>
                 <span class="pull-left blue_text">{{$t('Warranty.highestcomment')}}</span>
@@ -11,7 +11,11 @@
                 <textarea class="form-control" id="" :placeholder="$t('Warranty.suggestions')" rows="4" type="text" v-model="orderComment.content"></textarea>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
+<<<<<<< HEAD
                 <el-button class="btn-info" type="info" @click="handelOrderComment">{{$t('Warranty.Done')}}</el-button>
+=======
+                <el-button class="btn-info"  ref="btnComment" type="info" @click="handelOrderComment">{{$t('Warranty.Done')}}</el-button>
+>>>>>>> 3fb178719d060787a86f683913ad64548bb70844
             </div>
         </div>
     </div>
@@ -34,6 +38,11 @@ export default {
     },
     methods: {
         handelOrderComment() {
+            this.$refs.btnComment.disabled = true
+            setTimeout(() => {
+               this.$refs.btnComment.disabled = false
+            }, 3000)
+
             this.orderComment.orderNumber = this.orderNumber
             commentOrder(this.orderComment).then(response => {
                 this.orderComment = response.data.data

@@ -50,6 +50,7 @@
             <div class="copy">Copyright： Wing sing supply chain co.,Ltd © wingsingsupplychain.com All Rights Reserved.</div>
         </div>
     </div>
+</div>
 </template>
 
 <script>

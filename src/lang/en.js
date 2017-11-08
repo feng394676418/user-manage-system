@@ -116,7 +116,7 @@ export default {
         Numbersonly: 'Front Camera',
         Battery: 'Battery',
         OuterCasing: 'Outer Casing',
-        PriceListNote: 'Price List Note:',
+        PriceListNote: 'Price List Note',
         referenceonly: 'The results above are for reference only. Please contact the Service Centre for any other service prices.',
         ServiceCharges: 'Out-of-Warranty Repair Cost = Delivery Cost + Service Parts + Service Charge, cost for Service Charges are as follows',
         ServiceLevel: 'Service Level',

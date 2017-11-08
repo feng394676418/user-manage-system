@@ -106,8 +106,8 @@
                 </div>
             </template>
             <el-form-item class="pull-right mr_top">
-                <el-button :plain="true" class="btn-info btn-infoh" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
-                <el-button class="btn-info btn-infoh" type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
+                <el-button class="btn-info btn-infoh" :plain="true" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
+                <el-button class="btn-info btn-infoh" ref="btnSubmit" type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
             </el-form-item>
 
         </el-form>
@@ -290,6 +290,12 @@ export default {
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
+            // 防止连续点击两次
+            this.$refs.btnSubmit.disabled = true
+            setTimeout(() => {
+               this.$refs.btnSubmit.disabled = false
+            }, 3000)
+
             this.$refs[formName].validate((valid) => {
                 if (this.ruleForm.providerCode === '') {
                     this.$message.error(this.$t('order.selectnetwork'))// 请选择服务网点！

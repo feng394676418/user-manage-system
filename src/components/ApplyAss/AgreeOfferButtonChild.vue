@@ -26,8 +26,8 @@
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost}} {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false" :plain="true"  type="info" class="form-group btn-info">NO</el-button>
-                <el-button  type="info" class="btn-info form-group" @click="repair(true)">YES</el-button>
+                <el-button ref="btnsubmit_no" @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
+                <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)">YES</el-button>
             </span>
         </el-dialog>
     </div>
@@ -50,6 +50,12 @@ export default {
         repair(isRepair) {
             //  isRepair 是否继续维修  true  false
             if (isRepair) {
+                // 防止连续点击两次
+                this.$refs.btnsubmit_yes.disabled = true
+                setTimeout(() => {
+                    this.$refs.btnsubmit_yes.disabled = false
+                }, 3000)
+
                 // 同意报价 全价付款(保外)
                 confirmQuotes(this.checkReportInfo.orderNunber).then(response => {
                         console.dir('##############   confirmQuotes   ###############')
@@ -57,6 +63,12 @@ export default {
                         this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })
             } else {
+                // 防止连续点击两次
+                this.$refs.btnsubmit_no.disabled = true
+                setTimeout(() => {
+                    this.$refs.btnsubmit_no.disabled = false
+                }, 3000)
+
                 // 不同意报价 邮寄费用付款(保外)
                 notRepair(this.checkReportInfo.orderNunber).then(response => {
                         console.dir('############   notRepair  #################')
