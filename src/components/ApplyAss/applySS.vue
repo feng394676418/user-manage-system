@@ -106,8 +106,8 @@
                 </div>
             </template>
             <el-form-item class="pull-right mr_top">
-                <el-button :plain="true" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
-                <el-button type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
+                <el-button :plain="true" class="btn-info btn-infoh" type="info" @click="lastStep()">{{$t('order.Back')}}</el-button>
+                <el-button class="btn-info btn-infoh" type="info" @click="submitForm('ruleForm')">{{$t('order.Submit')}}</el-button>
             </el-form-item>
 
         </el-form>
@@ -353,7 +353,8 @@ export default {
     display: block;
 }
 
-.el-button {
+.btn-infoh {
     width: 236px;
+    height: 48px;
 }
 </style>

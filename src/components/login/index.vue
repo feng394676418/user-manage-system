@@ -1,48 +1,54 @@
 <template>
-    <div class="container">
-        <div class="login_top">
-            <img src="../../../static/img/login_logo.png" />
-            <div class="pull-right">
-                <el-dropdown trigger="click">
-                    <span class="el-dropdown-link">
-                        {{$t('order.Language')}}
-                        <i class="icon-language"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item ><a @click="changeUmsLang('en')">English</a></el-dropdown-item>
-                        <el-dropdown-item ><a @click="changeUmsLang('zh')">简体中文</a></el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
+    <div class="bg">
+        <div class="container">
+            <div class="login_top">
+                <img src="../../../static/img/login_logo.png" />
+                <div class="pull-right">
+                    <el-dropdown trigger="click">
+                        <span class="el-dropdown-link drop_text">
+                            {{$t('order.Language')}}
+                            <i class="icon-language"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <a @click="changeUmsLang('en')">English</a>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <a @click="changeUmsLang('zh')">简体中文</a>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
             </div>
+            <div class="form-signin">
+                <h1 class="font_h1">{{$t('login.CSS')}}</h1>
+                <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0px" class="demo-ruleForm" label-position="left">
+                    <el-form-item label="" prop="orderno">
+                        <span class="svg-container">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-orderno"></use>
+                            </svg>
+                        </span>
+                        <el-input v-model.number="ruleForm2.orderno" :placeholder="$t('login.OrderNumber')"></el-input>
+                    </el-form-item>
+                    <el-form-item label="" prop="phone">
+                        <span class="svg-container">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-phone"></use>
+                            </svg>
+                        </span>
+                        <el-input v-model.number="ruleForm2.phone" :placeholder="$t('login.MobileNumber')"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="btn-info" type="info" style="width:100%;" @click="progressInfo()">{{$t('login.CheckProgress')}}</el-button>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="btn-info" :plain="true" type="info" style="width:100%;" @click="routeTO">{{$t('login.ApplyService')}}</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div class="copy">Copyright： Wing sing supply chain co.,Ltd © wingsingsupplychain.com All Rights Reserved.</div>
         </div>
-        <div class="form-signin">
-            <h1>{{$t('login.CSS')}}</h1>
-            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="0px" class="demo-ruleForm" label-position="left">
-                <el-form-item label="" prop="orderno">
-                    <span class="svg-container">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-orderno"></use>
-                        </svg>
-                    </span>
-                    <el-input v-model.number="ruleForm2.orderno" :placeholder="$t('login.OrderNumber')"></el-input>
-                </el-form-item>
-                <el-form-item label="" prop="phone">
-                    <span class="svg-container">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-phone"></use>
-                        </svg>
-                    </span>
-                    <el-input v-model.number="ruleForm2.phone" :placeholder="$t('login.MobileNumber')"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" style="width:100%;" @click="progressInfo()">{{$t('login.CheckProgress')}}</el-button>
-                </el-form-item>
-                <el-form-item>
-                    <el-button :plain="true" type="info" style="width:100%;" @click="routeTO">{{$t('login.ApplyService')}}</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-        <div class="copy">Copyright： Wing sing supply chain co.,Ltd © wingsingsupplychain.com All Rights Reserved.</div>
     </div>
 </template>
 
@@ -86,12 +92,12 @@ export default {
         },
         progressInfo() {
             loginByRefnumber(this.ruleForm2).then(response => {
-              if (response.data.status === '0') {
-                const orderNumber = response.data.data.ordernumber
-                this.$router.push({ path: '/GuaranteedCompletion/' + orderNumber })
-              } else {
-                this.$message.error(this.$t(response.data.message))
-              }
+                if (response.data.status === '0') {
+                    const orderNumber = response.data.data.ordernumber
+                    this.$router.push({ path: '/GuaranteedCompletion/' + orderNumber })
+                } else {
+                    this.$message.error(this.$t(response.data.message))
+                }
             })
         },
         routeTO() {
@@ -122,6 +128,11 @@ export default {
     overflow: hidden;
 }
 
+.bg {
+    background: #f7f8fd url(../../../static/img/login_bg.jpg) no-repeat fixed center center / cover;
+    height: 100%
+}
+
 .el-form-item__content {
     position: relative;
 }
@@ -132,7 +143,7 @@ export default {
     top: 5px;
     left: 10px;
     z-index: 10;
-    font-size:16px;
+    font-size: 16px;
 }
 
 .form-signin .el-input__inner {
@@ -141,11 +152,7 @@ export default {
     line-height: 48px!important;
 }
 
-body {
-    background: #f7f8fd url(../../../static/img/login_bg.jpg) no-repeat fixed center center / cover;
-}
-
-h1 {
+.font_h1 {
     font-size: 18px;
     color: #666577;
     margin-bottom: 50px;
@@ -160,15 +167,19 @@ h1 {
 .el-button {
     padding: 16px 15px;
 }
-.el-dropdown-link{
-    color:#fff;
+
+.drop_text {
+    color: #fff!important;
     cursor: pointer;
 }
-.copy{
-    color:#fff;
-    text-align:center;
-    margin-top:320px;
+
+.copy {
+    color: #fff;
+    text-align: center;
+    margin-top: 320px;
 }
+
+
 /* .copy{
     color:#fff;
     position: absolute;
@@ -176,9 +187,20 @@ h1 {
     padding-left:16%
 } */
 
-.el-dropdown-menu__item a{
+.el-dropdown-menu__item a {
     display: block;
-    text-decoration:none;
+    text-decoration: none;
 }
 
+html {
+    height: 100%
+}
+
+body {
+    height: 100%
+}
+
+#app {
+    height: 100%
+}
 </style>

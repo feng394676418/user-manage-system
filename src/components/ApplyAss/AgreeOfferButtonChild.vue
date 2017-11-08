@@ -4,9 +4,9 @@
             <div class="col-md-12">
                 <div class="pull-right mr_top">
                     <!--放弃维修-->
-                    <el-button :plain="true" type="info" class="form-group"  @click="dialogVisible2 = true">{{$t('WarrantyPayment.notrepair')}}</el-button>
+                    <el-button :plain="true" type="info" class=" btn-infoform-group"  @click="dialogVisible2 = true">{{$t('WarrantyPayment.notrepair')}}</el-button>
                     <!--同意报价-->
-                    <el-button type="info"  class="form-group" @click="dialogVisible = true">{{$t('WarrantyPayment.Continue')}}</el-button>
+                    <el-button type="info"  class="btn-info form-group" @click="dialogVisible = true">{{$t('WarrantyPayment.Continue')}}</el-button>
                 </div>
             </div>
         </div>
@@ -16,8 +16,8 @@
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{checkReportInfo.collectionCost + checkReportInfo.mailingcost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="form-group">NO</el-button>
-                <el-button type="info" class="form-group" @click="repair(false)">YES</el-button>
+                <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="btn-info form-group">NO</el-button>
+                <el-button type="info" class="btn-info form-group" @click="repair(false)">YES</el-button>
             </span>
         </el-dialog>
         <!--同意报价弹出框-->
@@ -26,8 +26,8 @@
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost}} {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group">NO</el-button>
-                <el-button type="info" class="form-group" @click="repair(true)">YES</el-button>
+                <el-button @click="dialogVisible = false" :plain="true"  type="info" class="form-group btn-info">NO</el-button>
+                <el-button  type="info" class="btn-info form-group" @click="repair(true)">YES</el-button>
             </span>
         </el-dialog>
     </div>

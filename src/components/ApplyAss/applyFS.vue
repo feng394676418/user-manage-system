@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" class="next_step mr_top" @click="nextStep('OrderInfoFS')">{{$t('order.Next')}}</el-button>
+                        <el-button  type="info" class="next_step mr_top btn-info" @click="nextStep('OrderInfoFS')">{{$t('order.Next')}}</el-button>
                     </div>
                 </div>
             </div>

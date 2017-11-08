@@ -32,7 +32,7 @@
                 </tr>
             </table>
              <div class="col-md-12 text-center">
-                <el-button type="info" class="next_step mr_top" @click="checkProgress()">{{$t('login.CheckProgress')}}</el-button>
+                <el-button type="info" class="next_step mr_top btn-info" @click="checkProgress()">{{$t('login.CheckProgress')}}</el-button>
             </div>
               </template>
               <template v-else>
@@ -46,7 +46,7 @@
                     <img src="../../../static/img/Payment_failed.png" />
                 </p>
                 <div class="col-md-12 text-center">
-                    <el-button type="info" class="next_step mr_top" @click="paymentAgain()">{{$t('ConfirmPayment.Back')}}</el-button>
+                    <el-button type="info" class="next_step mr_top btn-info" @click="paymentAgain()">{{$t('ConfirmPayment.Back')}}</el-button>
                 </div>
               </template>
             </template>

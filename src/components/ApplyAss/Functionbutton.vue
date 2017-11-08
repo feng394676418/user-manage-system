@@ -16,14 +16,14 @@
             </div> -->
             <!--保内按钮-->
             <div class="col-md-6 form-group">
-                <el-button type="primary" :plain="!functionButtonInfoChild.timeIn" style="width:100%">
+                <el-button class="btn-primary" type="primary" :plain="!functionButtonInfoChild.timeIn" style="width:100%">
                     {{$t('order.InWarranty')}}
                     <p>{{$t('order.costwarranty')}}</p>
                 </el-button>
             </div>
             <!--保外按钮-->
             <div class="col-md-6 form-group">
-                <el-button type="primary" :class="functionButtonInfoChild.timeOutClassName" :plain="true" style="width:100%">
+                <el-button class="btn-primary" type="primary" :class="functionButtonInfoChild.timeOutClassName" :plain="true" style="width:100%">
                     {{$t('order.OutofWarranty')}}
                     <p>{{$t('order.costnotwarranty')}}</p>
                 </el-button>

@@ -1,14 +1,14 @@
-﻿.el-button--info,
-.el-button--info:focus,
-.el-button--info:hover {
+﻿.btn-info,
+.btn-info:focus,
+.btn-info:hover {
     background-color: #7761f2;
     border: 2px solid #7761f2;
     border-radius: 10px;
 }
 
-.el-button--info.is-plain,
-.el-button--info.is-plain:focus,
-.el-button--info.is-plain:hover {
+.btn-info.is-plain,
+.btn-info.is-plain:focus,
+.btn-info.is-plain:hover {
     background-color: #fff;
     color: #7761f2;
     border: 2px solid #7761f2;
@@ -16,9 +16,9 @@
 }
 
 
-.el-button--primary,
-.el-button--primary:focus,
-.el-button--primary:hover {
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:hover {
     background-color: #fff;
     border: 2px solid #00a0e9;
     border-radius: 10px;
@@ -26,14 +26,14 @@
 }
 
 
-.el-button--primary p{
+.btn-primary p{
     font-size: 12px;
     margin-top: 22px;
 }
 
-.el-button--primary.is-plain,
-.el-button--primary.is-plain:focus,
-.el-button--primary.is-plain:hover {
+.btn-primary.is-plain,
+.btn-primary.is-plain:focus,
+.btn-primary.is-plain:hover {
     background-color: #fff;
     color: #b9bdcd;
     border: 1px solid #d8dbe9;

@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <el-button type="info" v-if="imgFlg || pdfFlg" @click="download()">{{$t('order.Download')}}</el-button>
+                        <el-button class="btn-info btn-infos" type="info" v-if="imgFlg || pdfFlg" @click="download()">{{$t('order.Download')}}</el-button>
                     </div>
                 </div>
             </div>
@@ -188,7 +188,7 @@ export default {
     overflow: hidden;
 }
 
-.el-button {
+.btn-infos {
     width: 236px;
     height: 48px;
 }

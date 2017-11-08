@@ -26,8 +26,8 @@
             </div>
             <a href="#"><img src="../../../static/img/PayPal.png" /></a>
             <div class="pull-right mr_top">
-                <el-button :plain="true" type="info" class="form-group" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
-                <el-button type="info"  class="form-group" @click="payNow" v-loading.fullscreen.lock="fullscreenLoading">{{$t('ConfirmPayment.PayNow')}}</el-button>
+                <el-button :plain="true" type="info"  class="form-group btn-info" @click="payLater">{{$t('ConfirmPayment.Paylater')}}</el-button>
+                <el-button type="info"  class="form-group btn-info" @click="payNow" v-loading.fullscreen.lock="fullscreenLoading">{{$t('ConfirmPayment.PayNow')}}</el-button>
             </div>
         </div>
     </div>
