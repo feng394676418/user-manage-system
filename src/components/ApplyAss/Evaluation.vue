@@ -11,11 +11,7 @@
                 <textarea class="form-control" id="" :placeholder="$t('Warranty.suggestions')" rows="4" type="text" v-model="orderComment.content"></textarea>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
-<<<<<<< HEAD
-                <el-button class="btn-info" type="info" @click="handelOrderComment">{{$t('Warranty.Done')}}</el-button>
-=======
                 <el-button class="btn-info"  ref="btnComment" type="info" @click="handelOrderComment">{{$t('Warranty.Done')}}</el-button>
->>>>>>> 3fb178719d060787a86f683913ad64548bb70844
             </div>
         </div>
     </div>
