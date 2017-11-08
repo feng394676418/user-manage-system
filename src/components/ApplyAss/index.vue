@@ -127,8 +127,8 @@ export default {
     width: 100%
 }
 
-.checkbox {
-    margin-left: 0;
+.checkbox + .el-checkbox {
+    margin-left: 0!important;
 }
 
 .el-button+.el-button {

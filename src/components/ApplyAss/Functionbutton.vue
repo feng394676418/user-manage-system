@@ -56,15 +56,3 @@ export default {
 }
 </script>
 
-
-<style>
-.yellow_btn,
-.yellow_btn:focus,
-.yellow_btn:hover {
-    background-color: #fff;
-    border: 2px solid #f39800!important;
-    border-radius: 10px;
-    color: #f39800!important;
-    height: 94px!important;
-}
-</style>
