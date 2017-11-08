@@ -54,7 +54,7 @@
                         </el-upload>
                     </el-form-item>
                     <p class="blue_text">
-                        上传图片大小不得超过5Mb，支持JPEG、PNG、GIF。最多上传三张。
+                        {{$t('order.Formatsinclude')}}
                     </p>
                 </div>
             </div>
@@ -84,9 +84,9 @@ export default {
             if (value === '') {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
             } else if ((value + '').length !== 15) {
-                callback(new Error('IMEI长度必须为15位'))// IMEI长度必须为15位
+                callback(new Error(this.$t('order.lengthdigits')))// IMEI长度必须为15位
             } else if (isNaN(value / 1)) {
-                callback(new Error('IMEI必须为纯数字'))// IMEI必须为纯数字
+                callback(new Error(this.$t('order.purenumber')))// IMEI必须为纯数字
             } else {
                 callback()
             }
@@ -156,7 +156,7 @@ export default {
         beforeAvatarUpload(file) {
             if (this.$refs.upFile.uploadFiles.length >= 3) {
                 this.$refs.upFile.limit = 3
-                this.$refs.upFile.disabled = true
+                // this.$refs.upFile.disabled = true
             }
             const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
             const isLt5M = file.size / 1024 / 1024 < 5
@@ -169,7 +169,7 @@ export default {
                 this.$message.error(this.$t('order.formatincorrect'))// 文件格式不正确!
             }
             if (!isLt5M) {
-                this.$message.error(this.$t('order.Filesize'))// 文件大小需小于2M!
+                this.$message.error(this.$t('order.Filesize'))// 文件大小需小于5M!
             }
             return isJPG && isLt5M && isCanUpload
         },
@@ -286,7 +286,7 @@ export default {
                 // }
                 if (_this.OrderInfoFS.repairStatus.length === 0 && _this.OrderInfoFS.checkNot === false) {
                     valid = false
-                   this.$message.error('保修类型不能为空')
+                   this.$message.error(this.$t('order.TypeServices'))// 保修类型不能为空
                 }
                 if (valid) {
                     // 追加验证信息
