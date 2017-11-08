@@ -346,7 +346,7 @@ export default {
     width: 100%
 }
 
-.checkbox + .el-checkbox {
+.checkboxs + .el-checkbox {
     margin-left: 0!important;
 }
 

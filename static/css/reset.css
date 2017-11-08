@@ -77,3 +77,13 @@
     color: #f39800!important;
     height: 94px!important;
 }
+
+.yellow_btn.is-plain,
+.yellow_btn.is-plain:focus,
+.yellow_btn.is-plain:hover{
+    background-color: #fff!important;
+    border: 2px solid #f39800!important;
+    border-radius: 10px!important;
+    color: #f39800!important;
+    height: 94px!important;   
+}
