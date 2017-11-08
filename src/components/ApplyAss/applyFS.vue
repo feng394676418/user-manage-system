@@ -346,7 +346,7 @@ export default {
     width: 100%
 }
 
-.el-checkbox+.el-checkbox {
+.checkbox {
     margin-left: 0;
 }
 
@@ -354,9 +354,9 @@ export default {
     margin-left: 0;
 }
 
-.el-button--primary {
-    height: 96px;
-    font-size: 18px;
+.btn-primary {
+    height: 96px!important;
+    font-size: 18px!important;
 }
 
 .purple_text:hover {

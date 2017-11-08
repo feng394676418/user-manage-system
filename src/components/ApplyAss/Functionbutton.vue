@@ -65,5 +65,6 @@ export default {
     border: 2px solid #f39800!important;
     border-radius: 10px;
     color: #f39800!important;
+    height: 94px!important;
 }
 </style>
