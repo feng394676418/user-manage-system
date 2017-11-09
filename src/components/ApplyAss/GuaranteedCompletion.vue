@@ -77,6 +77,11 @@ export default {
     methods: {
       getWorkOrderInfo() {
         getOrderByOrderNumber(this.orderNumber).then(response => {
+          // 如果查询不到数据，则跳转到登录页面
+          if (response.data.data === null || response.data.data.refnumber === null || response.data.data.refnumber === '') {
+            this.$router.push('/')
+            return
+          }
           if (response.data.status === '0') {
             this.orderInfo = response.data.data
             this.refNumber = response.data.data.refnumber
