@@ -52,6 +52,9 @@
                         <el-upload name="upFile" ref="upFile" action="api/file/upload" v-model="OrderInfoFS.photogroup" list-type="picture-card" :drag="false" :file-list="phoneImageList" :on-success="uploadSuccess" :on-error="uploadError" :before-upload="beforeAvatarUpload" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
+                        <el-dialog :visible.sync="dialogVisible" size="tiny">
+                            <img width="100%" :src="dialogImageUrl" alt="">
+                        </el-dialog>
                     </el-form-item>
                     <p class="blue_text">
                         {{$t('order.Formatsinclude')}}
@@ -275,7 +278,7 @@ export default {
         nextStep(formName) {
             this.$refs.btnSubmit.disabled = true
             setTimeout(() => {
-               this.$refs.btnSubmit.disabled = false
+                this.$refs.btnSubmit.disabled = false
             }, 3000)
 
             const _this = this
@@ -286,7 +289,7 @@ export default {
                 // }
                 if (_this.OrderInfoFS.repairStatus.length === 0 && _this.OrderInfoFS.checkNot === false) {
                     valid = false
-                   this.$message.error(this.$t('order.TypeServices'))// 保修类型不能为空
+                    this.$message.error(this.$t('order.TypeServices'))// 保修类型不能为空
                 }
                 if (valid) {
                     // 追加验证信息
@@ -346,7 +349,7 @@ export default {
     width: 100%
 }
 
-.checkboxs + .el-checkbox {
+.checkboxs+.el-checkbox {
     margin-left: 0!important;
 }
 
