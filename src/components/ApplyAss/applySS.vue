@@ -19,7 +19,7 @@
                 </el-col>
                 <el-col :md="6">
                     <el-form-item label="" prop="province">
-                        <el-select v-model="provinceTmp" :placeholder="$t('order.County')" @change="stateChange">
+                        <el-select v-model="provinceTmp" :placeholder="$t('order.County')" filterable @change="stateChange">
                             <el-option v-for="province in stateList" :label="province.name" :key="province.name" :value="province.name + '-' + province.id + '-' + province.sortname"></el-option>
                         </el-select>
                     </el-form-item>

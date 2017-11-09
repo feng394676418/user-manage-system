@@ -10,8 +10,8 @@ export default {
         Orderrequired: 'Order No. is required',
         Mobilerequired: 'Mobile No. is required',
         Numbersonly: 'Numbers only',
-        noRefNumber: '验证失败，没有此工单号',
-        noMatchPhone: '验证失败，手机号和工单编号不匹配'
+        noRefNumber: 'Verification failed, Order number is not found',
+        noMatchPhone: 'Verification failed, mobile number and order number do not match'
     },
     order: {
         hello: 'hello!',
@@ -65,7 +65,7 @@ export default {
         addressrequired: 'Note: this address will be used as Return address, please make sure it is accurate. “*”is required',
         Country: 'Country*',
         SelectCountry: 'Please Select a Country',
-        County: 'County',
+        County: 'state',
         City: 'City*',
         SelectCity: 'Please Select a City',
         PostCode: 'Post Code*',
