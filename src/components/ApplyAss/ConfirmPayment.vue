@@ -21,7 +21,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('ConfirmPayment.Price')" min-width="33%">
                     <template scope="scope">
-                         <strong class="Orange_text"><div v-html="scope.row.price"></div></strong>
+                         <div v-html="scope.row.price"></div>
                     </template>
                 </el-table-column>
 
@@ -84,7 +84,7 @@ export default {
                     this.checkReportInfo.orderParts.forEach(part => {
                         item = {}
                         partDetails += part.partename + '<br/>'
-                        partPrice += '€ ' + part.partcost + '<br/>'
+                        partPrice += '€ <strong class="Orange_text">' + part.partcost + '</strong>' + '<br/>'
                     })
                     item = {}
                     item.item = type
@@ -96,35 +96,35 @@ export default {
                     item = {}
                     item.item = this.$t('ConfirmPayment.ServiceCost')
                     item.Details = this.checkReportInfo.repairLevel
-                    item.price = '€ ' + this.checkReportInfo.repairCost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.repairCost + '</strong>'
                     this.tableData.push(item)
 
                     // 快递费
                     item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')
                     item.Details = this.$t('ConfirmPayment.Sentout') + '<br/>' + this.$t('ConfirmPayment.Sentback')
-                    item.price = '€ ' + this.checkReportInfo.collectionCost + '<br/>' + '€ ' + this.checkReportInfo.mailingcost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.collectionCost + '</strong>' + '<br/>' + '€ <strong class="Orange_text">' + this.checkReportInfo.mailingcost + '</strong>'
                     this.tableData.push(item)
 
                     // 总价
                     item = {}
                     item.item = this.$t('ConfirmPayment.TotalCost')
                     item.Details = ''
-                    item.price = '€ ' + this.checkReportInfo.allCost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.allCost + '</strong>'
                     this.tableData.push(item)
 
                     // 保内
                     item = {}
                     item.item = this.$t('order.InWarranty')
                     item.Details = ''
-                    item.price = '€ ' + this.checkReportInfo.coveredbyWarranty
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.coveredbyWarranty + '</strong>'
                     this.tableData.push(item)
 
                     // 实付
                     item = {}
                     item.item = this.$t('ConfirmPayment.RemaintoPay')
                     item.Details = ''
-                    item.price = '€ ' + this.checkReportInfo.remaintoPay
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.remaintoPay + '</strong>'
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.remaintoPay
                 } else {
@@ -133,14 +133,14 @@ export default {
                     let item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')
                     item.Details = this.$t('ConfirmPayment.Sentout') + '<br/>' + this.$t('ConfirmPayment.Sentback')
-                    item.price = '€ ' + this.checkReportInfo.collectionCost + '<br/>' + '€ ' + this.checkReportInfo.mailingcost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.collectionCost + '</strong>' + '<br/>' + '€ <strong class="Orange_text">' + this.checkReportInfo.mailingcost + '</strong>'
                     this.tableData.push(item)
 
                     // 实付
                     item = {}
                     item.item = this.$t('ConfirmPayment.RemaintoPay')
                     item.Details = ''
-                    item.price = '€ ' + (this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost)
+                    item.price = '€ <strong class="Orange_text">' + (this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) + '</strong>'
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
                 }
