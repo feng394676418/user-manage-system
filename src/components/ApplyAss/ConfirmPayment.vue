@@ -172,7 +172,7 @@ export default {
               this.paymenturi = response.data.data.paymenturi
               console.log(this.paymenturi)
               window.open(this.paymenturi, '_self')
-              this.fullscreenLoading = false
+              // this.fullscreenLoading = false
             } else {
               this.$message.error(response.data.message)
               this.$router.push('/PaymentFailed')
