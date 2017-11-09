@@ -65,7 +65,7 @@ export default {
         addressrequired: 'Note: this address will be used as Return address, please make sure it is accurate. “*”is required',
         Country: 'Country*',
         SelectCountry: 'Please Select a Country',
-        County: 'County',
+        County: 'state',
         City: 'City*',
         SelectCity: 'Please Select a City',
         PostCode: 'Post Code*',
