@@ -25,15 +25,17 @@
                     </td>
                     <!-- <td>{{$t('ConfirmPayment.Screen')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.RearCamera')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.OuterCasing')}}€ <strong class="Orange_text">12</strong> </td> -->
                     <td>
-                        <template v-for="orderParts in checkReportInfo.orderParts">
-                            {{orderParts.partename}}€ <strong class="Orange_text">{{orderParts.partcost}}</strong> /
+                        <template v-for="(orderParts, index) in checkReportInfo.orderParts">
+                            {{orderParts.partename}}€ <strong class="Orange_text" :key="index">{{orderParts.partcost}}</strong>
+                            <tag v-if="checkReportInfo.orderParts.length-1 === index" :key="index"></tag>
+                            <tag v-else :key="index"> /</tag>
                         </template>
                     <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost}}</strong></td>
                     <td>{{$t('ConfirmPayment.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost}}</strong> / {{$t('ConfirmPayment.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.allCost}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.coveredbyWarranty}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.remaintoPay}}</strong></td>
-                </tr>            
+                </tr>
             </table>
         </div>
     </div>
