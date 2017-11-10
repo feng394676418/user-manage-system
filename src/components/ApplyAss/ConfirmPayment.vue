@@ -9,13 +9,19 @@
             </div>
             <h1 class="Charge_Details">{{$t('ConfirmPayment.Invoice')}}</h1>
             <el-table :data="tableData" style="width: 100%">
-                <el-table-column prop="item" :label="$t('ConfirmPayment.Categories')"  min-width="33%">
+                <el-table-column :label="$t('ConfirmPayment.Categories')"  min-width="33%">
+                    <template scope="scope">
+                         <div v-html="scope.row.item"></div>
+                    </template>
                 </el-table-column>
-                <el-table-column prop="Details" :label="$t('ConfirmPayment.Items')" min-width="34%">
+                <el-table-column :label="$t('ConfirmPayment.Items')" min-width="34%">
+                    <template scope="scope">
+                         <div v-html="scope.row.Details"></div>
+                    </template>
                 </el-table-column>
                 <el-table-column :label="$t('ConfirmPayment.Price')" min-width="33%">
                     <template scope="scope">
-                        € <strong class="Orange_text">{{ scope.row.price }}</strong>
+                         <div v-html="scope.row.price"></div>
                     </template>
                 </el-table-column>
 
@@ -73,77 +79,68 @@ export default {
                     let item = {}
                     // 备件
                     let type = this.$t('ConfirmPayment.ServiceParts')
+                    let partDetails = ''
+                    let partPrice = ''
                     this.checkReportInfo.orderParts.forEach(part => {
                         item = {}
-                        item.item = type
-                        item.Details = part.partename
-                        item.price = part.partcost
-                        this.tableData.push(item)
-                        type = ''
+                        partDetails += part.partename + '<br/>'
+                        partPrice += '€ <strong class="Orange_text">' + part.partcost + '</strong>' + '<br/>'
                     })
+                    item = {}
+                    item.item = type
+                    item.Details = partDetails
+                    item.price = partPrice
+                    this.tableData.push(item)
+
                     // 维修费
                     item = {}
                     item.item = this.$t('ConfirmPayment.ServiceCost')
                     item.Details = this.checkReportInfo.repairLevel
-                    item.price = this.checkReportInfo.repairCost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.repairCost + '</strong>'
                     this.tableData.push(item)
 
-                    // 快递费 寄出
+                    // 快递费
                     item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')
-                    item.Details = this.$t('ConfirmPayment.Sentout')
-                    item.price = this.checkReportInfo.collectionCost
-                    this.tableData.push(item)
-
-                    // 快递费 寄回
-                    item = {}
-                    item.item = ''
-                    item.Details = this.$t('ConfirmPayment.Sentback')
-                    item.price = this.checkReportInfo.mailingcost
+                    item.Details = this.$t('ConfirmPayment.Sentout') + '<br/>' + this.$t('ConfirmPayment.Sentback')
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.collectionCost + '</strong>' + '<br/>' + '€ <strong class="Orange_text">' + this.checkReportInfo.mailingcost + '</strong>'
                     this.tableData.push(item)
 
                     // 总价
                     item = {}
                     item.item = this.$t('ConfirmPayment.TotalCost')
                     item.Details = ''
-                    item.price = this.checkReportInfo.allCost
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.allCost + '</strong>'
                     this.tableData.push(item)
 
                     // 保内
                     item = {}
                     item.item = this.$t('order.InWarranty')
                     item.Details = ''
-                    item.price = this.checkReportInfo.coveredbyWarranty
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.coveredbyWarranty + '</strong>'
                     this.tableData.push(item)
 
                     // 实付
                     item = {}
                     item.item = this.$t('ConfirmPayment.RemaintoPay')
                     item.Details = ''
-                    item.price = this.checkReportInfo.remaintoPay
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.remaintoPay + '</strong>'
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.remaintoPay
                 } else {
                     // 不同意报价的场合 只收取快递费用
-                    // 快递费 寄出
+                    // 快递费
                     let item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')
-                    item.Details = this.$t('ConfirmPayment.Sentout')
-                    item.price = this.checkReportInfo.collectionCost
-                    this.tableData.push(item)
-
-                    // 快递费 寄回
-                    item = {}
-                    item.item = ''
-                    item.Details = this.$t('ConfirmPayment.Sentback')
-                    item.price = this.checkReportInfo.mailingcost
+                    item.Details = this.$t('ConfirmPayment.Sentout') + '<br/>' + this.$t('ConfirmPayment.Sentback')
+                    item.price = '€ <strong class="Orange_text">' + this.checkReportInfo.collectionCost + '</strong>' + '<br/>' + '€ <strong class="Orange_text">' + this.checkReportInfo.mailingcost + '</strong>'
                     this.tableData.push(item)
 
                     // 实付
                     item = {}
                     item.item = this.$t('ConfirmPayment.RemaintoPay')
                     item.Details = ''
-                    item.price = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
+                    item.price = '€ <strong class="Orange_text">' + (this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) + '</strong>'
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
                 }
@@ -215,7 +212,7 @@ export default {
 tr:nth-last-child(1) strong:last-child{
     font-size:18px;
 }
-tr:nth-last-child(1),tr:nth-last-child(2),tr:nth-last-child(3),tr:nth-last-child(5),tr:nth-last-child(7){
+tr:nth-last-child(1),tr:nth-last-child(2),tr:nth-last-child(3),tr:nth-last-child(4),tr:nth-last-child(5),tr:nth-last-child(6),tr:nth-last-child(7){
     border-top: 1px solid #e8ebfa;
 }
 tr:nth-child(10){
