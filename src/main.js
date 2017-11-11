@@ -10,7 +10,14 @@ import en from './lang/en'
 import zh from './lang/zh'
 import ElementLocale from 'element-ui/lib/locale'
 import Cookies from 'js-cookie'
+import VueLocalStorage from 'vue-localstorage'
+
 require('../static/iconfont/iconfont.js')
+
+Vue.use(VueLocalStorage, {
+    name: 'ls',
+    createComputed: true // created computed members from your variable declarations
+})
 
 Vue.use(VueI18n)
 
@@ -37,8 +44,8 @@ Vue.prototype.AppLanguage = function(lang) {
     i18n.locale = lang
 }
 Vue.prototype.getAppLanguage = function() {
-        return i18n.locale
-    }
+    return i18n.locale
+}
 
 /* eslint-disable no-new */
 new Vue({

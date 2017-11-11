@@ -119,6 +119,10 @@ export default {
                 this.$set(item, 'operationlTime', item.operationlTime.replace(/CLOSED_ALL_DAY/g, 'After Hours:').replace(/ null~null /g, '').replace(/OPEN_BY_HOURS/g, 'Opening Hours:'))
                 this.$set(item, 'code', 'UPS')
             })
+            console.log('localstorage--------->setttttttttttttttttttt')
+            this.$ls.set('locatorDataArray', 'hello')
+            console.log('localstorage--------->getttttttttttttttttttt')
+            console.dir(this.$ls.get('locatorDataArray'))
           }
         })
       },
