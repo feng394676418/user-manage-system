@@ -111,6 +111,7 @@ export default {
       getLogisticsLocatorList() {
         getLogisticsLocatorList(this.refNumber).then(response => {
           console.log('获取附近网点信息')
+          console.dir(this.locatorDataArray)
           if (response.data.status === '0') {
             this.locatorDataArray = response.data.data
             this.locatorDataArray.forEach(item => {
@@ -139,7 +140,9 @@ export default {
               this.imgFlg = false
             }
           } else if (response.data.status === '2') {
-            this.$message.info(response.data.message)
+            if (response.data.message !== '') {
+              this.$message.info(response.data.message)
+            }
             this.surfaceURL = response.data.data.sendSurfaceURL
             this.orderNumber = response.data.data.ordernumber
             this.trackingWait = false
