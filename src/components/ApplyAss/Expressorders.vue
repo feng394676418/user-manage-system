@@ -92,14 +92,7 @@ export default {
             trackingWait: true,
             surfaceURL: '',
             refNumber: this.$route.params.refNumber,
-            locatorDataArray: [],
-            tableData: [{ // TODO
-                Outlets: 'UPS法国南希东大街网点',
-                address: '法国一二三四城市喜喜喜喜大道250号',
-                Zipcode: '123433',
-                phone: '1234312265453',
-                time: '9a.m.-5p.m.  周一-周五10a.m.-3p.m.  周六周日休息'
-            }]
+            locatorDataArray: []
         }
     },
     created() {
@@ -109,6 +102,10 @@ export default {
     methods: {
       // 附近网点list获取
       getLogisticsLocatorList() {
+        if (this.$ls.get('locatorDataArray') !== null) {
+          this.locatorDataArray = JSON.parse(this.$ls.get('locatorDataArray'))
+          return
+        }
         getLogisticsLocatorList(this.refNumber).then(response => {
           console.log('获取附近网点信息')
           console.dir(this.locatorDataArray)
@@ -119,10 +116,8 @@ export default {
                 this.$set(item, 'operationlTime', item.operationlTime.replace(/CLOSED_ALL_DAY/g, 'After Hours:').replace(/ null~null /g, '').replace(/OPEN_BY_HOURS/g, 'Opening Hours:'))
                 this.$set(item, 'code', 'UPS')
             })
-            console.log('localstorage--------->setttttttttttttttttttt')
-            this.$ls.set('locatorDataArray', 'hello')
-            console.log('localstorage--------->getttttttttttttttttttt')
-            console.dir(this.$ls.get('locatorDataArray'))
+            this.$ls.set('locatorDataArray', JSON.stringify(this.locatorDataArray))
+            // console.dir(JSON.parse(this.$ls.get('locatorDataArray')))
           }
         })
       },
