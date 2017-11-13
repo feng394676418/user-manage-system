@@ -85,7 +85,7 @@
                 <el-table :data="providerList" style="width: 100%">
                     <el-table-column prop="providerCode" label="" min-width="15%">
                         <template scope="scope">
-                            <input name="radio" type="radio" @click="clickRadio(scope.row.providerCode)"></input>
+                            <input name="radio" :checked="ruleForm.providerCode===scope.row.providerCode" type="radio" @click="clickRadio(scope.row.providerCode)"></input>
                         </template>
                     </el-table-column>
                     <el-table-column prop="providerName" :label="$t('order.Point')" min-width="15%">
@@ -194,9 +194,18 @@ export default {
     },
     created() {
         this.countryAll()
+        if (this.$ls.get('locatorRuleForm') !== null) {
+          this.ruleForm = JSON.parse(this.$ls.get('locatorRuleForm'))
+          this.countryTmp = this.ruleForm.country
+          this.provinceTmp = this.ruleForm.province
+          console.dir('_____________________  this.ruleForm  __________________')
+          console.dir(this.ruleForm)
+          this.cityChange()
+        }
     },
     methods: {
         clickRadio(val) {
+            console.dir(val)
             this.ruleForm.providerCode = ''
             this.providerList.forEach(item => {
                 if (item.providerCode === val) {
@@ -287,6 +296,7 @@ export default {
             console.log('子组件中父组件传递过来数据再回传---userOrderInfoChild---')
             console.dir(this.userOrderInfoChild)
             this.$emit('user-order-info-back', this.userOrderInfoChild)
+            this.$ls.set('locatorRuleForm', JSON.stringify(this.ruleForm))
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
@@ -319,6 +329,7 @@ export default {
                         console.dir(response)
                         if (response.data.status === '0') {
                             this.$message.info(this.$t('order.createworkorder') + response.data.data)// 工单创建成功,创建工单:
+                            this.$ls.set('locatorRuleForm', '')
                             this.$router.push('/Expressorders/' + response.data.data)
                         } else {
                             console.log(response.data.message)

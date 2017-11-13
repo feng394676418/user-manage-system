@@ -130,7 +130,8 @@ export default {
                 deadtime: '',
                 productname: '',
                 imagesrc: '',
-                remark: ''
+                remark: '',
+                checkNot: ''
             },
             IMEIInfoShow: false,
             IMEINotExist: true,
@@ -143,8 +144,18 @@ export default {
     },
     created() {
         this.getBrandList()
+        // 返回上一步IMEI处理
         if (this.OrderInfoFS.IMEI !== null && this.OrderInfoFS.IMEI !== '') {
             this.getImeiInfo()
+        }
+        // 返回上一步图片处理
+        if (this.OrderInfoFS.photogroup !== null && this.OrderInfoFS.photogroup !== '') {
+            let imgTmp = {}
+            this.OrderInfoFS.photogroup.split(',').forEach((item, index) => {
+                imgTmp.url = item
+                this.phoneImageList.push(imgTmp)
+                this.phoneImageUrlList.push(item)
+            })
         }
     },
     methods: {
@@ -234,6 +245,7 @@ export default {
                         this.OrderInfoFS.productType = this.imeiInfo.producttype
                         this.OrderInfoFS.deadDate = this.imeiInfo.deadtime
                         this.imeiInfo.repairStatus = this.OrderInfoFS.repairStatus
+                        this.imeiInfo.checkNot = this.OrderInfoFS.checkNot
                     }
                 } else {
                     this.$message.error(response.data.message)

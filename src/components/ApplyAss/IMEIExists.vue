@@ -105,6 +105,14 @@ export default {
       this.functionButtonInfo.timeIn = false
       this.timeInOutClassName(this.functionButtonInfo.timeIn)
     }
+    this.functionButtonInfo.checkNot = this.imeiInfoChild.checkNot
+    if (this.imeiInfoChild.repairStatus !== null && this.imeiInfoChild.repairStatus !== '') {
+      this.functionButtonInfo.checkedRepairOptions = this.imeiInfoChild.repairStatus.split(',')
+    }
+    if (this.functionButtonInfo.checkedRepairOptions.length > 0) {
+        this.functionButtonInfo.timeIn = false
+        this.timeInOutClassName(this.functionButtonInfo.timeIn)
+    }
     console.log('transfer data---> father')
     // 父组件数据传递
     this.$emit('on-time-in-out', this.functionButtonInfo)
