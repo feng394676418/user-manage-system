@@ -165,7 +165,7 @@ export default {
       download() {
         window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.surfaceURL)
         // window.open('/GuaranteedCompletion/' + this.orderNumber, '_self')
-        this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
+        // this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
       },
       openServiceProgress() {
         this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
