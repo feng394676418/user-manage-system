@@ -300,6 +300,9 @@ export default {
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
+          if (this.$ls.get('locatorDataArray') !== null) {
+            this.$ls.remove('locatorDataArray')
+          }
             // 防止连续点击两次
             this.$refs.btnSubmit.disabled = true
             setTimeout(() => {
@@ -329,7 +332,7 @@ export default {
                         console.dir(response)
                         if (response.data.status === '0') {
                             this.$message.info(this.$t('order.createworkorder') + response.data.data)// 工单创建成功,创建工单:
-                            this.$ls.set('locatorRuleForm', '')
+                            this.$ls.remove('locatorRuleForm')
                             this.$router.push('/Expressorders/' + response.data.data)
                         } else {
                             console.log(response.data.message)
