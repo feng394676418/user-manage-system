@@ -16,9 +16,10 @@
                 <template v-if="trackingNoFlg">
                   <!--成功生成运单-->
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
-                    <span class="sky_blue_text" style="cursor:pointer;" @click="openServiceProgress">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
+                    <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
                   <p class="blue_text text-center pd_top">
                       {{$t('order.sentemail')}}
+                        <a class="purple_text" href="#" @click="openServiceProgress">{{$t('order.selectProgress')}}</a>
                   </p>
                 </template>
                 <template v-else>
@@ -168,7 +169,8 @@ export default {
         // this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
       },
       openServiceProgress() {
-        this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
+        //  this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
+        window.open('#/GuaranteedCompletion/' + this.orderNumber)
       }
     }
 }
