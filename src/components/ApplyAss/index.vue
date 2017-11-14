@@ -82,6 +82,7 @@ export default {
           console.log('获取子组件applySS信息')
           console.dir(userOrderInfoChildF)
           this.userOrderInfo = userOrderInfoChildF
+          this.userOrderInfo.ruleForm = userOrderInfoChildF.ruleForm
           this.step1 = true
           this.step2 = false
           this.stepModel.step = '1'
