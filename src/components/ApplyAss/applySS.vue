@@ -194,8 +194,10 @@ export default {
     },
     created() {
         this.countryAll()
-        if (this.$ls.get('locatorRuleForm') !== null) {
-          this.ruleForm = JSON.parse(this.$ls.get('locatorRuleForm'))
+        console.dir('999999999999999999999')
+        console.dir(this.userOrderInfoChild)
+        if (this.userOrderInfoChild.ruleForm !== undefined && this.userOrderInfoChild.ruleForm !== null) {
+          this.ruleForm = this.userOrderInfoChild.ruleForm
           this.countryTmp = this.ruleForm.country
           this.provinceTmp = this.ruleForm.province
           console.dir('_____________________  this.ruleForm  __________________')
@@ -294,9 +296,10 @@ export default {
         lastStep() {
             // 父组件传递数据回传
             console.log('子组件中父组件传递过来数据再回传---userOrderInfoChild---')
+            this.userOrderInfoChild.ruleForm = this.ruleForm
             console.dir(this.userOrderInfoChild)
             this.$emit('user-order-info-back', this.userOrderInfoChild)
-            this.$ls.set('locatorRuleForm', JSON.stringify(this.ruleForm))
+         //   this.$ls.set('locatorRuleForm', JSON.stringify(this.ruleForm))
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
@@ -332,7 +335,7 @@ export default {
                         console.dir(response)
                         if (response.data.status === '0') {
                             this.$message.info(this.$t('order.createworkorder') + response.data.data)// 工单创建成功,创建工单:
-                            this.$ls.remove('locatorRuleForm')
+                        //    this.$ls.remove('locatorRuleForm')
                             this.$router.push('/Expressorders/' + response.data.data)
                         } else {
                             console.log(response.data.message)

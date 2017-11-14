@@ -12,23 +12,21 @@
             </div>
             <el-row class="row-bg" :gutter="30">
                 <el-col :md="6">
-                    <el-select v-model="value" :placeholder="$t('order.Brands')">
-                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                    <el-select v-model="productBrand" :placeholder="$t('order.Brands')" @change="getBrdModel">
+                        <el-option v-for="item in brandList" :key="item.code" :label="item.enname" :value="item.code"></el-option>
                     </el-select>
                 </el-col>
                 <el-col :md="18">
-                    <el-select v-model="value2" :placeholder="$t('order.Modelinfo')">
-                        <el-option v-for="item in model" :key="item.value2" :label="item.label" :value="item.value2"></el-option>
+                    <el-select v-model="productModel" :placeholder="$t('order.Modelinfo')" @change="selectModel">
+                        <el-option v-for="item in models" :key="item.model" :label="item.model" :value="item.model+'-'+item.partsdetailprice"></el-option>
                     </el-select>
                 </el-col>
             </el-row>
-            <div class="form-group mr_top2">
+            <div class="form-group mr_top2" v-show="showPrice">
                 <label for="" class="pro_price">
-                    OnePlus 5 64G
-                    <span>{{$t('checkprice.ServicePriceList')}}:</span>
-                </label>
+                    {{model}} <span>{{$t('checkprice.ServicePriceList')}}:</span></label>
             </div>
-            <el-table :data="tableData2" style="width: 100%">
+            <el-table :data="priceData" style="width: 100%" v-show="showPrice">
                 <el-table-column prop="Screen" :label="$t('checkprice.Screen')" min-width="17%">
                 </el-table-column>
                 <el-table-column prop="Motherboard" :label="$t('checkprice.Motherboard')" min-width="17%">
@@ -65,26 +63,18 @@
 
 <script>
 import logintop from './logintop'
+import { brandList } from '@/api/apply'
+import { getBrdRepairPriceByCode } from '@/api/BrdRepairPrice'
 export default {
     components: { logintop },
     data() {
         return {
-            options: [{
-                value: '1',
-                label: 'OnePlus'
-            }, {
-                value: '2',
-                label: 'OPPO'
-            }],
-            value: '',
-            model: [{
-                value2: '1',
-                label: 'OnePlus+T1'
-            }, {
-                value2: '2',
-                label: 'OnePlus+T3'
-            }],
-            value2: '',
+            brandList: [],
+            productBrand: '',
+            productModel: '',
+            models: [],
+            model: '',
+            showPrice: false,
             tableData: [{
                 level: this.$t('checkprice.Level0'),
                 // 0级维修
@@ -113,17 +103,53 @@ export default {
                 charge: this.$t('checkprice.twelve')
                 // 12-15欧元
             }],
-            tableData2: [{
-                Screen: '€12',
-                Motherboard: '€12',
-                rearcamera: '€12',
-                Frontcamera: '€12',
-                battery: '€12',
-                shell: '€12'
-            }]
+            priceData: []
         }
     },
+    created() {
+        this.getBrandList()
+    },
     methods: {
+         // 品牌列表获取
+        getBrandList() {
+            brandList().then(response => {
+                if (response.data.status === '0') {
+                    this.brandList = response.data.data
+                } else {
+                    this.$message.error(response.data.message)
+                }
+            })
+        },
+        getBrdModel(val) {
+            this.getBrdRepairPriceByCode(val)
+        },
+        getBrdRepairPriceByCode(code) {
+            getBrdRepairPriceByCode(code).then(response => {
+                if (response.data.status === '0') {
+                    this.models = response.data.data
+                } else {
+                    this.$message.error(response.data.message)
+                }
+            })
+        },
+        selectModel(val) {
+            let tmpArr = val.split('-')
+            console.dir(tmpArr)
+            this.model = tmpArr[0]
+            let priceArr = tmpArr[1].split(',')
+
+            this.priceData = []
+            let price = {}
+            price.Screen = priceArr[0]
+            price.Motherboard = priceArr[1]
+            price.rearcamera = priceArr[2]
+            price.Frontcamera = priceArr[3]
+            price.battery = priceArr[4]
+            price.shell = priceArr[5]
+            this.priceData.push(price)
+
+            this.showPrice = true
+        }
     }
 }
 </script>

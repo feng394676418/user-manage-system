@@ -17,7 +17,7 @@
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer mydialog-footer">
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="btn-info form-group">NO</el-button>
-                <el-button type="info" class="btn-info form-group" @click="repair(false)">YES</el-button>
+                <el-button ref="btnsubmit_no" type="info" class="btn-info form-group" @click="repair(false)">YES</el-button>
             </span>
         </el-dialog>
         <!--同意报价弹出框-->
@@ -25,8 +25,13 @@
             <h3 class="text-center">{{$t('WarrantyPayment.agreequote')}}</h3>
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost}} {{$t('WarrantyPayment.startrepair')}} </p>
+<<<<<<< HEAD
             <span slot="footer" class="dialog-footer mydialog-footer">
                 <el-button ref="btnsubmit_no" @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
+=======
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
+>>>>>>> abfe30542c88230bacba29059f0742020d698ca1
                 <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)">YES</el-button>
             </span>
         </el-dialog>
@@ -50,11 +55,11 @@ export default {
         repair(isRepair) {
             //  isRepair 是否继续维修  true  false
             if (isRepair) {
-                // 防止连续点击两次
+                // 同意报价维修  防止连续点击两次
                 this.$refs.btnsubmit_yes.disabled = true
                 setTimeout(() => {
                     this.$refs.btnsubmit_yes.disabled = false
-                }, 3000)
+                }, 5000)
 
                 // 同意报价 全价付款(保外)
                 confirmQuotes(this.checkReportInfo.orderNunber).then(response => {
@@ -63,11 +68,11 @@ export default {
                         this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })
             } else {
-                // 防止连续点击两次
+                // 拒绝报价放弃维修 防止连续点击两次
                 this.$refs.btnsubmit_no.disabled = true
                 setTimeout(() => {
                     this.$refs.btnsubmit_no.disabled = false
-                }, 3000)
+                }, 5000)
 
                 // 不同意报价 邮寄费用付款(保外)
                 notRepair(this.checkReportInfo.orderNunber).then(response => {
