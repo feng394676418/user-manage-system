@@ -86,10 +86,10 @@ export default {
         var validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error(this.$t('order.enterIMEI')))// 请输入IMEI码
-            } else if ((value + '').length !== 15) {
-                callback(new Error(this.$t('order.lengthdigits')))// IMEI长度必须为15位
             } else if (isNaN(value / 1)) {
                 callback(new Error(this.$t('order.purenumber')))// IMEI必须为纯数字
+            } else if ((value + '').length !== 15) {
+                callback(new Error(this.$t('order.lengthdigits')))// IMEI长度必须为15位
             } else {
                 callback()
             }
