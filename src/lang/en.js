@@ -56,6 +56,7 @@ export default {
         ServicePrices: 'Click here for Service Prices',
         FailureDescription: 'Failure Description',
         faultdescriptionempty: 'The fault description can not be empty',
+        faultdescriptionlength: 'The fault description length no more than 600',
         UploadPhotos: 'Upload Photos',
         picturenotempty: 'The picture can not be empty',
         threepictures: 'Can upload up to three pictures!',

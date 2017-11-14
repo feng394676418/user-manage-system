@@ -39,7 +39,7 @@
                     <label for="">
                         <b>*</b>{{$t('order.FailureDescription')}}:</label>
                     <el-form-item label="" prop="troubleInfo">
-                        <el-input type="textarea" :rows="3" v-model="OrderInfoFS.troubleInfo" :maxlength="600"></el-input>
+                        <el-input type="textarea" :rows="3" v-model="OrderInfoFS.troubleInfo"></el-input>
                     </el-form-item>
                     <!--追加验证时错误信息-->
                 </div>
@@ -95,7 +95,6 @@ export default {
             }
         }
         var validatePass2 = (rule, value, callback) => {
-            console.dir('描述长度：' + value.length)
             if (value === '') {
                 callback(new Error(this.$t('order.faultdescriptionempty')))// 故障描述不能为空
             } else {
@@ -108,7 +107,8 @@ export default {
                     { validator: validatePass, trigger: 'blur' }
                 ],
                 troubleInfo: [
-                    { validator: validatePass2, trigger: 'blur' }
+                    { validator: validatePass2, trigger: 'blur' },
+                    { max: 5, message: this.$t('order.faultdescriptionlength'), trigger: 'blur' }
                 ]
             },
             // OrderInfoFS: {

@@ -55,6 +55,7 @@ export default {
         ServicePrices: '查询维修价格标准。',
         FailureDescription: '故障描述',
         faultdescriptionempty: '故障描述不能为空',
+        faultdescriptionlength: '故障描述长度不能超过600',
         UploadPhotos: '上传图片',
         picturenotempty: '图片不能为空',
         threepictures: '最多可以上传3张图片!',
