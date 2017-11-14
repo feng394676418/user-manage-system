@@ -12,7 +12,7 @@ import ElementLocale from 'element-ui/lib/locale'
 import Cookies from 'js-cookie'
 import VueLocalStorage from 'vue-localstorage'
 
-require('../static/layer/layer.js')
+// require('../static/layer/layer.js')
 require('../static/iconfont/iconfont.js')
 
 Vue.use(VueLocalStorage, {
