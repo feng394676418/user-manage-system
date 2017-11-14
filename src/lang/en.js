@@ -103,6 +103,7 @@ export default {
         deliveryfailure: 'Oops! Your delivery note is failure.',
         WHY: 'WHY',
         resubmitorder: 'Please re-submit your order. ',
+        selectProgress: 'Check the Service Progress',
         selectnetwork: 'Please select a service network!',
         Confirmreceipt: 'Confirm receipt',
         receiptsuccess: 'Confirm receipt of success',
