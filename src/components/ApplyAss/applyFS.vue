@@ -108,7 +108,7 @@ export default {
                 ],
                 troubleInfo: [
                     { validator: validatePass2, trigger: 'blur' },
-                    { max: 5, message: this.$t('order.faultdescriptionlength'), trigger: 'blur' }
+                    { max: 600, message: this.$t('order.faultdescriptionlength'), trigger: 'blur' }
                 ]
             },
             // OrderInfoFS: {
