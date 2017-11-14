@@ -87,11 +87,22 @@ export default {
             this.refNumber = response.data.data.refnumber
             this.statusStr = this.orderInfo.status + ''
             this.orderArr.push(this.orderInfo)
-            this.getCusRouterInfo()
-            this.getDelRouterInfo()
+            // 获取检测报告
             this.getCheckReport()
+            // 获取用户寄给服务商物流信息
+            if (this.orderInfo.status > 11) {
+              this.getCusRouterInfo()
+            }
+            // 获取服务商寄给用户物流信息
+            if ('18,19,20'.indexOf(this.statusStr) >= 0) {
+              this.getDelRouterInfo()
+            }
+            // 获取结算信息
             this.getOrderBillByOrderNumber()
-            this.getOrderCommentByOrderNumber()
+            // 获取评论
+            if ('20'.indexOf(this.statusStr) >= 0) {
+              this.getOrderCommentByOrderNumber()
+            }
           } else {
             console.dir('***************获取工单信息异常*************')
           }
