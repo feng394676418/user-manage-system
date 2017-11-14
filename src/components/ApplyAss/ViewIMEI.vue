@@ -3,9 +3,9 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">{{$t('checkprice.home')}}</a> >
-                <a href="#">{{$t('checkprice.FillProductInfo')}}</a> >
-                <a href="#">{{$t('ViewIMEI.CheckIMEI')}}</a>
+                <a href="#/">{{$t('checkprice.home')}}</a> >
+                <a href="#/ApplyAss">{{$t('checkprice.FillProductInfo')}}</a> >
+                <a href="#/ViewIMEI">{{$t('ViewIMEI.CheckIMEI')}}</a>
             </div>
             <div class="step_nav mr_top">
                 <span>{{$t('ViewIMEI.Howtocheck')}}</span>

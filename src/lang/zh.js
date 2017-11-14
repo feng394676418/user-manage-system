@@ -157,6 +157,7 @@ export default {
         WaystoPay: '支付方式',
         Paylater: '稍后再付',
         PayNow: '去付款',
+        Confirming: '支付确认中,请稍等!',
         paymentsuccess: '支付成功',
         TransactionNo: '交易流水号',
         Cost: '金额',

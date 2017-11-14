@@ -3,7 +3,7 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">{{$t('checkprice.home')}}</a> >
+                <a href="#/">{{$t('checkprice.home')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
                 <a href="#">{{$t('ConfirmPayment.PaymentFailure')}}</a>

@@ -3,7 +3,9 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">{{$t('checkprice.home')}}</a>  >  <a href="#">{{$t('checkprice.FillProductInfo')}}</a>  >  <a href="#">{{$t('checkprice.PriceQuotation')}}</a>
+                <a href="#/">{{$t('checkprice.home')}}</a> >
+                <a href="#/ApplyAss">{{$t('checkprice.FillProductInfo')}}</a> >
+                <a href="#">{{$t('checkprice.PriceQuotation')}}</a>
             </div>
             <div class="step_nav mr_top">
                 <span>{{$t('checkprice.OutPrices')}}</span>
@@ -22,7 +24,9 @@
             </el-row>
             <div class="form-group mr_top2">
                 <label for="" class="pro_price">
-                    OnePlus 5 64G <span>{{$t('checkprice.ServicePriceList')}}:</span></label>
+                    OnePlus 5 64G
+                    <span>{{$t('checkprice.ServicePriceList')}}:</span>
+                </label>
             </div>
             <el-table :data="tableData2" style="width: 100%">
                 <el-table-column prop="Screen" :label="$t('checkprice.Screen')" min-width="17%">
@@ -36,7 +40,7 @@
                 <el-table-column prop="battery" :label="$t('checkprice.Battery')" min-width="16%">
                 </el-table-column>
                 <el-table-column prop="shell" :label="$t('checkprice.OuterCasing')" min-width="16%">
-                </el-table-column>                
+                </el-table-column>
             </el-table>
             <div class="mr_top2">
                 <label for="">
