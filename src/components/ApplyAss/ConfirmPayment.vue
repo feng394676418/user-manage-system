@@ -4,7 +4,7 @@
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
                 <a href="#/">{{$t('checkprice.home')}}</a> >
-                <a class="minicursor" @click="jump2Progress">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
+                <a class="minicursor" @click="checkProgress">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
                 <a>{{$t('ConfirmPayment.Payment')}}</a>
             </div>
             <h1 class="Charge_Details">{{$t('ConfirmPayment.Invoice')}}</h1>
@@ -147,12 +147,8 @@ export default {
             })
       },
       payLater() {
-          // 防止连续点击两次
-          this.$refs.btn_paylater.disabled = true
-          setTimeout(() => {
-              this.$refs.btn_paylater.disabled = false
-          }, 3000)
-          this.$router.go(-1)
+          // this.$router.go(-1)
+          this.$router.push({ path: '/GuaranteedCompletion/' + this.orderNumber })
       },
       payNow() {
           // 防止连续点击两次
@@ -177,7 +173,7 @@ export default {
             }
           })
       },
-      jump2Progress() {
+      checkProgress() {
         this.$router.push({ path: '/GuaranteedCompletion/' + this.orderNumber })
       }
     }
