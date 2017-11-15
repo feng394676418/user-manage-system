@@ -24,9 +24,6 @@ module.exports = {
             '@': resolve('src'),
         }
     },
-    externals: {
-        jquery: 'jQuery'
-    },
     module: {
         rules: [{
                 test: /\.(js|vue)$/,

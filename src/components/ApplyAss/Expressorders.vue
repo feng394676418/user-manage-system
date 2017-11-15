@@ -78,6 +78,8 @@ import { getTrackingno, getLogisticsLocatorList } from '@/api/tracking'
 import logintop from './logintop'
 import step from './step'
 import stepnav from './stepnav'
+import $ from 'jquery'
+
 export default {
     components: { logintop, step, stepnav },
     data () {
@@ -93,12 +95,21 @@ export default {
             trackingWait: true,
             surfaceURL: '',
             refNumber: this.$route.params.refNumber,
-            locatorDataArray: []
+            locatorDataArray: [],
+            flushFlg: false
         }
     },
     created() {
       this.getLogisticsLocatorList()
-      this.getTrackingno()
+      if (!this.flushFlg) {
+        this.getTrackingno()
+      }
+      $(window).bind('beforeunload', function() {
+        console.log('flush')
+        this.flushFlg = true
+        console.log(this.flushFlg)
+        return ''
+      })
     },
     methods: {
       // 附近网点list获取
