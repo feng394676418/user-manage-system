@@ -142,7 +142,7 @@ export default {
         twelve: '12-15欧元'
     },
     ConfirmPayment: {
-        ServiceProgress: '维修进度',
+        ServiceProgress: '售后进度',
         Payment: '付款',
         Invoice: '费用明细',
         Categories: '费用项目',
