@@ -4,8 +4,8 @@
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
                 <a href="#/">{{$t('checkprice.home')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.Payment')}}</a>
+                <a class="minicursor" @click="jump2Progress">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
+                <a>{{$t('ConfirmPayment.Payment')}}</a>
             </div>
             <h1 class="Charge_Details">{{$t('ConfirmPayment.Invoice')}}</h1>
             <el-table :data="tableData" style="width: 100%">
@@ -176,6 +176,9 @@ export default {
               this.fullscreenLoading = false
             }
           })
+      },
+      jump2Progress() {
+        this.$router.push({ path: '/GuaranteedCompletion/' + this.orderNumber })
       }
     }
 }
@@ -201,6 +204,9 @@ export default {
     overflow: hidden;
 }
 
+.minicursor{
+  cursor:pointer
+}
 .el-button {
     width: 236px;
     height: 48px;
