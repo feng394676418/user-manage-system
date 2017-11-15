@@ -42,6 +42,7 @@ export default {
         Servicesrequired: 'Type of Services is required',
         WarrantyDate: 'Warranty Expired Date',
         TypeServices: 'Type of Services',
+        enterTypeServices: 'Please select the type of services',
         repairNameArray: [
             { name: 'Your device has liquid damage', status: '0' },
             { name: 'Your device has unauthorized repair', status: '1' },

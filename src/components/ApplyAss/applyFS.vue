@@ -299,9 +299,9 @@ export default {
                 //     this.$message.error(this.$t('order.picturenotempty'))// 图片不能为空
                 //     return
                 // }
-                if (_this.OrderInfoFS.repairStatus.length === 0 && _this.OrderInfoFS.checkNot === false) {
+                if (_this.OrderInfoFS.repairStatus.length === 0 && (_this.OrderInfoFS.checkNot === false || _this.OrderInfoFS.checkNot === undefined)) {
                     valid = false
-                    this.$message.error(this.$t('order.TypeServices'))// 保修类型不能为空
+                    this.$message.error(this.$t('order.enterTypeServices'))// 保修类型不能为空
                 }
                 if (valid) {
                     // 追加验证信息

@@ -41,6 +41,7 @@ export default {
         Servicesrequired: '保修类型不能为空',
         WarrantyDate: '保修期限',
         TypeServices: '保修类型',
+        enterTypeServices: '请选择保修类型',
         repairNameArray: [
             { name: '您的手机有进液的情况。', status: '0' },
             { name: '您的手机未经授权拆开过/修理过。', status: '1' },
