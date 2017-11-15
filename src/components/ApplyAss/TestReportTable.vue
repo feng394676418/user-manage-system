@@ -4,14 +4,14 @@
         <div class="table-responsive">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table my_table">
                 <tr>
-                    <th scope="col">{{$t('WarrantyPayment.CreateTime')}}</th>
-                    <th scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
-                    <th scope="col">{{$t('WarrantyPayment.PartsCost')}}</th>
-                    <th scope="col">{{$t('ConfirmPayment.ServiceCost')}}</th>
-                    <th scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
-                    <th scope="col">{{$t('WarrantyPayment.Total')}}</th>
-                    <th scope="col">{{$t('WarrantyPayment.CoveredbyWarranty')}}</th>
-                    <th scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
+                    <th width="15%" scope="col">{{$t('WarrantyPayment.CreateTime')}}</th>
+                    <th width="15%" scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
+                    <th width="15%" scope="col">{{$t('WarrantyPayment.PartsCost')}}</th>
+                    <th width="9%" scope="col">{{$t('ConfirmPayment.ServiceCost')}}</th>
+                    <th width="20%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
+                    <th width="7%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
+                    <th width="7%" scope="col">{{$t('WarrantyPayment.CoveredbyWarranty')}}</th>
+                    <th width="7%" scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
                 </tr>
                 <tr>
                     <td>{{checkReportInfo.createDate}}</td>
