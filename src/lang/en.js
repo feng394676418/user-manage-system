@@ -160,6 +160,7 @@ export default {
         WaystoPay: 'Ways to Pay',
         Paylater: 'Pay later',
         PayNow: 'Pay Now',
+        Confirming: 'Confirming payment, please wait',
         paymentsuccess: 'Payment Success',
         TransactionNo: 'Transaction No.',
         Cost: 'Cost',

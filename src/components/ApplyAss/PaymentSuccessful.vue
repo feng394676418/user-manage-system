@@ -3,14 +3,13 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">{{$t('checkprice.home')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.paymentsuccess')}}</a>
+                <a href="#/">{{$t('checkprice.home')}}</a> >
+                <a class="minicursor" @click="checkProgress">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
+                <a>{{$t('ConfirmPayment.paymentsuccess')}}</a>
             </div>
             <template v-if="successWait">
               <!--支付结果确认等待-->
-              支付确认中,请稍等!
+              {{$t('ConfirmPayment.Confirming')}}
             </template>
             <template v-else>
               <template v-if="successFlg">
@@ -136,5 +135,8 @@ export default {
 }
 td:nth-last-child(1) strong:last-child{
     font-size:18px;
+}
+.minicursor{
+  cursor:pointer
 }
 </style>

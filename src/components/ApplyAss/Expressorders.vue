@@ -127,6 +127,7 @@ export default {
         getTrackingno(this.refNumber).then(response => {
           console.log('获取运单号结果信息')
           console.dir(response)
+          console.log('运单号获取结束')
           if (response.data.status === '0') {
             this.surfaceURL = response.data.data.sendSurfaceURL
             this.orderNumber = response.data.data.ordernumber

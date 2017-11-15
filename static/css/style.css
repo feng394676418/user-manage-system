@@ -277,12 +277,13 @@ h3{
     color: #8c8c9e;
     /* white-space: nowrap; */
 }
-.Fault_picture li{
+.Fault_picture img{
     float: left;
     padding: 5px;
     border: 1px solid #aab0d1;
     background: #f3f6fa;
     margin-right: 22px;
+    height: 134px;
 }
 .Fault_picture li img{
     height: 134px;

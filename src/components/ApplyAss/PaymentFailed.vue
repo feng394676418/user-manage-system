@@ -3,10 +3,10 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <div class="Bread_crumbs">
-                <a href="#">{{$t('checkprice.home')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.Payment')}}</a> >
-                <a href="#">{{$t('ConfirmPayment.PaymentFailure')}}</a>
+                <a href="#/">{{$t('checkprice.home')}}</a> >
+                <a class="minicursor" @click="checkProgress">{{$t('ConfirmPayment.ServiceProgress')}}</a> >
+                <a class="minicursor" @click="paymentAgain">{{$t('ConfirmPayment.Payment')}}</a> >
+                <a>{{$t('ConfirmPayment.PaymentFailure')}}</a>
             </div>
             <!--支付失败-->
             <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.tryagain')}}</h2>
@@ -18,7 +18,7 @@
                 <img src="../../../static/img/Payment_failed.png" />
             </p>
             <div class="col-md-12 text-center">
-                <el-button type="info" class="next_step mr_top btn-info">{{$t('ConfirmPayment.Back')}}</el-button>
+                <el-button type="info" @click="paymentAgain" class="next_step mr_top btn-info">{{$t('ConfirmPayment.Back')}}</el-button>
             </div>
         </div>
     </div>
@@ -30,9 +30,16 @@ export default {
     components: { logintop },
     data() {
         return {
+          orderNumber: this.$route.query.nber
         }
     },
     methods: {
+      checkProgress() {
+        this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
+      },
+       paymentAgain() {
+        this.$router.push('/ConfirmPayment/' + this.orderNumber + '/true')
+      }
     }
 }
 </script>
@@ -62,5 +69,8 @@ export default {
 }
 .pay_title{
     font-size:18px;
+}
+.minicursor{
+  cursor:pointer
 }
 </style>
