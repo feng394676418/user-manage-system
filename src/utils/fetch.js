@@ -25,7 +25,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-    timeout: 500000 // 500s
+    timeout: 60000 // 60s
 })
 
 service.interceptors.request.use(config => {
