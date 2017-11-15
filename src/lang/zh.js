@@ -206,7 +206,8 @@ export default {
         DeliveryInfo: '发货物流信息',
         Receivedcustomer: '客户已收件',
         Servicescore: '维修商服务评分',
-        Comments: '服务建议与意见'
+        Comments: '服务建议与意见',
+        opinions: '请对我们的服务提出意见和建议'
     },
     ViewIMEI: {
         CheckIMEI: '查看IMEI',
