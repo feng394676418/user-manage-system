@@ -11,6 +11,7 @@ import zh from './lang/zh'
 import ElementLocale from 'element-ui/lib/locale'
 import Cookies from 'js-cookie'
 import VueLocalStorage from 'vue-localstorage'
+import layer from 'vue-layer'
 
 require('../static/iconfont/iconfont.js')
 
@@ -46,6 +47,8 @@ Vue.prototype.AppLanguage = function(lang) {
 Vue.prototype.getAppLanguage = function() {
     return i18n.locale
 }
+
+Vue.prototype.$layer = layer(Vue)
 
 /* eslint-disable no-new */
 new Vue({

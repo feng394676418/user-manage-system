@@ -13,12 +13,11 @@
             <div v-for="imgUrl in checkReportInfo.photoGrpUrl.split(',')" :key="imgUrl">
                 <a @click="handleView(imgUrl)"><img :layer-src="imgUrl" :src="imgUrl" layer-index="0"></a>
             </div>
-        </ul> 
+        </ul>
     </div>
 </template>
 
 <script>
-import layer from 'layer'
 export default {
     props: {
         checkReportInfo: ''
@@ -29,16 +28,21 @@ export default {
     },
     methods: {
         handleView(addr) {
-            console.log(addr)
-            layer.alert('hello')
-            layer.photos({
-                photos: '#layer-photos-demo',
-                anim: 0 // 0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-            })
+            this.$layer.open({
+            type: 1,
+            title: '',
+            closeBtn: 0,
+            shadeClose: true,
+            skin: '',
+            content: '<div style="height:500px width:500px"><img src="' + addr + '"></img></div>'
+          })
         }
     }
 }
 </script>
-<style scoped>
+<style>
 @import '/static/layer/skin/default/layer.css';
+.notify-main {
+    max-width: 800px !important;
+}
 </style>
