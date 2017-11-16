@@ -5,15 +5,15 @@
             <h3>{{$t('Warranty.Rate')}}</h3>
             <div class="form-group">
                 <span class="pull-left">{{$t('Warranty.rateservice')}} ：&nbsp;</span>
-                <el-form-item label="" prop="score" style="margin-bottom:0">
+                <el-form-item label="" prop="score" style="margin-bottom:0;" class="rate_text">
                     <el-rate class="pull-left" v-model="orderComment.score"></el-rate>
                     <span class="pull-left blue_text">{{$t('Warranty.highestcomment')}}</span>
                     <el-input v-model="orderComment.score" v-show="false"></el-input>
                 </el-form-item>
             </div>
             <div class="form-group">
-                <el-form-item label="" prop="content" style="margin-bottom:0">
-                    <el-input type="textarea"  :placeholder="$t('Warranty.suggestions')" :rows="4" v-model="orderComment.content"></el-input>
+                <el-form-item label="" prop="content" style="margin-bottom:0;">
+                    <el-input type="textarea" class="rate_textarea"  :placeholder="$t('Warranty.suggestions')" :rows="4" v-model="orderComment.content"></el-input>
                 </el-form-item>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
@@ -93,5 +93,11 @@ export default {
 }
 .main_form_input .form-control {
     padding: 6px;
+}
+.rate_text .el-form-item__content{
+    line-height: 23px!important;
+}
+.rate_textarea{
+    padding:5px 0;
 }
 </style>
