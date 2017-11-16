@@ -19,7 +19,7 @@
                     <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
                   <p class="blue_text text-center pd_top">
                       {{$t('order.sentemail')}}
-                        <a class="purple_text" href="#" @click="openServiceProgress">{{$t('order.selectProgress')}}</a>
+                        <a class="purple_text" @click="openServiceProgress">{{$t('order.selectProgress')}}</a>
                   </p>
                 </template>
                 <template v-else>
