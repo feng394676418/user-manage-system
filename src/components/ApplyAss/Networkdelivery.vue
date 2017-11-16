@@ -28,13 +28,13 @@
         </div>
         <template v-if="isShow">
              <div class="col-md-10">
-              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
+              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Showinformation')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
               <p v-for="(item,index) in delRouterInfo"  v-if="index==0" >{{item.description}} {{item.routedate}}</p>
             </div>
         </template>
         <template v-else-if="!isShow">
           <div class="col-md-10">
-              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Paylater')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
+              <span class="purple_text" @click="btnClick" >{{$t('WarrantyPayment.Foldinformation')}} <i><img :class="{rotate: isrotate}" src="../../../static/img/arrow.png" alt=""></i></span>
               <div :class="{des_hide: isShow}">
                   <p v-for="item in delRouterInfo">{{item.description}} {{item.routedate}}</p>
               </div>
