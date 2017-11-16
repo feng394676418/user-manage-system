@@ -11,7 +11,7 @@
             </ul>  -->
          <ul class="Fault_picture col-md-12" id="layer-photos-demo">
             <div v-for="imgUrl in checkReportInfo.photoGrpUrl.split(',')" :key="imgUrl">
-                <a @click="handleView(imgUrl)"><img :layer-src="imgUrl" :src="imgUrl" layer-index="0"></a>
+                <a @click="handleView(imgUrl)" href="javascript:viod(0);"><img :layer-src="imgUrl" :src="imgUrl" layer-index="0"></a>
             </div>
         </ul>
     </div>

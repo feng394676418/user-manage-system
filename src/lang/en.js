@@ -183,7 +183,7 @@ export default {
         DeliveryAddress: 'Delivery Address',
         Carrier: 'Carrier',
         TrackingNo: 'Tracking No.',
-        Sendlogisticsinfo: 'Send the logistics information',
+        Sendlogisticsinfo: 'Send the logistics info.',
         ReceivedPoint: 'Received by Service Point',
         Showinformation: 'Show more details',
         Foldinformation: 'Fold details',

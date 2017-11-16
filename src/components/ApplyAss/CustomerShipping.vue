@@ -23,7 +23,7 @@
             <p>{{cusInfoChild.trackingno}}</p>
         </div>
         <div class="clearfix"></div>
-        <div class="col-md-2">
+        <div class="col-md-2" style="padding-right:0">
             <label for="">{{$t('WarrantyPayment.Sendlogisticsinfo')}}：</label>
         </div>
         <template v-if="isShow">
