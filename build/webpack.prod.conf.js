@@ -54,12 +54,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: process.env.NODE_ENV === 'testing' ?
                 'index.html' : config.build.index,
-            template: 'index.html',
-            inject: true,
+            template: 'index.html', // 读取的模板文件,这个路径是相对于当前这个配置文件的
+            inject: true, // 自动注入
             minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeAttributeQuotes: false
+                removeComments: true, // 去注释
+                collapseWhitespace: true, // 压缩空格
+                removeAttributeQuotes: false // 为true时 去除属性引用
                     // more options:
                     // https://github.com/kangax/html-minifier#options-quick-reference
             },
