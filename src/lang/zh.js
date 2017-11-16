@@ -166,7 +166,9 @@ export default {
         Cost: '金额',
         PaymentFailure: '支付失败',
         tryagain: '支付失败，请重新支付！',
-        Back: '返回支付页面'
+        Back: '返回支付页面',
+        Back: '失败'
+
     },
     WarrantyPayment: {
         DiagnosticReport: '检测报告',

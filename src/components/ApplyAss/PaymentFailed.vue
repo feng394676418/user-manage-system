@@ -12,7 +12,7 @@
             <h2 class="text-center generate_title mr_top pay_title">{{$t('ConfirmPayment.tryagain')}}</h2>
             <p class="blue_text text-center pd_top">
                 <!--错误信息显示-->
-                {{$t('order.WHY')}}：失败
+                {{$t('order.WHY')}}：{{$t('ConfirmPayment.failure')}}
             </p>
             <p class="text-center mr_top">
                 <img src="../../../static/img/Payment_failed.png" />

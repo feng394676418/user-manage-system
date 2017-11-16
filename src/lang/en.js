@@ -167,7 +167,8 @@ export default {
         Cost: 'Cost',
         PaymentFailure: 'Payment Failure',
         tryagain: 'Oops, failed payment. Please try again. ',
-        Back: 'Back'
+        Back: 'Back',
+        failure: 'failure'
     },
     WarrantyPayment: {
         DiagnosticReport: 'Diagnostic Report',
