@@ -21,11 +21,11 @@
             </span>
         </el-dialog>
         <!--同意报价弹出框-->
-        <el-dialog title="" :visible.sync="dialogVisible" size="tiny">
+        <el-dialog title="" :visible.sync="dialogVisible" size="tiny" class="mydialog-footer">
             <h3 class="text-center">{{$t('WarrantyPayment.agreequote')}}</h3>
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost | money}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost | money}} {{$t('WarrantyPayment.startrepair')}} </p>
-            <span slot="footer" class="dialog-footer mydialog-footer">
+            <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
                 <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)">YES</el-button>
             </span>
@@ -101,8 +101,11 @@ export default {
 }
 </script>
 <style>
-.el-dialog__footer {
-  text-align: center;
+.mydialog-footer .el-dialog__footer {
+  text-align: center !important;
+}
+.mydialog-footer .btn-info{
+  margin-bottom: 15px;
 }
 .el-dialog__body {
   padding: 0 50px 30px 50px;
@@ -123,7 +126,5 @@ export default {
 .el-dialog--tiny {
   width: auto;
 }
-.mydialog-footer {
-  text-align: center !important;
-}
+
 </style>
