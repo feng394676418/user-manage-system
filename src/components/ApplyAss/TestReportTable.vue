@@ -8,8 +8,8 @@
                     <th width="15%" scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
                     <th width="15%" scope="col">{{$t('WarrantyPayment.PartsCost')}}</th>
                     <th width="9%" scope="col">{{$t('ConfirmPayment.ServiceCost')}}</th>
-                    <th width="20%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
-                    <th width="7%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
+                    <th width="19%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
+                    <th width="8%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
                     <th width="7%" scope="col">{{$t('WarrantyPayment.CoveredbyWarranty')}}</th>
                     <th width="7%" scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
                 </tr>
