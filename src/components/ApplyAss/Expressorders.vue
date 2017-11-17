@@ -95,19 +95,19 @@ export default {
             trackingWait: true,
             surfaceURL: '',
             refNumber: this.$route.params.refNumber,
-            locatorDataArray: [],
-            flushFlg: false
+            locatorDataArray: []
         }
     },
     created() {
       this.getLogisticsLocatorList()
-      if (!this.flushFlg) {
+      if (this.$ls.get('surfaceURL') !== null) {
+        // 已经预报或正在预报恶意刷新
+        console.log('Tracking... ...')
+      } else {
         this.getTrackingno()
       }
+      // 重复预报避免
       $(window).bind('beforeunload', function() {
-        console.log('flush')
-        this.flushFlg = true
-        console.log(this.flushFlg)
         return ''
       })
     },
@@ -151,6 +151,8 @@ export default {
               this.pdfFlg = true
               this.imgFlg = false
             }
+            // 运单号获取成功 localstorage中保存面单地址
+            this.$ls.set('surfaceURL', this.surfaceURL)
           } else if (response.data.status === '2') {
             if (response.data.message !== '') {
               this.$message.info(response.data.message)
