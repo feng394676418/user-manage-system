@@ -210,7 +210,7 @@ export default {
         DeliveryInfo: 'Delivery Info',
         Receivedcustomer: 'Received by customer',
         Servicescore: 'Service score',
-        Comments: 'Comments or suggestions about our service',
+        Comments: 'Feedback',
         opinions: 'Please give our opinions and suggestions on our service'
     },
     ViewIMEI: {
