@@ -39,11 +39,11 @@
                     <b>*</b> {{$t('order.servicepoint')}}：</label>
             </div>
             <el-table :data="locatorDataArray" style="width: 100%">
-                <el-table-column prop="code" :label="$t('order.Point')" min-width="18%">UPS
+                <el-table-column prop="code" :label="$t('order.Point')" min-width="15%">UPS
                 </el-table-column>
                 <el-table-column prop="address" :label="$t('order.Address')" min-width="26%">
                 </el-table-column>
-                <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="9%">
+                <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="12%">
                 </el-table-column>
                 <el-table-column prop="telPhone" :label="$t('order.Telephone')" min-width="14%">
                 </el-table-column>
