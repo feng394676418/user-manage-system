@@ -19,7 +19,7 @@
                     <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
                   <p class="blue_text text-center pd_top">
                       {{$t('order.sentemail')}}
-                        <a class="purple_text" @click="openServiceProgress">{{$t('order.selectProgress')}}</a>
+                        <a class="purple_text" @click="openServiceProgress" style="cursor:pointer">{{$t('order.selectProgress')}}</a>
                   </p>
                 </template>
                 <template v-else>
@@ -27,7 +27,7 @@
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
                       <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
                   <p class="blue_text text-center pd_top"> <!--错误信息显示-->
-                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss">{{$t('order.resubmitorder')}}</a>
+                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss" style="cursor:pointer">{{$t('order.resubmitorder')}}</a>
                   </p>
                   <p class="text-center mr_top">
                       <img src="../../../static/img/Construction_failed.png" />
