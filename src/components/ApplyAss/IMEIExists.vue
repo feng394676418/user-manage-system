@@ -18,7 +18,7 @@
         <label for="">
           <b>*</b>{{$t('order.TypeServices')}}：</label>
         <el-checkbox-group v-model="functionButtonInfo.checkedRepairOptions" @change="handleCheckedRepairOptionsChange">
-          <el-checkbox v-for="repair in repairOptionArray" :label="repair" :key="repair" class="checkboxs">{{repair | repairName}}</el-checkbox>
+          <el-checkbox v-for="repair in this.$t('order.repairNameArray')" :label="repair.status" :key="repair.status" class="checkboxs">{{repair.name}}</el-checkbox>
         </el-checkbox-group>
         <el-checkbox  class="checkboxs" :indeterminate="isIndeterminate" v-model="functionButtonInfo.checkNot" @change="handleCheckNotChange">{{$t('order.NonAbove')}}</el-checkbox>
       </div>
