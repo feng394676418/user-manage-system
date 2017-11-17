@@ -303,9 +303,15 @@ export default {
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
+          // 路由网点信息删除
           if (this.$ls.get('locatorDataArray') !== null) {
             this.$ls.remove('locatorDataArray')
           }
+          // 预报信息删除
+          if (this.$ls.get('surfaceURL') !== null) {
+            this.$ls.remove('surfaceURL')
+          }
+
             // 防止连续点击两次
             this.$refs.btnSubmit.disabled = true
             setTimeout(() => {
