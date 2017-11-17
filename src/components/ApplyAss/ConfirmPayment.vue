@@ -8,7 +8,7 @@
                 <a>{{$t('ConfirmPayment.Payment')}}</a>
             </div>
             <h1 class="Charge_Details">{{$t('ConfirmPayment.Invoice')}}</h1>
-            <el-table :data="tableData" style="width: 100%">
+            <el-table :data="tableData" style="width: 100%" class="pay_table">
                 <el-table-column :label="$t('ConfirmPayment.Categories')"  min-width="33%">
                     <template scope="scope">
                          <div v-html="scope.row.item"></div>
@@ -229,16 +229,16 @@ export default {
     color:#8c8c9e;
     border-top:none;
 }
-tr:nth-last-child(1) strong:last-child{
+.pay_table .Orange_text{
     font-size:18px;
 }
-tr:nth-last-child(1),tr:nth-last-child(2),tr:nth-last-child(3),tr:nth-last-child(4),tr:nth-last-child(5),tr:nth-last-child(6),tr:nth-last-child(7){
+.pay_table tr:nth-last-child(1),.pay_table tr:nth-last-child(2),.pay_table tr:nth-last-child(3),.pay_table tr:nth-last-child(4),.pay_table tr:nth-last-child(5),.pay_table tr:nth-last-child(6),.pay_table tr:nth-last-child(7){
     border-top: 1px solid #e8ebfa;
 }
-tr:nth-child(10){
+.pay_table tr:nth-child(10){
     height: 48px!important;
 }
-td:first-child{
+.pay_table td:first-child{
     font-weight:bold;
     font-size:14px;
 }

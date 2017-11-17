@@ -12,9 +12,7 @@
                 </el-form-item>
             </div>
             <div class="form-group">
-                <el-form-item label="" prop="content" style="margin-bottom:0;">
                     <el-input type="textarea" class="rate_textarea"  :placeholder="$t('Warranty.suggestions')" :rows="4" v-model="orderComment.content"></el-input>
-                </el-form-item>
             </div>
             <div class="pull-right mr_top2 btn_bottom">
                 <el-button class="btn-info"  ref="btnComment" type="info" @click="handelOrderComment">{{$t('Warranty.Done')}}</el-button>
@@ -39,21 +37,10 @@ export default {
                     callback()
                 }
         }
-        var validateContent = (rule, value, callback) => {
-                console.dir('validateContent:' + value)
-                if (value === '') {
-                    callback(new Error(this.$t('Warranty.opinions')))
-                } else {
-                    callback()
-                }
-        }
         return {
             rules: {
                 score: [
                     { validator: validateScore, trigger: 'change' }
-                ],
-                content: [
-                    { validator: validateContent, trigger: 'blur' }
                 ]
             },
             orderComment: {

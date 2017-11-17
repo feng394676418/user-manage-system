@@ -3,21 +3,21 @@
         <logintop></logintop>
         <div class="main_content main_form_input">
             <step :status="orderInfo.status"></step>
-            <Evaluation :orderNumber="checkReportInfo.orderNunber"  v-show="'19'.indexOf(statusStr)>=0"></Evaluation>
+            <Evaluation :orderNumber="checkReportInfo.orderNunber"  v-show="showEvaluation"></Evaluation>
             <WorkOrderTable :orderInfoChild="orderArr,refNumber"></WorkOrderTable>
             <UserInfo :userInfoChild="orderInfo"></UserInfo>
-            <CustomerShipping :cusInfoChild="orderInfo,cusRouterInfo" v-show="orderInfo.status>11"></CustomerShipping>
-            <TestReportTable :checkReportInfo="checkReportInfo" v-show="'13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></TestReportTable>
-            <reason :checkReportInfo="checkReportInfo" v-show="'31,13,14,15,17,18,19,20'.indexOf(statusStr)>=0"></reason>
+            <CustomerShipping :cusInfoChild="orderInfo,cusRouterInfo" v-show="showCustomerShipping"></CustomerShipping>
+            <TestReportTable :checkReportInfo="checkReportInfo" v-show="showTestReportTable"></TestReportTable>
+            <reason :checkReportInfo="checkReportInfo" v-show="showReason"></reason>
 
-            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="'18,19,20'.indexOf(statusStr)>=0"></Networkdelivery>
+            <Networkdelivery :delInfoChild="orderInfo,delRouterInfo" v-show="showNetworkdelivery"></Networkdelivery>
             <!--同意报价按钮-->
-            <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="'13'.indexOf(statusStr)>=0 && checkReportInfo.serviceType==1 && checkReportInfo.confirmQuotes==false"></AgreeOfferButtonChild>
-            <Evaluated :orderComment="orderComment" v-show="'20'.indexOf(statusStr)>=0"></Evaluated>
+            <AgreeOfferButtonChild :checkReportInfo="checkReportInfo" v-show="showAgreeOfferButtonChild"></AgreeOfferButtonChild>
+            <Evaluated :orderComment="orderComment" v-show="showEvaluated"></Evaluated>
             <!-- 确认收货按钮 -->
-            <confirmReceiptButton :orderNumber="checkReportInfo.orderNunber" v-show="'18'.indexOf(statusStr)>=0"></confirmReceiptButton>
+            <confirmReceiptButton :orderNumber="checkReportInfo.orderNunber" v-show="showConfirmReceiptButton"></confirmReceiptButton>
             <!-- 结算按钮 -->
-            <settlementButton :checkReportInfo="checkReportInfo" v-show="isPay && checkReportInfo.serviceType==1 && '14,15,17'.indexOf(statusStr)>=0"></settlementButton>
+            <settlementButton :checkReportInfo="checkReportInfo" v-show="showSettlementButton"></settlementButton>
         </div>
     </div>
 </template>
@@ -68,7 +68,16 @@ export default {
           checkReportInfo: {},
           orderBill: {},
           isPay: true,
-          orderComment: {}
+          orderComment: {},
+          showEvaluation: false,
+          showCustomerShipping: false,
+          showTestReportTable: false,
+          showReason: false,
+          showNetworkdelivery: false,
+          showAgreeOfferButtonChild: false,
+          showEvaluated: false,
+          showConfirmReceiptButton: false,
+          showSettlementButton: false
         }
     },
     created() {
@@ -86,13 +95,38 @@ export default {
             this.orderInfo = response.data.data
             this.refNumber = response.data.data.refnumber
             this.statusStr = this.orderInfo.status + ''
-            this.orderArr.push(this.orderInfo)
-            // 获取检测报告
-            this.getCheckReport()
-            // 获取用户寄给服务商物流信息
+            // 根据 statusStr 自动显示不同的信息
+            // 评论
+            if ('19'.indexOf(this.statusStr) >= 0) {
+              this.showEvaluation = true
+            }
+            // 用户寄给服务商物流信息
             if (this.orderInfo.status > 11) {
+              this.showCustomerShipping = true
               this.getCusRouterInfo()
             }
+            // 检测报告
+            if ('13,14,15,17,18,19,20'.indexOf(this.statusStr) >= 0) {
+              this.showTestReportTable = true
+              this.getCheckReport()
+            }
+            // 显示图片
+            if ('31,13,14,15,17,18,19,20'.indexOf(this.statusStr) >= 0) {
+              this.showReason = true
+            }
+            // 网点发给客户物流信息
+            if ('18,19,20'.indexOf(this.statusStr) >= 0) {
+              this.showNetworkdelivery = true
+            }
+            // 显示评论
+            if ('20'.indexOf(this.statusStr) >= 0) {
+              this.showEvaluated = true
+            }
+            // 确认收货
+            if ('18'.indexOf(this.statusStr) >= 0) {
+              this.showConfirmReceiptButton = true
+            }
+            this.orderArr.push(this.orderInfo)
             // 获取服务商寄给用户物流信息
             if ('18,19,20'.indexOf(this.statusStr) >= 0) {
               this.getDelRouterInfo()
@@ -129,7 +163,10 @@ export default {
       getCheckReport() {
             getCheckReport(this.orderInfo.ordernumber).then(response => {
                 this.checkReportInfo = response.data.data
-                console.dir(this.checkReportInfo)
+                // 同意报价
+                if ('13'.indexOf(this.statusStr) >= 0 && this.checkReportInfo.serviceType === '1' && this.checkReportInfo.confirmQuotes === false) {
+                  this.showAgreeOfferButtonChild = true
+                }
             })
       },
       getOrderBillByOrderNumber() {
@@ -138,6 +175,10 @@ export default {
                 console.dir('***********************  getOrderBillByOrderNumber ')
                 if (this.orderBill != null) {
                   this.isPay = false
+                   // 显示结算信息
+                  if (this.isPay && this.checkReportInfo.serviceType === 1 && '14,15,17'.indexOf(this.statusStr) >= 0) {
+                    this.showSettlementButton = true
+                  }
                 }
             })
       },

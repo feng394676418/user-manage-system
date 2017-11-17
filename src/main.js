@@ -33,6 +33,7 @@ const messages = {
 }
 
 const umssLang = Cookies.get('umsLang') == null ? 'en' : Cookies.get('umsLang')
+Cookies.set('umsLang', umssLang)
 const i18n = new VueI18n({
     locale: umssLang,
     messages

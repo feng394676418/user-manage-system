@@ -8,10 +8,10 @@
                     <th width="15%" scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
                     <th width="15%" scope="col">{{$t('WarrantyPayment.PartsCost')}}</th>
                     <th width="9%" scope="col">{{$t('ConfirmPayment.ServiceCost')}}</th>
-                    <th width="20%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
-                    <th width="7%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
+                    <th width="17%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
+                    <th width="8%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
                     <th width="7%" scope="col">{{$t('WarrantyPayment.CoveredbyWarranty')}}</th>
-                    <th width="7%" scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
+                    <th width="10%" scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
                 </tr>
                 <tr>
                     <td>{{checkReportInfo.createDate}}</td>
@@ -26,15 +26,15 @@
                     <!-- <td>{{$t('ConfirmPayment.Screen')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.RearCamera')}}€ <strong class="Orange_text">12</strong> / {{$t('checkprice.OuterCasing')}}€ <strong class="Orange_text">12</strong> </td> -->
                     <td>
                         <template v-for="(orderParts, index) in checkReportInfo.orderParts">
-                            {{orderParts.partename}}€ <strong class="Orange_text" :key="index">{{orderParts.partcost}}</strong>
+                            {{orderParts.partename}}€ <strong class="Orange_text" :key="index">{{orderParts.partcost | money}}</strong>
                             <tag v-if="checkReportInfo.orderParts.length-1 === index" :key="index"></tag>
                             <tag v-else :key="index"> /</tag>
                         </template>
-                    <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost}}</strong></td>
-                    <td>{{$t('ConfirmPayment.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost}}</strong> / {{$t('ConfirmPayment.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost}}</strong></td>
-                    <td>€ <strong class="Orange_text">{{checkReportInfo.allCost}}</strong></td>
-                    <td>€ <strong class="Orange_text">{{checkReportInfo.coveredbyWarranty}}</strong></td>
-                    <td>€ <strong class="Orange_text">{{checkReportInfo.remaintoPay}}</strong></td>
+                    <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost | money}}</strong></td>
+                    <td>{{$t('ConfirmPayment.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost | money}}</strong> / {{$t('ConfirmPayment.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost | money}}</strong></td>
+                    <td>€ <strong class="Orange_text">{{checkReportInfo.allCost | money}}</strong></td>
+                    <td>€ <strong class="Orange_text">{{checkReportInfo.coveredbyWarranty | money}}</strong></td>
+                    <td>€ <strong class="Orange_text">{{checkReportInfo.remaintoPay | money}}</strong></td>
                 </tr>
             </table>
         </div>
@@ -60,6 +60,26 @@ export default {
                 Payables: ''
             }]
         }
+    },
+    filters: {
+        money(val) {
+            val = val.toString().replace(/\$|,/g, '')
+            if (isNaN(val)) {
+            val = '0'
+            }
+            const sign = val === (val = Math.abs(val))
+            val = Math.floor(val * 100 + 0.50000000001)
+            let cents = val % 100
+            val = Math.floor(val / 100).toString()
+            if (cents < 10) {
+            cents = '0' + cents
+            }
+            for (let i = 0; i < Math.floor((val.length - (1 + i)) / 3); i++) {
+                val = val.substring(0, val.length - (4 * i + 3)) + ',' + val.substring(val.length - (4 * i + 3))
+            }
+
+            return sign ? '' : val + '.' + cents
+            }
     },
     created() {
 

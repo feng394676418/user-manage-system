@@ -19,7 +19,7 @@
                     <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
                   <p class="blue_text text-center pd_top">
                       {{$t('order.sentemail')}}
-                        <a class="purple_text" @click="openServiceProgress">{{$t('order.selectProgress')}}</a>
+                        <a class="purple_text" @click="openServiceProgress" style="cursor:pointer">{{$t('order.selectProgress')}}</a>
                   </p>
                 </template>
                 <template v-else>
@@ -27,7 +27,7 @@
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
                       <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
                   <p class="blue_text text-center pd_top"> <!--错误信息显示-->
-                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss">{{$t('order.resubmitorder')}}</a>
+                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss" style="cursor:pointer">{{$t('order.resubmitorder')}}</a>
                   </p>
                   <p class="text-center mr_top">
                       <img src="../../../static/img/Construction_failed.png" />
@@ -39,11 +39,11 @@
                     <b>*</b> {{$t('order.servicepoint')}}：</label>
             </div>
             <el-table :data="locatorDataArray" style="width: 100%">
-                <el-table-column prop="code" :label="$t('order.Point')" min-width="18%">UPS
+                <el-table-column prop="code" :label="$t('order.Point')" min-width="15%">UPS
                 </el-table-column>
                 <el-table-column prop="address" :label="$t('order.Address')" min-width="26%">
                 </el-table-column>
-                <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="9%">
+                <el-table-column prop="postCode" :label="$t('order.PostCode')" min-width="12%">
                 </el-table-column>
                 <el-table-column prop="telPhone" :label="$t('order.Telephone')" min-width="14%">
                 </el-table-column>

@@ -88,6 +88,7 @@ export default {
     methods: {
         changeUmsLang(lang) {
             // 转换全局语言
+            // this.$i18n.locale = lang
             Cookies.set('umsLang', lang)
             location.reload()
         },
