@@ -74,7 +74,7 @@ export default {
                 this.$refs.btnsubmit_yes.disabled = true
                 setTimeout(() => {
                     this.$refs.btnsubmit_yes.disabled = false
-                }, 5000)
+                }, 20000)
 
                 // 同意报价 全价付款(保外)
                 confirmQuotes(this.checkReportInfo.orderNunber).then(response => {
@@ -87,7 +87,7 @@ export default {
                 this.$refs.btnsubmit_no.disabled = true
                 setTimeout(() => {
                     this.$refs.btnsubmit_no.disabled = false
-                }, 5000)
+                }, 20000)
 
                 // 不同意报价 邮寄费用付款(保外)
                 notRepair(this.checkReportInfo.orderNunber).then(response => {

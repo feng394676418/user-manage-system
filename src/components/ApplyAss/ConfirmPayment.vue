@@ -155,7 +155,7 @@ export default {
           this.$refs.btn_paynow.disabled = true
           setTimeout(() => {
               this.$refs.btn_paynow.disabled = false
-          }, 3000)
+          }, 20000)
 
           // paypal支付一时固定
           this.billType = 'paypal'

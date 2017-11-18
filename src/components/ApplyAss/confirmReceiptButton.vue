@@ -25,7 +25,7 @@ export default {
             this.$refs.btnReceipt.disabled = true
             setTimeout(() => {
                this.$refs.btnReceipt.disabled = false
-            }, 3000)
+            }, 20000)
 
             console.dir('orderNumber:' + this.orderNumber)
             confirmReceipt(this.orderNumber).then(response => {

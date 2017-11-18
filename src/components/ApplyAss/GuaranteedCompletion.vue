@@ -67,7 +67,6 @@ export default {
           delRouterInfo: {},
           checkReportInfo: {},
           orderBill: {},
-          isPay: true,
           orderComment: {},
           showEvaluation: false,
           showCustomerShipping: false,
@@ -131,8 +130,6 @@ export default {
             if ('18,19,20'.indexOf(this.statusStr) >= 0) {
               this.getDelRouterInfo()
             }
-            // 获取结算信息
-            this.getOrderBillByOrderNumber()
             // 获取评论
             if ('20'.indexOf(this.statusStr) >= 0) {
               this.getOrderCommentByOrderNumber()
@@ -167,18 +164,25 @@ export default {
                 if ('13'.indexOf(this.statusStr) >= 0 && this.checkReportInfo.serviceType === '1' && this.checkReportInfo.confirmQuotes === false) {
                   this.showAgreeOfferButtonChild = true
                 }
+                // 获取结算信息
+                this.getOrderBillByOrderNumber()
             })
       },
       getOrderBillByOrderNumber() {
             getOrderBillByOrderNumber(this.orderInfo.ordernumber).then(response => {
                 this.orderBill = response.data.data
-                console.dir('***********************  getOrderBillByOrderNumber ')
-                if (this.orderBill != null) {
-                  this.isPay = false
+                console.log('***********************  getOrderBillByOrderNumber ')
+                if (this.orderBill === null) {
                    // 显示结算信息
-                  if (this.isPay && this.checkReportInfo.serviceType === 1 && '14,15,17'.indexOf(this.statusStr) >= 0) {
+                  if (this.checkReportInfo.serviceType === '1' && '14,15,17,18,19'.indexOf(this.statusStr) >= 0) {
                     this.showSettlementButton = true
+                  } else {
+                    // 结算按钮不显示
+                    this.showSettlementButton = false
                   }
+                } else {
+                  // 已结算
+                  this.showSettlementButton = false
                 }
             })
       },

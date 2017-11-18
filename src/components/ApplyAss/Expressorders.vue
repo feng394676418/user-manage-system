@@ -4,7 +4,7 @@
         <div class="main_content main_form_input">
             <step :status="11"></step>
             <stepnav :stepNav="stepModel"></stepnav>
-            <template v-if="trackingWait">
+            <template v-if="trackingInfo.trackingWait">
               <!--等待生成运单-->
               <h2 class="text-center generate_title">{{$t('order.Applicationaccepted')}}{{$t('login.OrderNumber')}}
                   <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliverynote')}}</h2>
@@ -13,7 +13,7 @@
               </p>
             </template>
             <template v-else>
-                <template v-if="trackingNoFlg">
+                <template v-if="trackingInfo.trackingNoFlg">
                   <!--成功生成运单-->
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
                     <span class="sky_blue_text">{{refNumber}}</span>， {{$t('order.downloadorder')}}</h2>
@@ -27,7 +27,7 @@
                   <h2 class="text-center generate_title">{{$t('login.OrderNumber')}}
                       <span class="sky_blue_text">{{refNumber}}</span>，{{$t('order.deliveryfailure')}}</h2>
                   <p class="blue_text text-center pd_top"> <!--错误信息显示-->
-                      {{$t('order.WHY')}}：{{trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss" style="cursor:pointer">{{$t('order.resubmitorder')}}</a>
+                      {{$t('order.WHY')}}：{{trackingInfo.trackingFailMsg}}<a class="purple_text" href="/#/ApplyAss" style="cursor:pointer">{{$t('order.resubmitorder')}}</a>
                   </p>
                   <p class="text-center mr_top">
                       <img src="../../../static/img/Construction_failed.png" />
@@ -52,20 +52,20 @@
             </el-table>
             <div class="row mr_top">
                 <div class="col-md-8">
-                  <template v-if="imgFlg">
+                  <template v-if="trackingInfo.imgFlg">
                     <!-- 图片形式 -->
-                    <img :src="surfaceURL" width="600px" height="800px" />
+                    <img :src="trackingInfo.surfaceURL" width="600px" height="800px" />
                   </template>
-                  <template v-if="pdfFlg">
+                  <template v-if="trackingInfo.pdfFlg">
                     <!-- Pdf形式 -->
-                    <embed :src="surfaceURL" width="600px" height="800px" />
+                    <embed :src="trackingInfo.surfaceURL" width="600px" height="800px" />
                   </template>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-right">
-                        <el-button class="btn-info btn-infos" type="info" v-if="imgFlg || pdfFlg" @click="download()">{{$t('order.Download')}}</el-button>
+                        <el-button class="btn-info btn-infos" type="info" v-if="trackingInfo.imgFlg || trackingInfo.pdfFlg" @click="download()">{{$t('order.Download')}}</el-button>
                     </div>
                 </div>
             </div>
@@ -87,25 +87,22 @@ export default {
             stepModel: {
               step: '3'
             },
-            orderNumber: '', // 系统内部单号
-            trackingNoFlg: false, // 运单号获取flag
-            trackingFailMsg: '', // 运单号获取失败原因
-            imgFlg: false,
-            pdfFlg: false,
-            trackingWait: true,
-            surfaceURL: '',
             refNumber: this.$route.params.refNumber,
-            locatorDataArray: []
+            locatorDataArray: [],
+            trackingInfo: { // 面单预报结果信息
+              orderNumber: '', // 系统内部单号
+              trackingNoFlg: false, // 运单号获取flag
+              trackingFailMsg: '', // 运单号获取失败原因
+              imgFlg: false,
+              pdfFlg: false,
+              trackingWait: true,
+              surfaceURL: ''
+            }
         }
     },
     created() {
       this.getLogisticsLocatorList()
-      if (this.$ls.get('surfaceURL') !== null) {
-        // 已经预报或正在预报恶意刷新
-        console.log('Tracking... ...')
-      } else {
-        this.getTrackingno()
-      }
+      this.getTrackingno()
       // 重复预报避免
       $(window).bind('beforeunload', function() {
         return ''
@@ -135,56 +132,61 @@ export default {
       },
       // 获取运单号
       getTrackingno() {
+        if (this.$ls.get('trackingInfo') !== null) {
+          this.trackingInfo = JSON.parse(this.$ls.get('trackingInfo'))
+          return
+        }
         getTrackingno(this.refNumber).then(response => {
           console.log('获取运单号结果信息')
           console.dir(response)
           console.log('运单号获取结束')
           if (response.data.status === '0') {
-            this.surfaceURL = response.data.data.sendSurfaceURL
-            this.orderNumber = response.data.data.ordernumber
-            this.trackingWait = false
-            this.trackingNoFlg = true
-            if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
-              this.imgFlg = true
-              this.pdfFlg = false
+            this.trackingInfo.surfaceURL = response.data.data.sendSurfaceURL
+            this.trackingInfo.orderNumber = response.data.data.ordernumber
+            this.trackingInfo.trackingWait = false
+            this.trackingInfo.trackingNoFlg = true
+            if (this.trackingInfo.surfaceURL.substr(this.trackingInfo.surfaceURL.length - 1) === 'g') {
+              this.trackingInfo.imgFlg = true
+              this.trackingInfo.pdfFlg = false
             } else {
-              this.pdfFlg = true
-              this.imgFlg = false
+              this.trackingInfo.pdfFlg = true
+              this.trackingInfo.imgFlg = false
             }
             // 运单号获取成功 localstorage中保存面单地址
-            this.$ls.set('surfaceURL', this.surfaceURL)
+            this.$ls.set('trackingInfo', JSON.stringify(this.trackingInfo))
           } else if (response.data.status === '2') {
             if (response.data.message !== '') {
               this.$message.info(response.data.message)
             }
-            this.surfaceURL = response.data.data.sendSurfaceURL
-            this.orderNumber = response.data.data.ordernumber
-            this.trackingWait = false
-            this.trackingNoFlg = true
-            if (this.surfaceURL.substr(this.surfaceURL.length - 1) === 'g') {
-              this.imgFlg = true
-              this.pdfFlg = false
+            this.trackingInfo.surfaceURL = response.data.data.sendSurfaceURL
+            this.trackingInfo.orderNumber = response.data.data.ordernumber
+            this.trackingInfo.trackingWait = false
+            this.trackingInfo.trackingNoFlg = true
+            if (this.trackingInfo.surfaceURL.substr(this.trackingInfo.surfaceURL.length - 1) === 'g') {
+              this.trackingInfo.imgFlg = true
+              this.trackingInfo.pdfFlg = false
             } else {
-              this.pdfFlg = true
-              this.imgFlg = false
+              this.trackingInfo.pdfFlg = true
+              this.trackingInfo.imgFlg = false
             }
+            this.$ls.set('trackingInfo', JSON.stringify(this.trackingInfo))
           } else {
-            this.trackingWait = false
-            this.trackingNoFlg = false
+            this.trackingInfo.trackingWait = false
+            this.trackingInfo.trackingNoFlg = false
             // this.$message.error('运单单号获取失败,稍后客户会和您联系,请稍等!') 一期 重新下单
             console.log(response.data.message)
-            this.trackingFailMsg = response.data.message
+            this.trackingInfo.trackingFailMsg = response.data.message
           }
         })
       },
       download() {
-        window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.surfaceURL)
+        window.open('api/checkReport/download?refNumber=' + this.refNumber + '&fileUrl=' + this.trackingInfo.surfaceURL)
         // window.open('/GuaranteedCompletion/' + this.orderNumber, '_self')
         // this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
       },
       openServiceProgress() {
         //  this.$router.push('/GuaranteedCompletion/' + this.orderNumber)
-        window.open('#/GuaranteedCompletion/' + this.orderNumber)
+        window.open('#/GuaranteedCompletion/' + this.trackingInfo.orderNumber)
       }
     }
 }

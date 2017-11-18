@@ -308,15 +308,15 @@ export default {
             this.$ls.remove('locatorDataArray')
           }
           // 预报信息删除
-          if (this.$ls.get('surfaceURL') !== null) {
-            this.$ls.remove('surfaceURL')
+          if (this.$ls.get('trackingInfo') !== null) {
+            this.$ls.remove('trackingInfo')
           }
 
             // 防止连续点击两次
             this.$refs.btnSubmit.disabled = true
             setTimeout(() => {
                this.$refs.btnSubmit.disabled = false
-            }, 3000)
+            }, 20000)
 
             this.$refs[formName].validate((valid) => {
                 if (this.ruleForm.providerCode === '') {

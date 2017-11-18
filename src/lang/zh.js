@@ -132,15 +132,15 @@ export default {
         Level0: 'L0级维修',
         Diagnostics: '故障检测，软件升级，配件更换',
         PowerCableAdaptor: '故障检测，软件升级，配件更换（数据线或适配器）',
-        four: '4-7欧元',
+        four: '€4.00-7.00',
         Level1: 'L1级维修',
         DisassembleRepair: '拆机维修：机械零部件更换',
         Partsinclude: '机械零部件包括但不限于前壳组件、后壳组件、内置电池、TP组件、显示模组、听筒、扬声器、麦克风、振动器、摄像头、RF连接线、内置天线、按键、FPC等',
-        eight: '8-11欧元',
+        eight: '€8.00-11.00',
         Level2: 'L2级维修',
         ConnectorReplacement: '拆机维修：接口类期间更换',
         Connectorsinclude: '接口类包括但不限于电池连接器、耳机连接器、IO连接器、SIM卡座、Flash卡座等',
-        twelve: '12-15欧元'
+        twelve: '€12.00-15.00'
     },
     ConfirmPayment: {
         ServiceProgress: '售后进度',

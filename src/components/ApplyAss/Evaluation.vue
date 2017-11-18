@@ -57,7 +57,7 @@ export default {
             _this.$refs.btnComment.disabled = true
             setTimeout(() => {
                _this.$refs.btnComment.disabled = false
-            }, 3000)
+            }, 20000)
             _this.$refs['orderComment'].validate((valid) => {
                 if (valid) {
                     _this.orderComment.orderNumber = _this.orderNumber
