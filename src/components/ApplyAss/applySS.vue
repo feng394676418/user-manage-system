@@ -316,7 +316,7 @@ export default {
             this.$refs.btnSubmit.disabled = true
             setTimeout(() => {
                this.$refs.btnSubmit.disabled = false
-            }, 20000)
+            }, 5000)
 
             this.$refs[formName].validate((valid) => {
                 if (this.ruleForm.providerCode === '') {
