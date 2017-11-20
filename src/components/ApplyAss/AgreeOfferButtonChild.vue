@@ -27,7 +27,7 @@
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost | money}} {{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
-                <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)">YES</el-button>
+                <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)" v-loading.fullscreen.lock="fullscreenLoading">YES</el-button>
             </span>
         </el-dialog>
     </div>
@@ -42,6 +42,7 @@ export default {
     name: 'hello',
     data () {
         return {
+            fullscreenLoading: false,
             dialogVisible: false,
             dialogVisible2: false
         }
@@ -70,6 +71,7 @@ export default {
         repair(isRepair) {
             //  isRepair 是否继续维修  true  false
             if (isRepair) {
+                this.fullscreenLoading = true
                 // 同意报价维修  防止连续点击两次
                 this.$refs.btnsubmit_yes.disabled = true
                 setTimeout(() => {
@@ -83,6 +85,7 @@ export default {
                         this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })
             } else {
+                this.fullscreenLoading = true
                 // 拒绝报价放弃维修 防止连续点击两次
                 this.$refs.btnsubmit_no.disabled = true
                 setTimeout(() => {
