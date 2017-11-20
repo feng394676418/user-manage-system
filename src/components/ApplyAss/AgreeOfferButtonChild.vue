@@ -11,11 +11,11 @@
             </div>
         </div>
         <!--放弃维修弹出框-->
-        <el-dialog title="" :visible.sync="dialogVisible2" size="tiny">
+        <el-dialog title="" :visible.sync="dialogVisible2" size="tiny" class="mydialog-footer">
             <h3 class="text-center">{{$t('WarrantyPayment.surenotrepair')}}</h3>
             <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{(checkReportInfo.collectionCost + checkReportInfo.mailingcost) | money}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
-            <span slot="footer" class="dialog-footer mydialog-footer">
+            <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="btn-info form-group">NO</el-button>
                 <el-button ref="btnsubmit_no" type="info" class="btn-info form-group" @click="repair(false)">YES</el-button>
             </span>

@@ -26,7 +26,7 @@
                 </div>
             </div>
             <template v-if="IMEINotExist && IMEIInfoShow">
-                <p class="blue_text">
+                <p class="red_text">
                     {{$t('order.IMEInotexisted')}}
                 </p>
             </template>

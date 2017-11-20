@@ -204,7 +204,7 @@ export default {
         suggestions: 'Do you have any comments or suggestions about our service? ',
         Done: 'Done',
         ShipmentInfo: 'Shipment Info',
-        deliveryaddress: 'Network delivery address',
+        deliveryaddress: 'Delivery address',
         Carrier: 'Carrier',
         TrackingNo: 'Tracking No.',
         DeliveryInfo: 'Delivery Info',

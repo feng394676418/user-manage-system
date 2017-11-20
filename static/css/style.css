@@ -120,6 +120,9 @@ a:focus {
 .blue_text{
     color:#88abda;
 }
+.red_text{
+    color:red;
+}
 .purple_text{
     color:#7757f6;
 }
@@ -277,6 +280,9 @@ h3{
 .my_table td{    
     color: #8c8c9e;
     /* white-space: nowrap; */
+}
+.Fault_picture{
+    margin-bottom: 20px;
 }
 .Fault_picture img{
     float: left;
