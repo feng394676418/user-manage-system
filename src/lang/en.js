@@ -133,15 +133,15 @@ export default {
         Level0: 'Level 0',
         Diagnostics: 'Diagnostics, Software Updates, Accessories Replacement',
         PowerCableAdaptor: 'Diagnostics, Software Updates, Accessories Replacement ( Power Cable or Adaptor )',
-        four: '€ 4-7',
+        four: '€4.00-7.00',
         Level1: 'Level 1',
         DisassembleRepair: 'Disassemble Repair: Mechanical Parts Replacement',
         Partsinclude: 'Mechanical Parts include but are not limited to Front Case Components, Rear Case Components, Build-in Battery, TP Module, Display Module, Receiver, Speaker, Microphone, Vibrator, Camera, RF Cable, Built – in Antenna, Button, FPC etc.',
-        eight: '€ 8 – 11',
+        eight: '€8.00-11.00',
         Level2: 'Level 2',
         ConnectorReplacement: 'Disassemble Repair: Connector Replacement',
         Connectorsinclude: 'Connectors include but are not limited to Battery Connector, Headphone Connector, IO Connector, Sim Tray, Flash Tray etc.',
-        twelve: '€ 12-15'
+        twelve: '€12.00-15.00'
     },
     ConfirmPayment: {
         ServiceProgress: 'Service Progress',
