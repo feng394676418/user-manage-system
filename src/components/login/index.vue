@@ -29,7 +29,7 @@
                                 <use xlink:href="#icon-orderno"></use>
                             </svg>
                         </span>
-                        <el-input v-model.number="ruleForm2.orderno" :placeholder="$t('login.OrderNumber')"></el-input>
+                        <el-input v-model="ruleForm2.orderno" :placeholder="$t('login.OrderNumber')"></el-input>
                     </el-form-item>
                     <el-form-item label="" prop="phone">
                         <span class="svg-container">
@@ -37,7 +37,7 @@
                                 <use xlink:href="#icon-phone"></use>
                             </svg>
                         </span>
-                        <el-input v-model.number="ruleForm2.phone" :placeholder="$t('login.MobileNumber')"></el-input>
+                        <el-input v-model="ruleForm2.phone" :placeholder="$t('login.MobileNumber')"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button class="btn-info" type="info" style="width:100%;" @click="progressInfo()">{{$t('login.CheckProgress')}}</el-button>
