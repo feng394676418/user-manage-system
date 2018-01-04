@@ -39,7 +39,7 @@
                 </el-col>
             </el-row>
             <el-form-item label="" prop="addressDetail">
-                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')" :maxlength="35" :minlength="3"></el-input>
+                <el-input v-model="ruleForm.addressDetail" :placeholder="$t('order.DetailedAddress')" :maxlength="600" :minlength="3"></el-input>
             </el-form-item>
             <div class="form-group">
                 <label for="">
@@ -53,7 +53,7 @@
                 </el-col>
                 <el-col :md="6">
                     <el-form-item label="" prop="phone">
-                        <el-input v-model="ruleForm.phone" :placeholder="$t('login.MobileNumber')"></el-input>
+                        <el-input v-model="ruleForm.phone" :maxlength="15" :placeholder="$t('login.MobileNumber')"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :md="12">
