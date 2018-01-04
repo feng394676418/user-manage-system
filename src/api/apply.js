@@ -33,7 +33,6 @@ export function brandList() {
 }
 
 export function getImeiInfo(imei) {
-    console.log('--------imei----------->' + imei)
     return fetch({
         url: 'api/imei/info',
         method: 'get',

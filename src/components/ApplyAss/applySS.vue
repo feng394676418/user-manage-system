@@ -195,20 +195,20 @@ export default {
     },
     created() {
         this.countryAll()
-        console.dir('999999999999999999999')
-        console.dir(this.userOrderInfoChild)
+        // console.dir('999999999999999999999')
+        // console.dir(this.userOrderInfoChild)
         if (this.userOrderInfoChild.ruleForm !== undefined && this.userOrderInfoChild.ruleForm !== null) {
           this.ruleForm = this.userOrderInfoChild.ruleForm
           this.countryTmp = this.ruleForm.country
           this.provinceTmp = this.ruleForm.province
-          console.dir('_____________________  this.ruleForm  __________________')
-          console.dir(this.ruleForm)
+          // console.dir('_____________________  this.ruleForm  __________________')
+          // console.dir(this.ruleForm)
           this.cityChange()
         }
     },
     methods: {
         clickRadio(val) {
-            console.dir(val)
+            // console.dir(val)
             this.ruleForm.providerCode = ''
             this.providerList.forEach(item => {
                 if (item.providerCode === val) {
@@ -222,8 +222,8 @@ export default {
         countryAll() {
             // 获取国家所有信息
             country().then(response => {
-                console.log('----------country-response--------------')
-                console.dir(response)
+                // console.log('----------country-response--------------')
+                // console.dir(response)
                 if (response.data.status === '0') {
                     this.countryList = response.data.rsltData
                 } else {
@@ -234,8 +234,8 @@ export default {
         stateInfo(cid) {
             // 根据国家ID获取州信息
             stateInfo(cid).then(response => {
-                console.log('-----------state-response------------------')
-                console.dir(response)
+                // console.log('-----------state-response------------------')
+                // console.dir(response)
                 if (response.data.status === '0') {
                     this.stateList = response.data.rsltData
                 } else {
@@ -245,12 +245,12 @@ export default {
         },
         cityInfo(pid) {
             cityInfo(pid).then(response => {
-                console.log('-----------city-response------------------')
-                console.dir(response)
+                // console.log('-----------city-response------------------')
+                // console.dir(response)
                 if (response.data.status === '0') {
-                    console.log('城市列表获取------')
+                    // console.log('城市列表获取------')
                     this.cityList = response.data.rsltData
-                    console.dir(this.cityList)
+                    // console.dir(this.cityList)
                 } else {
                     this.$message.error(this.$t('order.Cityfailed'))// 城市列表获取失败!
                 }
@@ -258,9 +258,9 @@ export default {
         },
         cityChange() {
             // 根据国家二字码确定服务网点&货主CODE获取服务网点信息
-            console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
+            // console.log('服务商列表获取====》' + this.ruleForm.owner + this.ruleForm.countryCode)
             let countryTmpCD = this.ruleForm.countryCode
-            console.log('----countryTmpCD------>' + countryTmpCD)
+            // console.log('----countryTmpCD------>' + countryTmpCD)
             if (countryTmpCD === 'undefined' || countryTmpCD === '' || countryTmpCD !== 'PL') {
                 // 目前只有波兰有服务点,暂定全部取波兰
                 countryTmpCD = 'PL'
@@ -274,33 +274,33 @@ export default {
             })
         },
         stateChange(val) {
-            console.log('省州选定--------')
-            console.dir(val)
+            // console.log('省州选定--------')
+            // console.dir(val)
             this.ruleForm.province = val.split('-')[0]
             let provinceId = val.split('-')[1]
             this.ruleForm.provinceCode = val.split('-')[2] === 'undefined' ? '' : val.split('-')[2]
-            console.dir(this.ruleForm)
+            // console.dir(this.ruleForm)
             // 城市信息获取
             this.cityInfo(provinceId)
         },
         countryChange(val) {
-            console.log('-------国家选定--------')
-            console.dir(val)
+            // console.log('-------国家选定--------')
+            // console.dir(val)
             this.ruleForm.owner = this.userOrderInfoChild.owner
             this.ruleForm.country = val.split('-')[0]
             this.ruleForm.countryCode = val.split('-')[1]
             let countryId = val.split('-')[2]
-            console.log(countryId)
-            console.dir(this.ruleForm)
+            // console.log(countryId)
+            // console.dir(this.ruleForm)
             this.stateInfo(countryId)
         },
         lastStep() {
             // 父组件传递数据回传
-            console.log('子组件中父组件传递过来数据再回传---userOrderInfoChild---')
+            // console.log('子组件中父组件传递过来数据再回传---userOrderInfoChild---')
             this.userOrderInfoChild.ruleForm = this.ruleForm
-            console.dir(this.userOrderInfoChild)
+            // console.dir(this.userOrderInfoChild)
             this.$emit('user-order-info-back', this.userOrderInfoChild)
-         //   this.$ls.set('locatorRuleForm', JSON.stringify(this.ruleForm))
+            // this.$ls.set('locatorRuleForm', JSON.stringify(this.ruleForm))
             // this.$router.push('/ApplyAss')
         },
         submitForm(formName) {
@@ -335,22 +335,22 @@ export default {
                     this.ruleForm.serviceType = this.userOrderInfoChild.serviceType
                     this.ruleForm.troubleInfo = this.userOrderInfoChild.troubleInfo
                     this.ruleForm.photoGroup = this.userOrderInfoChild.photogroup
-                    console.log('表单提交------form信息')
-                    console.dir(this.ruleForm)
+                    // console.log('表单提交------form信息')
+                    // console.dir(this.ruleForm)
                     orderCreate(this.ruleForm).then(response => {
-                        console.log('表单提交 response')
-                        console.dir(response)
+                        // console.log('表单提交 response')
+                        // console.dir(response)
                         if (response.data.status === '0') {
                             this.$message.info(this.$t('order.createworkorder') + response.data.data)// 工单创建成功,创建工单:
                         //    this.$ls.remove('locatorRuleForm')
                             this.$router.push('/Expressorders/' + response.data.data)
                         } else {
-                            console.log(response.data.message)
+                           // console.log(response.data.message)
                             this.$message.error(this.$t('order.Workorderfailed'))// 工单创建失败!
                         }
                     })
                 } else {
-                    console.log('error submit!!')
+                    // console.log('error submit!!')
                     return false
                 }
             })

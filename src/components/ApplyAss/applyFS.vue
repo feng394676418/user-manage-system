@@ -276,8 +276,6 @@ export default {
                     this.brandList.forEach(item => {
                         this.$set(item, 'className', '')
                     })
-                    console.log('------------brandList--------------')
-                    console.dir(this.brandList)
                     // 品牌默认设定
                     this.brandList[0].className = 'active'
                     this.OrderInfoFS.productBrand = this.brandList[0].code
