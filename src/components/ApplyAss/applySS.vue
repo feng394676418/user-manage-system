@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <p class="blue_text pd_tb">
             {{$t('order.addressrequired')}}
         </p>

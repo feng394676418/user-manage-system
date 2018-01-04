@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- <input ref="focusDiv"/> -->
         <logintop></logintop>
         <div class="main_content main_form_input">
             <step :status="11" ></step>
@@ -53,6 +54,18 @@ export default {
     //     console.dir(val)
     //   }
     // },
+    // directives: {
+    //   focus: {
+    //     // 指令的定义
+    //     inserted: function (el, {value}) {
+    //       if (value) {
+    //           console.log('---------focus value-------------')
+    //           console.log(value)
+    //           el.focus()
+    //       }
+    //     }
+    //   }
+    // },
     methods: {
         handleRemove(file, fileList) {
             console.log(file, fileList)
@@ -77,6 +90,9 @@ export default {
           this.userOrderInfo.serviceType = OrderInfoFS.serviceType
           this.userOrderInfo.troubleInfo = OrderInfoFS.troubleInfo
           this.userOrderInfo.photogroup = OrderInfoFS.photogroup
+
+          // this.$refs.focusDiv.focus()
+          window.scrollTo(0, 0)
         },
         applySSOrderInfo(userOrderInfoChildF) { // 机能未启用
           console.log('获取子组件applySS信息')
@@ -86,6 +102,7 @@ export default {
           this.step1 = true
           this.step2 = false
           this.stepModel.step = '1'
+          window.scrollTo(0, 0)
         }
     }
 }
