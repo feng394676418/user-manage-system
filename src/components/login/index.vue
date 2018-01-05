@@ -131,7 +131,7 @@ export default {
 }
 
 .bg {
-    background: #f7f8fd url(../../../static/img/login_bg.jpg) no-repeat fixed center center / cover;
+    background: #f7f8fd url(../../../static/img/login_bg.jpg) repeat-y fixed center center / cover;
     height: 100%
 }
 
@@ -199,7 +199,8 @@ html {
 }
 
 body {
-    height: 100%
+    height: 100%;
+    background: #f7f8fd url(../../../static/img/login_bg.jpg) repeat-y fixed center center / cover;
 }
 
 #app {
