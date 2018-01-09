@@ -12,6 +12,8 @@ import ElementLocale from 'element-ui/lib/locale'
 import Cookies from 'js-cookie'
 import VueLocalStorage from 'vue-localstorage'
 import layer from 'vue-layer'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 require('../static/iconfont/iconfont.js')
 
@@ -50,6 +52,24 @@ Vue.prototype.getAppLanguage = function() {
 }
 
 Vue.prototype.$layer = layer(Vue)
+
+// router配置
+router.beforeEach((to, from, next) => {
+    console.log('ggggggggggggggghhhhhhhhhhhhhhkjkkkkkkkkkkkkkkkkkkkk')
+    console.dir(from)
+    console.dir(to)
+    NProgress.start()
+    if (to.matched.length === 0 && to.fullPath !== '/') {
+        next({ path: '/' })
+        NProgress.done()
+        return
+    }
+    next()
+})
+
+router.afterEach(route => {
+    NProgress.done()
+})
 
 /* eslint-disable no-new */
 new Vue({
