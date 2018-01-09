@@ -55,9 +55,6 @@ Vue.prototype.$layer = layer(Vue)
 
 // router配置
 router.beforeEach((to, from, next) => {
-    console.log('ggggggggggggggghhhhhhhhhhhhhhkjkkkkkkkkkkkkkkkkkkkk')
-    console.dir(from)
-    console.dir(to)
     NProgress.start()
     if (to.matched.length === 0 && to.fullPath !== '/') {
         next({ path: '/' })
