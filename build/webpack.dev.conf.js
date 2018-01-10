@@ -1,4 +1,5 @@
 var utils = require('./utils')
+var path = require('path')
 var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
@@ -32,8 +33,9 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
-            inject: true,
             favicon: resolveApp('favicon.ico'),
+            inject: true,
+            path: config.dev.staticPath
         }),
         new FriendlyErrorsPlugin()
     ]
