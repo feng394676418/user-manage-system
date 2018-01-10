@@ -13,6 +13,10 @@ var env = process.env.NODE_ENV === 'testing' ?
     require('../config/test.env') :
     config.build.env
 
+function resolveApp(relativePath) {
+    return path.resolve(relativePath);
+}
+
 var webpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
@@ -58,6 +62,7 @@ var webpackConfig = merge(baseWebpackConfig, {
                 'index.html' : config.build.index,
             template: 'index.html', // 读取的模板文件,这个路径是相对于当前这个配置文件的
             inject: true, // 自动注入
+            favicon: resolveApp('favicon.ico'),
             minify: {
                 removeComments: true, // 去注释
                 collapseWhitespace: true, // 压缩空格

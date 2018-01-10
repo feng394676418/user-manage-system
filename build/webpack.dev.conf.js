@@ -11,6 +11,10 @@ Object.keys(baseWebpackConfig.entry).forEach(function(name) {
     baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
+function resolveApp(relativePath) {
+    return path.resolve(relativePath);
+}
+
 module.exports = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
@@ -28,7 +32,8 @@ module.exports = merge(baseWebpackConfig, {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
-            inject: true
+            inject: true,
+            favicon: resolveApp('favicon.ico'),
         }),
         new FriendlyErrorsPlugin()
     ]
