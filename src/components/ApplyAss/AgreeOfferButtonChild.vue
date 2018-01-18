@@ -13,7 +13,8 @@
         <!--放弃维修弹出框-->
         <el-dialog title="" :visible.sync="dialogVisible2" size="tiny" class="mydialog-footer">
             <h3 class="text-center">{{$t('WarrantyPayment.surenotrepair')}}</h3>
-            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{(checkReportInfo.collectionCost + checkReportInfo.mailingcost) | money}}</strong></p>
+            <!-- 增值税23% TOOD 税率维护-->
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.Deliverytotal')}} <strong class="Orange_text">€{{(checkReportInfo.collectionCost + checkReportInfo.mailingcost) + (checkReportInfo.collectionCost + checkReportInfo.mailingcost) * 0.23 | money}}</strong></p>
             <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.sendphone')}}</p>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible2 = false" :plain="true" type="info" class="btn-info form-group">NO</el-button>
@@ -23,8 +24,8 @@
         <!--同意报价弹出框-->
         <el-dialog title="" :visible.sync="dialogVisible" size="tiny" class="mydialog-footer">
             <h3 class="text-center">{{$t('WarrantyPayment.agreequote')}}</h3>
-            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.allCost | money}}</strong></p>
-            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.TotalCost')}}€{{checkReportInfo.allCost | money}} {{$t('WarrantyPayment.startrepair')}} </p>
+            <p class="total_cost mr_top2 text-center">{{$t('WarrantyPayment.TotalCost')}} <strong class="Orange_text">€{{checkReportInfo.remaintoPay | money}}</strong></p>
+            <p class="blue_text text-center pd_bt">{{$t('WarrantyPayment.startrepair')}} </p>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false" :plain="true" type="info" class="form-group btn-info">NO</el-button>
                 <el-button ref="btnsubmit_yes" type="info" class="form-group btn-info" @click="repair(true)" v-loading.fullscreen.lock="fullscreenLoading">YES</el-button>
@@ -92,9 +93,9 @@ export default {
                     this.$refs.btnsubmit_no.disabled = false
                 }, 20000)
 
-                // 不同意报价 邮寄费用付款(保外)
+                // 不同意报价 邮寄(收件+寄件)费用付款(保外)
                 notRepair(this.checkReportInfo.orderNunber).then(response => {
-                        console.dir('############   notRepair  #################')
+                        console.log('############   notRepair  #################')
                         console.dir(response)
                         this.$router.push('/ConfirmPayment/' + this.checkReportInfo.orderNunber + '/' + isRepair)
                 })

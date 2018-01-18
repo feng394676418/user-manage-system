@@ -135,7 +135,7 @@ export default {
                     this.tableData.push(item)
                     this.remaintoPay = this.checkReportInfo.remaintoPay
                 } else {
-                    // 不同意报价的场合 只收取快递费用
+                    // 不同意报价(拒绝报价)场合 只收取快递费用
                     // 快递费
                     let item = {}
                     item.item = this.$t('ConfirmPayment.DeliveryCost')

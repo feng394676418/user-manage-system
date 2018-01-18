@@ -34,7 +34,7 @@
                     <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost | money}}</strong></td>
                     <td>{{$t('ConfirmPayment.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost | money}}</strong> / {{$t('ConfirmPayment.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost | money}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.allCost | money}}</strong></td>
-                    <td>€ <strong class="Orange_text">16.56</strong></td>
+                    <td>€ <strong class="Orange_text">{{checkReportInfo.valueAddTax | money}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.coveredbyWarranty | money}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.remaintoPay | money}}</strong></td>
                 </tr>
