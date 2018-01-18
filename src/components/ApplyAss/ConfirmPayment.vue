@@ -113,6 +113,13 @@ export default {
                     item.price = '€ <strong class="Orange_text">' + this.money(this.checkReportInfo.allCost) + '</strong>'
                     this.tableData.push(item)
 
+                    // 增值税
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.VAT')
+                    item.Details = '23%'
+                    item.price = '€ <strong class="Orange_text">' + 16.58 + '</strong>'
+                    this.tableData.push(item)
+
                     // 保内
                     item = {}
                     item.item = this.$t('order.InWarranty')
@@ -232,10 +239,10 @@ export default {
 .pay_table .Orange_text{
     font-size:18px;
 }
-.pay_table tr:nth-last-child(1),.pay_table tr:nth-last-child(2),.pay_table tr:nth-last-child(3),.pay_table tr:nth-last-child(4),.pay_table tr:nth-last-child(5),.pay_table tr:nth-last-child(6),.pay_table tr:nth-last-child(7){
+.pay_table tr:nth-last-child(1),.pay_table tr:nth-last-child(2),.pay_table tr:nth-last-child(3),.pay_table tr:nth-last-child(4),.pay_table tr:nth-last-child(5),.pay_table tr:nth-last-child(6){
     border-top: 1px solid #e8ebfa;
 }
-.pay_table tr:nth-child(10){
+.pay_table tr:nth-last-child(1){
     height: 48px!important;
 }
 .pay_table td:first-child{

@@ -168,7 +168,8 @@ export default {
         PaymentFailure: 'Payment Failure',
         tryagain: 'Oops, failed payment. Please try again. ',
         Back: 'Back',
-        failure: 'failure'
+        failure: 'failure',
+        VAT: 'VAT'
     },
     WarrantyPayment: {
         DiagnosticReport: 'Diagnostic Report',

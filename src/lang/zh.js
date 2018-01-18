@@ -167,7 +167,8 @@ export default {
         PaymentFailure: '支付失败',
         tryagain: '支付失败，请重新支付！',
         Back: '返回支付页面',
-        failure: '失败'
+        failure: '失败',
+        VAT: '增值税'
 
     },
     WarrantyPayment: {

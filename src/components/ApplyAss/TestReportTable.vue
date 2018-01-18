@@ -5,11 +5,12 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table my_table">
                 <tr>
                     <th width="15%" scope="col">{{$t('WarrantyPayment.CreateTime')}}</th>
-                    <th width="15%" scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
+                    <th width="7%" scope="col">{{$t('WarrantyPayment.ServiceType')}}</th>
                     <th width="15%" scope="col">{{$t('WarrantyPayment.PartsCost')}}</th>
                     <th width="9%" scope="col">{{$t('ConfirmPayment.ServiceCost')}}</th>
                     <th width="17%" scope="col">{{$t('ConfirmPayment.DeliveryCost')}}</th>
                     <th width="8%" scope="col">{{$t('WarrantyPayment.Total')}}</th>
+                    <th width="8%" scope="col">{{$t('ConfirmPayment.VAT')}}(23%)</th>
                     <th width="7%" scope="col">{{$t('WarrantyPayment.CoveredbyWarranty')}}</th>
                     <th width="10%" scope="col">{{$t('WarrantyPayment.RemaintoPay')}}</th>
                 </tr>
@@ -33,6 +34,7 @@
                     <td>{{checkReportInfo.repairLevel}}€ <strong class="Orange_text">{{checkReportInfo.repairCost | money}}</strong></td>
                     <td>{{$t('ConfirmPayment.Sentout')}}€ <strong class="Orange_text">{{checkReportInfo.collectionCost | money}}</strong> / {{$t('ConfirmPayment.Sentback')}}€ <strong class="Orange_text">{{checkReportInfo.mailingcost | money}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.allCost | money}}</strong></td>
+                    <td>€ <strong class="Orange_text">16.56</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.coveredbyWarranty | money}}</strong></td>
                     <td>€ <strong class="Orange_text">{{checkReportInfo.remaintoPay | money}}</strong></td>
                 </tr>
