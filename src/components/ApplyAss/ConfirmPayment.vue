@@ -117,7 +117,7 @@ export default {
                     item = {}
                     item.item = this.$t('ConfirmPayment.VAT')
                     item.Details = '23%'
-                    item.price = '€ <strong class="Orange_text">' + 16.58 + '</strong>'
+                    item.price = '€ <strong class="Orange_text">' + this.money(this.checkReportInfo.valueAddTax) + '</strong>'
                     this.tableData.push(item)
 
                     // 保内
@@ -143,13 +143,27 @@ export default {
                     item.price = '€ <strong class="Orange_text">' + this.money(this.checkReportInfo.collectionCost) + '</strong>' + '<br/>' + '€ <strong class="Orange_text">' + this.money(this.checkReportInfo.mailingcost) + '</strong>'
                     this.tableData.push(item)
 
+                                        // 增值税
+                    item = {}
+                    item.item = this.$t('ConfirmPayment.VAT')
+                    item.Details = '23%'
+                    item.price = '€ <strong class="Orange_text">' + this.money((this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) * 0.23) + '</strong>'
+                    this.tableData.push(item)
+
+                    // 保内
+                    item = {}
+                    item.item = this.$t('order.InWarranty')
+                    item.Details = ''
+                    item.price = '€ <strong class="Orange_text">' + this.money(this.checkReportInfo.coveredbyWarranty) + '</strong>'
+                    this.tableData.push(item)
+
                     // 实付
                     item = {}
                     item.item = this.$t('ConfirmPayment.RemaintoPay')
                     item.Details = ''
-                    item.price = '€ <strong class="Orange_text">' + this.money((this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost)) + '</strong>'
+                    item.price = '€ <strong class="Orange_text">' + this.money((this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) + (this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) * 0.23) + '</strong>'
                     this.tableData.push(item)
-                    this.remaintoPay = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost
+                    this.remaintoPay = this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost + (this.checkReportInfo.collectionCost + this.checkReportInfo.mailingcost) * 0.23
                 }
             })
       },
